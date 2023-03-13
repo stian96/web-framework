@@ -32,7 +32,7 @@ public class ShowContent extends HttpServlet {
         }
         else {
             PrintWriter writer = response.getWriter();
-            writer.println("<h1>" + this.response + "</h1>");
+            writer.println("<title>" + this.response + "</title>");
         }
     }
 
@@ -40,7 +40,7 @@ public class ShowContent extends HttpServlet {
         if (inputStream != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             PrintWriter writer = response.getWriter();
-            writer.println("<h1>" + this.response + "</h1>");
+            writer.println("<title>" + this.response + "</title>");
 
             String line;
             while ((line = reader.readLine()) != null) {
