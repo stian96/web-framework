@@ -1,6 +1,6 @@
-package org.example;
+package no.hiof.webframework;
 
-import org.example.Application.App;
+import no.hiof.webframework.Application.App;
 
 public class Main {
     public static void main(String[] args) {

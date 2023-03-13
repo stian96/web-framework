@@ -1,13 +1,13 @@
-package org.example.Application;
+package no.hiof.webframework.Application;
 
+import no.hiof.webframework.Form.HtmlForm;
+import no.hiof.webframework.Interface.IHtmlForm;
+import no.hiof.webframework.Interface.IRoute;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.example.Form.HtmlForm;
-import org.example.Interface.IHtmlForm;
-import org.example.Interface.IRoute;
-import org.example.Routes.Route;
-import org.example.Servlet.ShowContent;
+import no.hiof.webframework.Routes.Route;
+import no.hiof.webframework.Servlet.ShowContent;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package org.example.Servlet;
-import org.example.Form.HtmlForm;
-import org.example.Interface.IHtmlForm;
+package no.hiof.webframework.Servlet;
+import no.hiof.webframework.Form.HtmlForm;
+import no.hiof.webframework.Interface.IHtmlForm;
 
 import java.io.*;
 import javax.servlet.http.HttpServlet;

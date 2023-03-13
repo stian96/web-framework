@@ -1,6 +1,6 @@
-package org.example.Routes;
+package no.hiof.webframework.Routes;
 
-import org.example.Interface.IRoute;
+import no.hiof.webframework.Interface.IRoute;
 
 public class Route implements IRoute {
     private final String endpoint;

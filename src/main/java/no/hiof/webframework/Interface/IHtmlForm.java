@@ -1,4 +1,4 @@
-package org.example.Interface;
+package no.hiof.webframework.Interface;
 
 
 import java.io.InputStream;
