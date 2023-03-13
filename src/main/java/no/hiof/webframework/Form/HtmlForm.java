@@ -10,6 +10,6 @@ public class HtmlForm implements IHtmlForm {
     }
     @Override
     public InputStream getLoginForm() {
-        return getClass().getResourceAsStream("/WebFrameworkGroup2/src/main/web/login.html");
+        return getClass().getResourceAsStream("/login.html");
     }
 }
