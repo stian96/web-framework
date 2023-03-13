@@ -1,14 +1,23 @@
 package org.example.Servlet;
-import java.io.IOException;
+import org.example.Form.HtmlForm;
+import org.example.Interface.IHtmlForm;
+
+import java.io.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ShowContent extends HttpServlet {
     private final String response;
+    private HtmlForm htmlForm;
 
     public ShowContent(String response) {
         this.response = response;
+    }
+
+    public ShowContent(String response, IHtmlForm form) {
+        this.response = response;
+        this.htmlForm = (HtmlForm) form;
     }
 
     @Override
@@ -16,6 +25,26 @@ public class ShowContent extends HttpServlet {
             throws IOException {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("<h1>" + this.response + "</h1>");
+
+        if (htmlForm != null) {
+            writeForm(htmlForm.getLoginForm(), response);
+        }
+        else {
+            PrintWriter writer = response.getWriter();
+            writer.println("<h1>" + this.response + "</h1>");
+        }
+    }
+
+    private void writeForm(InputStream inputStream, HttpServletResponse response) throws IOException {
+        if (inputStream != null) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            PrintWriter writer = response.getWriter();
+            writer.println("<h1>" + this.response + "</h1>");
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                writer.println(line);
+            }
+        }
     }
 }
