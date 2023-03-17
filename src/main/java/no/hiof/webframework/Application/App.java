@@ -11,6 +11,11 @@ import no.hiof.webframework.Servlet.ShowContent;
 
 import java.util.ArrayList;
 
+/**
+ * Application class:
+ * Users can instantiate the application by creating a new instance of the class.
+ */
+
 public class App {
     private static final int PORT = 8080;
     private final ArrayList<IRoute> routeList = new ArrayList<>();
@@ -20,10 +25,19 @@ public class App {
     public App() {
     }
 
+    /**
+     * Adds a new route to the application.
+     * @param endpoint defines the endpoint to the route.
+     * @param title sets the title on the new page.
+     */
     public void addRoute(String endpoint, String title) {
         routeList.add(new Route(endpoint, title));
     }
 
+    /**
+     * Adds a ready-made login page to the specified route,
+     * where all of the html and css is pre-built.
+     */
     public void addLoginForm() {
         htmlFormList.add(new HtmlForm());
     }
@@ -68,6 +82,10 @@ public class App {
         server.join();
     }
 
+    /**
+     * Starts and run the application. After this method is
+     * executed, you can run the program.
+     */
     public void run() {
         printUrlInformation();
         Server server = new Server(PORT);
