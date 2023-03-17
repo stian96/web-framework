@@ -1,6 +1,5 @@
 package no.hiof.webframework.Servlet;
-import no.hiof.webframework.Form.HtmlForm;
-import no.hiof.webframework.Interface.IHtmlForm;
+import no.hiof.webframework.Interface.IHtmlPage;
 
 import java.io.*;
 import javax.servlet.http.HttpServlet;
@@ -9,15 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ShowContent extends HttpServlet {
     private final String response;
-    private HtmlForm htmlForm;
+    private final IHtmlPage htmlPage;
 
-    public ShowContent(String response) {
+    public ShowContent(String response, IHtmlPage page) {
         this.response = response;
-    }
-
-    public ShowContent(String response, IHtmlForm form) {
-        this.response = response;
-        this.htmlForm = (HtmlForm) form;
+        this.htmlPage = page;
     }
 
     @Override
@@ -27,12 +22,8 @@ public class ShowContent extends HttpServlet {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        if (htmlForm != null) {
-            writeForm(htmlForm.getLoginForm(), response);
-        }
-        else {
-            PrintWriter writer = response.getWriter();
-            writer.println("<h1 style='text-align: center; color: slategray;'>" + this.response + "</h1>");
+        if (htmlPage != null) {
+            writeForm(htmlPage.getLoginPage(), response);
         }
     }
 

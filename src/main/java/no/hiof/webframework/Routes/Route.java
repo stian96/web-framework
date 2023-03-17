@@ -1,22 +1,24 @@
 package no.hiof.webframework.Routes;
 
 import no.hiof.webframework.Interface.IRoute;
+import org.eclipse.jetty.http.HttpMethod;
 
 public class Route implements IRoute {
     private final String endpoint;
-    private final String title;
+    private final HttpMethod httpMethod;
 
-    public Route(String endpoint, String title) {
+    public Route(String endpoint, HttpMethod httpMethod) {
         this.endpoint = endpoint;
-        this.title = title;
+        this.httpMethod = httpMethod;
     }
 
     @Override
     public String getRoute() {
         return endpoint;
     }
+
     @Override
-    public String getTitle() {
-        return title;
+    public HttpMethod getHttpMethod() {
+        return httpMethod;
     }
 }

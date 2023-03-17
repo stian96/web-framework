@@ -1,15 +1,17 @@
 package no.hiof.webframework.Application;
 
-import no.hiof.webframework.Form.HtmlForm;
-import no.hiof.webframework.Interface.IHtmlForm;
-import no.hiof.webframework.Interface.IRoute;
+import no.hiof.webframework.Frontend.HtmlPages;
+import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import no.hiof.webframework.Routes.Route;
 import no.hiof.webframework.Servlet.ShowContent;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Application class:
@@ -18,28 +20,28 @@ import java.util.ArrayList;
 
 public class App {
     private static final int PORT = 8080;
-    private final ArrayList<IRoute> routeList = new ArrayList<>();
-    private final ArrayList<IHtmlForm> htmlFormList = new ArrayList<>();
+    private final ArrayList<HtmlPages> htmlPageList = new ArrayList<>();
+    private final Map<String, Route> routeMap = new HashMap<>();
 
     // Empty constructor
     public App() {
     }
 
-    /**
-     * Adds a new route to the application.
-     * @param endpoint defines the endpoint to the route.
-     * @param title sets the title on the new page.
-     */
-    public void addRoute(String endpoint, String title) {
-        routeList.add(new Route(endpoint, title));
+
+    public void addRoute(String endpoint, HttpMethod httpMethod) {
+        Route route = new Route(endpoint, httpMethod);
+        routeMap.put(endpoint, route);
     }
 
     /**
-     * Adds a ready-made login page to the specified route,
-     * where all of the html and css is pre-built.
+     * Adds a ready-made html page to the specified route,
+     * where all the html and css is pre-built.
      */
-    public void addLoginForm() {
-        htmlFormList.add(new HtmlForm());
+    public void addHtmlPage(InputStream htmlPage, String title) {
+        HtmlPages page = new HtmlPages();
+        page.setHtmlPage(htmlPage);
+        page.setTitle(title);
+        htmlPageList.add(page);
     }
 
     private void initializeHandler(Server server) {
@@ -57,24 +59,20 @@ public class App {
     }
 
     private void addServletToContext(ServletContextHandler context) {
-        for (IRoute route : routeList) {
-            String endpoint = route.getRoute();
-            String title = route.getTitle();
-
+        for (Map.Entry<String, Route> entry : routeMap.entrySet()) {
+            String endpoint = entry.getValue().getRoute();
             String target = "/" + endpoint + "/*";
 
             if (!checkForHtmlForm()) {
-                for (IHtmlForm form : htmlFormList)
-                    context.addServlet(new ServletHolder(new ShowContent(title, form)), target);
-            }
-            else {
-                context.addServlet(new ServletHolder(new ShowContent(title)), target);
+                for (HtmlPages page : htmlPageList) {
+                    context.addServlet(new ServletHolder(new ShowContent(page.getTitle(), page)), target);
+                }
             }
         }
     }
 
     private boolean checkForHtmlForm() {
-        return htmlFormList.size() == 0;
+        return htmlPageList.size() == 0;
     }
 
     private void startServer(Server server) throws Exception {
