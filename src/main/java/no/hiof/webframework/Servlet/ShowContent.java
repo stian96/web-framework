@@ -1,33 +1,44 @@
 package no.hiof.webframework.Servlet;
-import no.hiof.webframework.Interface.IHtmlPage;
+import no.hiof.webframework.Enum.PageType;
+import no.hiof.webframework.Frontend.HtmlPages;
 
 import java.io.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static no.hiof.webframework.Enum.PageType.HOME;
+import static no.hiof.webframework.Enum.PageType.LOGIN;
+
+@WebServlet(name = "ShowContent", urlPatterns = {"/login/*", "/home/*"})
 public class ShowContent extends HttpServlet {
     private final String response;
-    private final IHtmlPage htmlPage;
+    private final PageType pageType;
 
-    public ShowContent(String response, IHtmlPage page) {
+    public ShowContent(String response, PageType pageType) {
         this.response = response;
-        this.htmlPage = page;
+        this.pageType = pageType;
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException
-    {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        if (htmlPage != null) {
-            writeForm(htmlPage.getLoginPage(), response);
+        HtmlPages htmlPages = new HtmlPages(pageType);
+
+        String requestURI = request.getRequestURI();
+        if (requestURI.startsWith("/login")) {
+            writePage(htmlPages.getLoginPage(), response);
+        } else if (requestURI.startsWith("/home")) {
+            writePage(htmlPages.getHomePage(), response);
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void writeForm(InputStream inputStream, HttpServletResponse response) throws IOException {
+    private void writePage(InputStream inputStream, HttpServletResponse response) throws IOException {
         if (inputStream != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             PrintWriter writer = response.getWriter();

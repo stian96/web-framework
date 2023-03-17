@@ -1,5 +1,6 @@
 package no.hiof.webframework.Application;
 
+import no.hiof.webframework.Enum.PageType;
 import no.hiof.webframework.Frontend.HtmlPages;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
@@ -12,6 +13,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * Application class:
@@ -37,8 +39,8 @@ public class App {
      * Adds a ready-made html page to the specified route,
      * where all the html and css is pre-built.
      */
-    public void addHtmlPage(InputStream htmlPage, String title) {
-        HtmlPages page = new HtmlPages();
+    public void addHtmlPage(InputStream htmlPage, String title, PageType type) {
+        HtmlPages page = new HtmlPages(type);
         page.setHtmlPage(htmlPage);
         page.setTitle(title);
         htmlPageList.add(page);
@@ -59,13 +61,19 @@ public class App {
     }
 
     private void addServletToContext(ServletContextHandler context) {
+        Map<String, ServletHolder> servletMap = new HashMap<>();
+
         for (Map.Entry<String, Route> entry : routeMap.entrySet()) {
             String endpoint = entry.getValue().getRoute();
             String target = "/" + endpoint + "/*";
 
             if (!checkForHtmlForm()) {
                 for (HtmlPages page : htmlPageList) {
-                    context.addServlet(new ServletHolder(new ShowContent(page.getTitle(), page)), target);
+                    if (!servletMap.containsKey(target)) {
+                        ServletHolder servletHolder = new ServletHolder(new ShowContent(page.getTitle(), page.getPageType()));
+                        context.addServlet(servletHolder, target);
+                        servletMap.put(target, servletHolder);
+                    }
                 }
             }
         }

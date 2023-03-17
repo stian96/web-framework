@@ -1,5 +1,6 @@
 package no.hiof.webframework.Frontend;
 
+import no.hiof.webframework.Enum.PageType;
 import no.hiof.webframework.Interface.IHtmlPage;
 
 import java.io.InputStream;
@@ -12,8 +13,11 @@ public class HtmlPages implements IHtmlPage {
     private InputStream htmlPage;
     private String title;
 
-    public HtmlPages() {
+    private final PageType pageType;
 
+
+    public HtmlPages(PageType type) {
+        this.pageType = type;
     }
 
     /**
@@ -58,4 +62,10 @@ public class HtmlPages implements IHtmlPage {
     public void setHtmlPage(InputStream htmlPage) {
         this.htmlPage = htmlPage;
     }
+
+    @Override
+    public PageType getPageType() {
+        return pageType;
+    }
+
 }
