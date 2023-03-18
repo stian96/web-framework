@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static no.hiof.webframework.Enum.PageType.HOME;
-import static no.hiof.webframework.Enum.PageType.LOGIN;
 
 @WebServlet(name = "ShowContent", urlPatterns = {"/login/*", "/home/*"})
 public class ShowContent extends HttpServlet {
