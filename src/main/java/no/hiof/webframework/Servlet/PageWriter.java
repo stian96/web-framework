@@ -9,7 +9,11 @@ class PageWriter {
         if (inputStream != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             PrintWriter writer = response.getWriter();
-            writer.println("<h1 style='text-align: center; color: slategray;'>" + title + "</h1>");
+
+            if (title != null)
+                writer.println("<h1 style='text-align: center; color: slategray;'>" + title + "</h1>");
+            else
+                writer.println("<title>" + response + "</title>");
 
             String line;
             while ((line = reader.readLine()) != null) {

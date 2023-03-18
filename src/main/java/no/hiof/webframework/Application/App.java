@@ -122,7 +122,7 @@ public class App {
 
     private void printUrlInformation() {
         System.out.print("Listening on port: ");
-        System.out.println("http://localhost:" + PORT + "/");
+        System.out.println("http://localhost:" + PORT + "/" + loginPageTitle.toLowerCase());
     }
 
     public void setLoginPageTitle(String loginPageTitle) {
