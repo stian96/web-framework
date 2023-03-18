@@ -13,11 +13,9 @@ public class HtmlPages implements IHtmlPage {
     private InputStream htmlPage;
     private String title;
 
-    private final PageType pageType;
 
+    public HtmlPages() {
 
-    public HtmlPages(PageType type) {
-        this.pageType = type;
     }
 
     /**
@@ -61,11 +59,6 @@ public class HtmlPages implements IHtmlPage {
 
     public void setHtmlPage(InputStream htmlPage) {
         this.htmlPage = htmlPage;
-    }
-
-    @Override
-    public PageType getPageType() {
-        return pageType;
     }
 
 }

@@ -1,6 +1,7 @@
 package no.hiof.webframework.Application;
 
 import no.hiof.webframework.Enum.PageType;
+import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
@@ -39,8 +40,8 @@ public class App {
      * Adds a ready-made html page to the specified route,
      * where all the html and css is pre-built.
      */
-    public void addHtmlPage(InputStream htmlPage, String title, PageType type) {
-        HtmlPages page = new HtmlPages(type);
+    public void addHtmlPage(InputStream htmlPage, String title) {
+        HtmlPages page = new HtmlPages();
         page.setHtmlPage(htmlPage);
         page.setTitle(title);
         htmlPageList.add(page);
@@ -60,7 +61,7 @@ public class App {
         }
     }
 
-    private void addServletToContext(ServletContextHandler context) {
+    private void addServletToContext(ServletContextHandler context) throws NoHtmlContentException {
         Map<String, ServletHolder> servletMap = new HashMap<>();
 
         for (Map.Entry<String, Route> entry : routeMap.entrySet()) {
@@ -70,11 +71,14 @@ public class App {
             if (!checkForHtmlForm()) {
                 for (HtmlPages page : htmlPageList) {
                     if (!servletMap.containsKey(target)) {
-                        ServletHolder servletHolder = new ServletHolder(new ShowContent(page.getTitle(), page.getPageType()));
+                        ServletHolder servletHolder = new ServletHolder(new ShowContent(page.getTitle()));
                         context.addServlet(servletHolder, target);
                         servletMap.put(target, servletHolder);
                     }
                 }
+            }
+            else {
+                throw new NoHtmlContentException("Need to add html pages to the application.");
             }
         }
     }
@@ -100,6 +104,6 @@ public class App {
 
     private void printUrlInformation() {
         System.out.print("Listening on port: ");
-        System.out.println("http://localhost:8080/");
+        System.out.println("http://localhost:" + PORT + "/");
     }
 }

@@ -12,11 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ShowContent", urlPatterns = {"/login/*", "/home/*"})
 public class ShowContent extends HttpServlet {
     private final String response;
-    private final PageType pageType;
 
-    public ShowContent(String response, PageType pageType) {
+    public ShowContent(String response) {
         this.response = response;
-        this.pageType = pageType;
     }
 
     @Override
@@ -24,7 +22,7 @@ public class ShowContent extends HttpServlet {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        HtmlPages htmlPages = new HtmlPages(pageType);
+        HtmlPages htmlPages = new HtmlPages();
 
         String requestURI = request.getRequestURI();
         if (requestURI.startsWith("/login")) {
