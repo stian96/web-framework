@@ -4,19 +4,20 @@ import java.io.InputStream;
 
 public class HtmlFactory implements AbstractHtmlFactory<InputStream>
 {
+    private final HtmlPages pages = new HtmlPages();
 
     @Override
     public InputStream createLoginPage() {
-        return new HtmlPages().getLoginPage();
+        return pages.getLoginPage();
     }
 
     @Override
     public InputStream createHomePage() {
-        return new HtmlPages().getHomePage();
+        return pages.getHomePage();
     }
 
     @Override
     public InputStream createLogoutPage() {
-        return new HtmlPages().getLogoutPage();
+        return pages.getLogoutPage();
     }
 }

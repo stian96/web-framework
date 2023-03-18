@@ -1,6 +1,4 @@
 package no.hiof.webframework.Frontend;
-
-import no.hiof.webframework.Enum.PageType;
 import no.hiof.webframework.Interface.IHtmlPage;
 
 import java.io.InputStream;
@@ -11,7 +9,6 @@ import java.io.InputStream;
 public class HtmlPages implements IHtmlPage {
 
     private InputStream htmlPage;
-    private String title;
 
 
     public HtmlPages() {
@@ -43,14 +40,6 @@ public class HtmlPages implements IHtmlPage {
     @Override
     public InputStream getLogoutPage() {
         return getClass().getResourceAsStream("/logout.html");
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public InputStream getHtmlPage() {
