@@ -4,6 +4,7 @@ import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Routes.Route;
+import no.hiof.webframework.Servlet.DefaultServlet;
 import no.hiof.webframework.Servlet.HomeServlet;
 import no.hiof.webframework.Servlet.LoginServlet;
 import org.eclipse.jetty.http.HttpMethod;
@@ -23,10 +24,9 @@ import java.util.Map;
 public class App {
     private static final int PORT = 8080;
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
-
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
-    private String loginPageTitle;
-    private String homePageTitle;
+
+    private String applicationTitle, loginPageTitle, homePageTitle;
     private int titleCounter = 0;
 
     public App() {
@@ -62,6 +62,11 @@ public class App {
             context.setContextPath("/");
             addServletToContext(context);
 
+            if (applicationTitle != null) {
+                DefaultServlet.setApplicationTitle(applicationTitle);
+                context.addServlet(DefaultServlet.class, "/");
+            }
+
             server.setHandler(context);
             startServer(server);
         }
@@ -89,10 +94,11 @@ public class App {
     private void addServletIfNeeded(String titleSet, String uri, ServletContextHandler context) {
         String [] titles = mapSetToArray(titleSet);
 
-        HtmlPages page = htmlPageMap.get(titles[titleCounter].trim());
-        ServletHolder servlet = getServlet(titles[titleCounter].trim(), page);
-        context.addServlet(servlet, uri);
-
+        if (titleCounter <= htmlPageMap.size() - 1) {
+            HtmlPages page = htmlPageMap.get(titles[titleCounter].trim());
+            ServletHolder servlet = getServlet(titles[titleCounter].trim(), page);
+            context.addServlet(servlet, uri);
+        }
     }
 
     private String[] mapSetToArray(String set) {
@@ -111,7 +117,7 @@ public class App {
             return new ServletHolder(new HomeServlet(page, homePageTitle));
         }
         else
-            throw new IllegalArgumentException("Unsupported endpoint: " + title);
+            throw new IllegalArgumentException("error");
     }
 
     private boolean checkForHtmlPage() {
@@ -124,8 +130,8 @@ public class App {
     }
 
     /**
-     * Starts and run the application. After this method is
-     * executed, you can run the program.
+     * Starts and run the application. Program can be
+     * run after this method is called.
      */
     public void run() {
         printUrlInformation();
@@ -135,16 +141,27 @@ public class App {
 
     private void printUrlInformation() {
         System.out.print("Listening on port: ");
-        Object uri = routeMap.keySet().toArray()[0];
-        System.out.println("http://localhost:" + PORT + "/" + uri);
+        System.out.println("http://localhost:" + PORT + "/");
     }
 
+    /**
+     * Sets the title of the login html-page.
+     * @param loginPageTitle The title to be set.
+     */
     public void setLoginPageTitle(String loginPageTitle) {
         this.loginPageTitle = loginPageTitle;
     }
 
+    /**
+     * Sets the title of the home html-page.
+     * @param homePageTitle The title to be set.
+     */
     public void setHomePageTitle(String homePageTitle) {
         this.homePageTitle = homePageTitle;
+    }
+
+    public void setTitle(String title) {
+        this.applicationTitle = title;
     }
 }
 
