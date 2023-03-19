@@ -1,36 +1,42 @@
 package no.hiof.webframework.Application;
+
+import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
+import no.hiof.webframework.Routes.Route;
 import no.hiof.webframework.Servlet.HomeServlet;
 import no.hiof.webframework.Servlet.LoginServlet;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import no.hiof.webframework.Routes.Route;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
 /**
- * Application class:
- * Users can instantiate the application by creating a new instance of the class.
+ * Application class: App app = new App();
  */
 
 public class App {
     private static final int PORT = 8080;
-    private final Map<String, Route> routeMap = new HashMap<>();
-    private final ArrayList<HtmlPages> htmlPageList = new ArrayList<>();
+    private final Map<String, Route> routeMap = new LinkedHashMap<>();
+
+    private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
     private String loginPageTitle;
     private String homePageTitle;
-
+    private int titleCounter = 0;
 
     public App() {
     }
 
+    /**
+     * Adds a new route to the application.
+     * @param endpoint URI value of the URL.
+     * @param httpMethod Method to be used (e.g. GET, POST, PUT etc.)
+     */
     public void addRoute(String endpoint, HttpMethod httpMethod) {
         Route route = new Route(endpoint, httpMethod);
         routeMap.put(endpoint, route);
@@ -39,11 +45,15 @@ public class App {
     /**
      * Adds a ready-made html page to the specified route,
      * where all the html and css is pre-built.
+     * @param htmlPage InputStream of the html page. You
+     * can get this from the HtmlFactory.
      */
-    public void addHtmlPage(InputStream htmlPage) {
+    public void addHtmlPage(InputStream htmlPage)  {
         HtmlPages page = new HtmlPages();
         page.setHtmlPage(htmlPage);
-        htmlPageList.add(page);
+
+        String title = HtmlParser.getTitleFromHtmlPage(htmlPage);
+        htmlPageMap.put(title, page);
     }
 
     private void initializeHandler(Server server) {
@@ -61,16 +71,14 @@ public class App {
     }
 
     private void addServletToContext(ServletContextHandler context) throws NoHtmlContentException {
-
-        Map<String, ServletHolder> servletMap = new HashMap<>();
         for (Map.Entry<String, Route> entry : routeMap.entrySet()) {
-
             Route route = entry.getValue();
-            String endpoint = route.getRoute();
-            String target = "/" + endpoint + "/*";
+            String uri = "/" + route.getRoute() + "/*";
+            String keySet = htmlPageMap.keySet().toString();
 
             if (!checkForHtmlPage()) {
-                addServletIfNeeded(endpoint, target, servletMap, context);
+                addServletIfNeeded(keySet, uri, context);
+                titleCounter++;
             }
             else {
                 throw new NoHtmlContentException("Need to add html pages to the application.");
@@ -78,31 +86,36 @@ public class App {
         }
     }
 
-    private void addServletIfNeeded(String endpoint, String target, Map<String, ServletHolder> servletMap, ServletContextHandler context) {
+    private void addServletIfNeeded(String titleSet, String uri, ServletContextHandler context) {
+        String [] titles = mapSetToArray(titleSet);
 
-        for (HtmlPages page : htmlPageList) {
-            if (!servletMap.containsKey(target)) {
-                ServletHolder servlet = getServlet(endpoint, page);
-                context.addServlet(servlet, target);
-                servletMap.put(target, servlet);
-            }
-        }
+        HtmlPages page = htmlPageMap.get(titles[titleCounter].trim());
+        ServletHolder servlet = getServlet(titles[titleCounter].trim(), page);
+        context.addServlet(servlet, uri);
+
     }
 
-    private ServletHolder getServlet(String endpoint, HtmlPages page) {
-        if (endpoint.equals("login")) {
+    private String[] mapSetToArray(String set) {
+        if (set != null) {
+            set = set.replace("[", "").replace("]", "");
+            return set.split(",");
+        }
+        return null;
+    }
+
+    private ServletHolder getServlet(String title, HtmlPages page) {
+        if (title.equals("Login Page")) {
             return new ServletHolder(new LoginServlet(page, loginPageTitle));
         }
-        else if (endpoint.equals("home")) {
+        else if (title.equals("Home Page")) {
             return new ServletHolder(new HomeServlet(page, homePageTitle));
         }
-        else {
-            throw new IllegalArgumentException("Unsupported endpoint: " + endpoint);
-        }
+        else
+            throw new IllegalArgumentException("Unsupported endpoint: " + title);
     }
 
     private boolean checkForHtmlPage() {
-        return htmlPageList.size() == 0;
+        return htmlPageMap.size() == 0;
     }
 
     private void startServer(Server server) throws Exception {
@@ -122,7 +135,8 @@ public class App {
 
     private void printUrlInformation() {
         System.out.print("Listening on port: ");
-        System.out.println("http://localhost:" + PORT + "/" + loginPageTitle.toLowerCase());
+        Object uri = routeMap.keySet().toArray()[0];
+        System.out.println("http://localhost:" + PORT + "/" + uri);
     }
 
     public void setLoginPageTitle(String loginPageTitle) {
@@ -133,3 +147,4 @@ public class App {
         this.homePageTitle = homePageTitle;
     }
 }
+
