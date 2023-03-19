@@ -5,6 +5,9 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HtmlParser
 {
@@ -18,5 +21,14 @@ public class HtmlParser
             System.out.println("Failed to parse the file: " + ioException.getMessage());
         }
         return title;
+    }
+
+    public static String readCustomHtmlPage(String html) {
+        String title = "";
+        Document document = Jsoup.parse(html);
+        title = document.title();
+
+        return title;
+
     }
 }

@@ -1,13 +1,10 @@
 package no.hiof.webframework.Application;
-
 import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
+import no.hiof.webframework.Frontend.CustomHtmlPage;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Routes.Route;
-import no.hiof.webframework.Servlet.DefaultServlet;
-import no.hiof.webframework.Servlet.HomeServlet;
-import no.hiof.webframework.Servlet.LoginServlet;
-import no.hiof.webframework.Servlet.LogoutServlet;
+import no.hiof.webframework.Servlet.*;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -19,7 +16,7 @@ import java.util.Map;
 
 
 /**
- * Application class: App app = new App();
+ * Application class: App name = new App();
  */
 
 public class App {
@@ -28,6 +25,7 @@ public class App {
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
 
     private String applicationTitle, loginPageTitle, homePageTitle, logoutPageTitle;
+    private String customPage;
     private int titleCounter = 0;
 
     public App() {
@@ -55,6 +53,13 @@ public class App {
 
         String title = HtmlParser.getTitleFromHtmlPage(htmlPage);
         htmlPageMap.put(title, page);
+    }
+
+    public void addCustomHtmlPage(CustomHtmlPage page) {
+        String title = HtmlParser.readCustomHtmlPage(page.getContent());
+        setCustomPage(page.getContent());
+        htmlPageMap.put(title, null);
+
     }
 
     private void initializeHandler(Server server) {
@@ -115,6 +120,7 @@ public class App {
             case "Login Page" -> new ServletHolder(new LoginServlet(page, loginPageTitle));
             case "Home Page" -> new ServletHolder(new HomeServlet(page, homePageTitle));
             case "Logout Page" -> new ServletHolder(new LogoutServlet(page, logoutPageTitle));
+            case "Custom Page" -> new ServletHolder(new CustomServlet(customPage));
             default -> throw new IllegalArgumentException("error");
         };
     }
@@ -165,6 +171,10 @@ public class App {
 
     public void setTitle(String title) {
         this.applicationTitle = title;
+    }
+
+    private void setCustomPage(String content) {
+        customPage = content;
     }
 }
 
