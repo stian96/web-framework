@@ -14,6 +14,7 @@ public class Main {
 
         app.addRoute("login", HttpMethod.GET);
         app.addRoute("home", HttpMethod.GET);
+        app.addRoute("logout", HttpMethod.GET);
 
         HtmlFactory factory = new HtmlFactory();
 
@@ -22,6 +23,9 @@ public class Main {
 
         app.addHtmlPage(factory.createHomePage());
         app.setHomePageTitle("Home");
+
+        app.addHtmlPage(factory.createLogoutPage());
+        app.setLogoutPageTitle("Logout!");
 
         app.run();
 

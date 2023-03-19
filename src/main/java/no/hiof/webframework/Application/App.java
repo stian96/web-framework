@@ -7,6 +7,7 @@ import no.hiof.webframework.Routes.Route;
 import no.hiof.webframework.Servlet.DefaultServlet;
 import no.hiof.webframework.Servlet.HomeServlet;
 import no.hiof.webframework.Servlet.LoginServlet;
+import no.hiof.webframework.Servlet.LogoutServlet;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -26,7 +27,7 @@ public class App {
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
 
-    private String applicationTitle, loginPageTitle, homePageTitle;
+    private String applicationTitle, loginPageTitle, homePageTitle, logoutPageTitle;
     private int titleCounter = 0;
 
     public App() {
@@ -110,14 +111,12 @@ public class App {
     }
 
     private ServletHolder getServlet(String title, HtmlPages page) {
-        if (title.equals("Login Page")) {
-            return new ServletHolder(new LoginServlet(page, loginPageTitle));
-        }
-        else if (title.equals("Home Page")) {
-            return new ServletHolder(new HomeServlet(page, homePageTitle));
-        }
-        else
-            throw new IllegalArgumentException("error");
+        return switch (title) {
+            case "Login Page" -> new ServletHolder(new LoginServlet(page, loginPageTitle));
+            case "Home Page" -> new ServletHolder(new HomeServlet(page, homePageTitle));
+            case "Logout Page" -> new ServletHolder(new LogoutServlet(page, logoutPageTitle));
+            default -> throw new IllegalArgumentException("error");
+        };
     }
 
     private boolean checkForHtmlPage() {
@@ -158,6 +157,10 @@ public class App {
      */
     public void setHomePageTitle(String homePageTitle) {
         this.homePageTitle = homePageTitle;
+    }
+
+    public void setLogoutPageTitle(String logoutPageTitle) {
+        this.logoutPageTitle = logoutPageTitle;
     }
 
     public void setTitle(String title) {
