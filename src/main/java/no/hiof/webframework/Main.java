@@ -1,7 +1,6 @@
 package no.hiof.webframework;
 
 import no.hiof.webframework.Application.App;
-import no.hiof.webframework.Data.LoginData;
 import no.hiof.webframework.Frontend.HtmlFactory;
 import org.eclipse.jetty.http.HttpMethod;
 
