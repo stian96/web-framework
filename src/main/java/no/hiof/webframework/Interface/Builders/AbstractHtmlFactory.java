@@ -1,4 +1,4 @@
-package no.hiof.webframework.Interface;
+package no.hiof.webframework.Interface.Builders;
 
 /**
  * Abstract html-factory interface which can deliver

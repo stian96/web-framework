@@ -1,5 +1,5 @@
 package no.hiof.webframework.Frontend;
-import no.hiof.webframework.Interface.AbstractHtmlFactory;
+import no.hiof.webframework.Interface.Builders.AbstractHtmlFactory;
 import java.io.InputStream;
 
 public class HtmlFactory implements AbstractHtmlFactory<InputStream>

@@ -25,8 +25,9 @@ public class Main {
         app.addHtmlPage(factory.createHomePage());
         app.setHomePageTitle("Home");
 
-        HtmlPageBuilder custom = new HtmlPageBuilder();
-        custom.addNavElements("home", "about", "policy");
+        HtmlPageBuilder builder = new HtmlPageBuilder();
+        builder.addHeader("Header");
+        builder.addNavElements("home", "about", "policy");
 
         String paragraph =
                 """
@@ -38,10 +39,10 @@ public class Main {
                 sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like\040
                 Aldus PageMaker including versions of Lorem Ipsum.
                 """;
-        custom.addMainSection("Test Of Custom Page", paragraph);
-        custom.addFooterSection("Far from home 4A", "47897364", "example@gmail.com");
+        builder.addMainSection("Test Of Custom Page", paragraph);
+        builder.addFooterSection("Far from home 4A", "47897364", "example@gmail.com");
 
-        app.addCustomHtmlPage(custom.build());
+        app.addCustomHtmlPage(builder.build());
         app.run();
 
 

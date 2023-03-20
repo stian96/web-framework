@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
+            font-family: Arial, sans-serif;
             background-color: #f2f2f2;
             margin: 0;
             padding: 0;
@@ -16,6 +17,10 @@
         header {
             margin: 0;
             padding: 0;
+        }
+
+        header h1 {
+            text-align: center;
         }
 
         nav {

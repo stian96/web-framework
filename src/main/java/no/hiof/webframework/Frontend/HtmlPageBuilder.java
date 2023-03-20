@@ -1,13 +1,14 @@
 package no.hiof.webframework.Frontend;
 
-import no.hiof.webframework.Interface.IHtmlBuilder;
+import no.hiof.webframework.Interface.Builders.IHtmlBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
- * Uses the Builder pattern to create custom html pages.
+ * Uses the Builder pattern to create custom html-pages.
  */
 public class HtmlPageBuilder implements IHtmlBuilder {
     private final StringBuilder content  = new StringBuilder();
@@ -27,6 +28,10 @@ public class HtmlPageBuilder implements IHtmlBuilder {
         content.append(fileContent);
     }
 
+    /**
+     * Adds a header to the top of the page.
+     * @param header The header as a string.
+     */
     @Override
     public void addHeader(String header) {
         String headerContent = "<h1>" + header + "</h1>";
@@ -37,6 +42,10 @@ public class HtmlPageBuilder implements IHtmlBuilder {
 
     }
 
+    /**
+     * Adds a navigation menubar to the page.
+     * @param navElements The elements to be displayed in the menubar.
+     */
     @Override
     public void addNavElements(String... navElements) {
         StringBuilder navContent = new StringBuilder();
@@ -56,6 +65,11 @@ public class HtmlPageBuilder implements IHtmlBuilder {
                 navContent.toString());
     }
 
+    /**
+     * Adds a main-section to the page that contains a header and a paragraph.
+     * @param header The header to be displayed in the main-section.
+     * @param paragraph The paragraph in the main-section.
+     */
     @Override
     public void addMainSection(String header, String paragraph) {
         String mainContent = "<h1>" + header + "</h1>" + "<p>" + paragraph + "</p>";
@@ -65,6 +79,29 @@ public class HtmlPageBuilder implements IHtmlBuilder {
                 mainContent);
     }
 
+    @Override
+    public void addImage(String imageUrl, String altText) {
+        // Will be implemented later
+    }
+
+    @Override
+    public void addLink(String url, String text) {
+        // Will be implemented later
+
+    }
+
+    @Override
+    public void addTable(List<List<String>> rows) {
+        // Will be implemented later
+
+    }
+
+    /**
+     * Adds a footer-section in the bottom of the page that contains contact information.
+     * @param address Address of the user/company.
+     * @param phoneNumber Phone number of the user/company.
+     * @param email Email to the user/company.
+     */
     @Override
     public void addFooterSection(String address, String phoneNumber, String email) {
         String contactInfo = "<footer>" +
@@ -79,6 +116,12 @@ public class HtmlPageBuilder implements IHtmlBuilder {
                 contactInfo);
     }
 
+    /**
+     * When the page is finished, this method can be used to build the page.
+     * @return The page as a String, which then should be passed as an argument
+     * to the app.addCustomHtmlPage() method.
+     */
+    @Override
     public String build() {
         return content.toString();
     }
