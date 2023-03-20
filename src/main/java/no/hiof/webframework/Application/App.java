@@ -147,7 +147,9 @@ public class App {
      * run after this method is called.
      */
     public void run() {
+        Logger.turnLoggerOFF();
         printUrlInformation();
+
         Server server = new Server(PORT);
         initializeHandler(server);
     }

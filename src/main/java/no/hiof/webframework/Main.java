@@ -6,11 +6,11 @@ import no.hiof.webframework.Frontend.HtmlPageBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
 
-
 public class Main {
     public static void main(String[] args) {
 
         App app = new App();
+
         app.setTitle("My Application");
 
         app.addRoute("login", HttpMethod.GET);
@@ -43,7 +43,10 @@ public class Main {
         builder.addFooterSection("Far from home 4A", "47897364", "example@gmail.com");
 
         app.addCustomHtmlPage(builder.build());
+
         app.run();
+
+
 
 
     }
