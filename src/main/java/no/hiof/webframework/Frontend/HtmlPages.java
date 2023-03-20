@@ -1,6 +1,4 @@
 package no.hiof.webframework.Frontend;
-
-import no.hiof.webframework.Enum.PageType;
 import no.hiof.webframework.Interface.IHtmlPage;
 
 import java.io.InputStream;
@@ -11,13 +9,10 @@ import java.io.InputStream;
 public class HtmlPages implements IHtmlPage {
 
     private InputStream htmlPage;
-    private String title;
-
-    private final PageType pageType;
 
 
-    public HtmlPages(PageType type) {
-        this.pageType = type;
+    public HtmlPages() {
+
     }
 
     /**
@@ -26,7 +21,7 @@ public class HtmlPages implements IHtmlPage {
      */
     @Override
     public InputStream getLoginPage() {
-        return getClass().getResourceAsStream("/login.html");
+        return getClass().getResourceAsStream("/Static/login.html");
     }
 
     /**
@@ -35,7 +30,7 @@ public class HtmlPages implements IHtmlPage {
      */
     @Override
     public InputStream getHomePage() {
-        return getClass().getResourceAsStream("/home.html");
+        return getClass().getResourceAsStream("/Static/home.html");
     }
 
     /**
@@ -44,15 +39,7 @@ public class HtmlPages implements IHtmlPage {
      */
     @Override
     public InputStream getLogoutPage() {
-        return getClass().getResourceAsStream("/logout.html");
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+        return getClass().getResourceAsStream("/Static/logout.html");
     }
 
     public InputStream getHtmlPage() {
@@ -61,11 +48,6 @@ public class HtmlPages implements IHtmlPage {
 
     public void setHtmlPage(InputStream htmlPage) {
         this.htmlPage = htmlPage;
-    }
-
-    @Override
-    public PageType getPageType() {
-        return pageType;
     }
 
 }
