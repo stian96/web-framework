@@ -1,15 +1,18 @@
 package no.hiof.webframework.Frontend;
 
-import no.hiof.webframework.Interface.HtmlTemplate;
+import no.hiof.webframework.Interface.IHtmlBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class CustomHtmlPage implements HtmlTemplate {
+/**
+ * Uses the Builder pattern to create custom html pages.
+ */
+public class HtmlPageBuilder implements IHtmlBuilder {
     private final StringBuilder content  = new StringBuilder();
 
-    public CustomHtmlPage() {
+    public HtmlPageBuilder() {
         try {
             defaultCode();
         }
@@ -25,12 +28,25 @@ public class CustomHtmlPage implements HtmlTemplate {
     }
 
     @Override
+    public void addHeader(String header) {
+        String headerContent = "<h1>" + header + "</h1>";
+        content.replace(
+                content.indexOf("<!--HEADER_PLACEHOLDER-->"),
+                content.indexOf("<!--HEADER_PLACEHOLDER-->") + "<!--HEADER_PLACEHOLDER-->".length(),
+                headerContent.toString());
+
+    }
+
+    @Override
     public void addNavElements(String... navElements) {
         StringBuilder navContent = new StringBuilder();
         navContent.append("<nav>");
         navContent.append("<ul>");
         for (String element : navElements) {
-            navContent.append("<li>").append(element).append("</li>");
+            navContent.append("<li>")
+                    .append("<a href='#'>")
+                    .append(element).append("</a>")
+                    .append("</li>");
         }
         navContent.append("</ul>");
         navContent.append("</nav>");
@@ -51,11 +67,11 @@ public class CustomHtmlPage implements HtmlTemplate {
 
     @Override
     public void addFooterSection(String address, String phoneNumber, String email) {
-        String contactInfo = "<footer><div class='contact-info'>" +
-                "<p>" + address + "</p>" +
-                "<p>" + phoneNumber + "</p>" +
-                "<p>" + email + "</p>" +
-                "</div></footer>";
+        String contactInfo = "<footer>" +
+                "<p>Address: " + address + "</p>" +
+                "<p>Phone: " + phoneNumber + "</p>" +
+                "<p>Email: " + email + "</p>" +
+                "</footer>";
 
         content.replace(
                 content.indexOf("<!--FOOTER_PLACEHOLDER-->"),
@@ -63,7 +79,7 @@ public class CustomHtmlPage implements HtmlTemplate {
                 contactInfo);
     }
 
-    public String getContent() {
+    public String build() {
         return content.toString();
     }
 }

@@ -8,12 +8,20 @@
     <style>
         body {
             background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        header {
+            margin: 0;
+            padding: 0;
         }
 
         nav {
             background-color: #333;
             color: white;
-            padding: 10px;
+            padding: 15px;
         }
 
         nav ul {
@@ -24,7 +32,23 @@
 
         nav li {
             display: inline-block;
-            margin-right: 10px;
+            margin-right: 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 14px 16px;
+        }
+
+        a:hover {
+            color: #ddd;
+        }
+
+        main {
+            margin: 20px;
+            padding: 10px;
         }
 
         h1 {
@@ -46,8 +70,13 @@
     </style>
 </head>
 <body>
+<header>
+<!--HEADER_PLACEHOLDER-->
 <!--NAV_PLACEHOLDER-->
+</header>
+<main>
 <!--MAIN_PLACEHOLDER-->
+</main>
 <!--FOOTER_PLACEHOLDER-->
 </body>
 </html>

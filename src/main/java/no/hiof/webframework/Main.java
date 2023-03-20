@@ -1,8 +1,8 @@
 package no.hiof.webframework;
 
 import no.hiof.webframework.Application.App;
-import no.hiof.webframework.Frontend.CustomHtmlPage;
 import no.hiof.webframework.Frontend.HtmlFactory;
+import no.hiof.webframework.Frontend.HtmlPageBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
 
@@ -25,7 +25,7 @@ public class Main {
         app.addHtmlPage(factory.createHomePage());
         app.setHomePageTitle("Home");
 
-        CustomHtmlPage custom = new CustomHtmlPage();
+        HtmlPageBuilder custom = new HtmlPageBuilder();
         custom.addNavElements("home", "about", "policy");
 
         String paragraph =
@@ -41,7 +41,7 @@ public class Main {
         custom.addMainSection("Test Of Custom Page", paragraph);
         custom.addFooterSection("Far from home 4A", "47897364", "example@gmail.com");
 
-        app.addCustomHtmlPage(custom);
+        app.addCustomHtmlPage(custom.build());
         app.run();
 
 
