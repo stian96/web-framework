@@ -3,6 +3,9 @@ package no.hiof.webframework;
 import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Frontend.HtmlFactory;
 import no.hiof.webframework.Frontend.HtmlPageBuilder;
+import no.hiof.webframework.Repository.EntityModel;
+import no.hiof.webframework.Repository.SqlConnection;
+import no.hiof.webframework.Repository.SqlQueryBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
 
@@ -44,6 +47,27 @@ public class Main {
 
         app.addCustomHtmlPage(builder.build());
         app.run();
+
+        /*
+        String url = "whatever";
+        String username = "skdhf";
+        String password = "sdfsdf";
+        SqlConnection connection = new SqlConnection(url,username,password);
+
+        EntityModel model = new EntityModel("users")
+                .addField("id", "INT", false)
+                .addField("username", "VARCHAR(50)", false)
+                .addField("password", "VARCHAR", false)
+                .build();
+        model.generateSchema();
+
+         SqlQueryBuilder sb = new SqlQueryBuilder()
+                .select("*")
+                .from("users");
+
+
+
+         */
 
 
     }
