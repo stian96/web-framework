@@ -11,26 +11,34 @@ import java.util.List;
  */
 public class EntityModel implements EntityModelBuilder {
     private final String tableName;
-    private List<String> fields = new ArrayList<>();
+    private List<Field> fields = new ArrayList<>();
 
 
 
-    public EntityModel(String tableName, List<String> fields) {
+    public EntityModel(String tableName, List<Field> fields) {
         this.tableName = tableName;
         this.fields = fields;
     }
 
     @Override
     public EntityModelBuilder setTableName(String tableName) {
-        return null;
+
+        return this;
     }
 
+    /**
+     * Method that adds a new field to the entity
+     * @param name
+     * @param type
+     * @param nullable
+     * @return Field
+     */
     @Override
     public EntityModelBuilder addField(String name, String type, boolean nullable) {
-        return null;
+        fields.add(new Field(name,type,nullable));
+        return this;
 
-        //Have to fix this. Doesn't make sense
-        // TODO
+
     }
 
     /**
@@ -48,4 +56,5 @@ public class EntityModel implements EntityModelBuilder {
     public void generateSchema(){
         //TODO
     }
+
 }
