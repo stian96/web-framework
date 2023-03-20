@@ -15,12 +15,22 @@ public class SqlQueryBuilder {
 
     /**
      * adds specified columns to the SELECT statement of the query
-     * @param columns
-     * @return columns
+     * @param tableName
+     * @return instance of SqlStringBuilder
      */
-    public String select(String columns){
+    public SqlQueryBuilder select(String tableName){
         //TODO
-        return columns;
+        return this;
+    }
+
+    /**
+     * Method for specifying the selected columns
+     * @param columns
+     * @return
+     */
+    public SqlQueryBuilder from(String columns){
+        //TODO
+        return this;
     }
 
 
