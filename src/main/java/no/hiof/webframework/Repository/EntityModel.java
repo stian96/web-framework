@@ -8,10 +8,12 @@ import no.hiof.webframework.Interface.EntityModelBuilder;
  */
 public class EntityModel implements EntityModelBuilder {
     private final String tableName;
+    private final Field field;
 
 
-    public EntityModel(String tableName) {
+    public EntityModel(String tableName, Field field) {
         this.tableName = tableName;
+        this.field = field;
     }
 
     @Override
@@ -27,5 +29,12 @@ public class EntityModel implements EntityModelBuilder {
     @Override
     public EntityModel build() {
         return null;
+    }
+
+    /**
+     * Method for generating schema
+     */
+    public void generateSchema(){
+        //TODO
     }
 }
