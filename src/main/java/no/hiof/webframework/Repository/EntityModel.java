@@ -2,18 +2,22 @@ package no.hiof.webframework.Repository;
 
 import no.hiof.webframework.Interface.EntityModelBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Scenario 4.2
 /**
  * Class for creating an entity model and adding to a database
  */
 public class EntityModel implements EntityModelBuilder {
     private final String tableName;
-    private final Field field;
+    private List<String> fields = new ArrayList<>();
 
 
-    public EntityModel(String tableName, Field field) {
+
+    public EntityModel(String tableName, List<String> fields) {
         this.tableName = tableName;
-        this.field = field;
+        this.fields = fields;
     }
 
     @Override
