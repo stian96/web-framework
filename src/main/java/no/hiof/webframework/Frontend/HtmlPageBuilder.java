@@ -1,15 +1,18 @@
 package no.hiof.webframework.Frontend;
 
-import no.hiof.webframework.Interface.HtmlTemplate;
+import no.hiof.webframework.Interface.IHtmlBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class CustomHtmlPage implements HtmlTemplate {
+/**
+ * Uses the Builder pattern to create custom html pages.
+ */
+public class HtmlPageBuilder implements IHtmlBuilder {
     private final StringBuilder content  = new StringBuilder();
 
-    public CustomHtmlPage() {
+    public HtmlPageBuilder() {
         try {
             defaultCode();
         }
@@ -22,6 +25,16 @@ public class CustomHtmlPage implements HtmlTemplate {
         String filePath = "src/main/resources/Text/defaultHtml.txt";
         String fileContent = Files.readString(Paths.get(filePath));
         content.append(fileContent);
+    }
+
+    @Override
+    public void addHeader(String header) {
+        String headerContent = "<h1>" + header + "</h1>";
+        content.replace(
+                content.indexOf("<!--HEADER_PLACEHOLDER-->"),
+                content.indexOf("<!--HEADER_PLACEHOLDER-->") + "<!--HEADER_PLACEHOLDER-->".length(),
+                headerContent.toString());
+
     }
 
     @Override
@@ -66,7 +79,7 @@ public class CustomHtmlPage implements HtmlTemplate {
                 contactInfo);
     }
 
-    public String getContent() {
+    public String build() {
         return content.toString();
     }
 }

@@ -71,6 +71,7 @@
 </head>
 <body>
 <header>
+<!--HEADER_PLACEHOLDER-->
 <!--NAV_PLACEHOLDER-->
 </header>
 <main>

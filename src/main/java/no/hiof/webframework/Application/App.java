@@ -1,7 +1,7 @@
 package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
-import no.hiof.webframework.Frontend.CustomHtmlPage;
+import no.hiof.webframework.Frontend.HtmlPageBuilder;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Routes.Route;
 import no.hiof.webframework.Servlet.*;
@@ -55,9 +55,15 @@ public class App {
         htmlPageMap.put(title, page);
     }
 
-    public void addCustomHtmlPage(CustomHtmlPage page) {
-        String title = HtmlParser.readCustomHtmlPage(page.getContent());
-        setCustomPage(page.getContent());
+    /**
+     * Adds a custom html page to the application.
+     * @param page The html page as a String.
+     * Can get this from the build() method in the
+     * HtmlPageBuilder class.
+     */
+    public void addCustomHtmlPage(String page) {
+        String title = HtmlParser.readCustomHtmlPage(page);
+        setCustomPage(page);
         htmlPageMap.put(title, null);
 
     }
