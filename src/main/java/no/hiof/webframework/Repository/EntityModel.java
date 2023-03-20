@@ -24,6 +24,9 @@ public class EntityModel implements EntityModelBuilder {
     @Override
     public EntityModelBuilder addField(String name, String type, boolean nullable) {
         return null;
+
+        //Have to fix this. Doesn't make sense
+        // TODO
     }
 
     @Override
