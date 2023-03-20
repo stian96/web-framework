@@ -2,7 +2,7 @@ package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
-import no.hiof.webframework.Routes.Route;
+import no.hiof.webframework.Application.Routes.Route;
 import no.hiof.webframework.Servlet.*;
 import no.hiof.webframework.Servlet.Default.HomeServlet;
 import no.hiof.webframework.Servlet.Default.LoginServlet;
