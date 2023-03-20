@@ -1,11 +1,13 @@
 package no.hiof.webframework.Frontend;
 
+import no.hiof.webframework.Exceptions.HttpMethodException;
 import no.hiof.webframework.Interface.Builders.IHtmlBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,14 +15,22 @@ import java.util.List;
  */
 public class HtmlPageBuilder implements IHtmlBuilder {
     private final StringBuilder content  = new StringBuilder();
+    private final List<HttpMethod> httpMethods = new ArrayList<>();
 
     public HtmlPageBuilder() {
         try {
             defaultCode();
+            fillHttpList();
         }
         catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         }
+    }
+
+    private void fillHttpList() {
+        httpMethods.add(HttpMethod.GET);
+        httpMethods.add(HttpMethod.POST);
+        httpMethods.add(HttpMethod.PUT);
     }
 
     private void defaultCode() throws IOException {
@@ -86,8 +96,12 @@ public class HtmlPageBuilder implements IHtmlBuilder {
      * @param formFields Fields to be displayed in the form.
      */
     @Override
-    public void addForm(HttpMethod method, String... formFields) {
+    public void addForm(HttpMethod method, String... formFields) throws HttpMethodException {
         StringBuilder form = new StringBuilder();
+
+        if (!httpMethods.contains(method))
+            throw new HttpMethodException("Error: http-method must be GET or POST.");
+
         switch (method) {
             case GET: form.append("<form method='GET'>");
             case POST: form.append("<form method='POST'>");
