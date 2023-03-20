@@ -33,9 +33,13 @@ public class EntityModel implements EntityModelBuilder {
         // TODO
     }
 
+    /**
+     * Method for building a new EntityModel
+     * @return EntityModel
+     */
     @Override
     public EntityModel build() {
-        return null;
+        return new EntityModel(tableName, fields);
     }
 
     /**
