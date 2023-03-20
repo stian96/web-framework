@@ -1,10 +1,12 @@
 package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
-import no.hiof.webframework.Frontend.HtmlPageBuilder;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Routes.Route;
 import no.hiof.webframework.Servlet.*;
+import no.hiof.webframework.Servlet.Default.HomeServlet;
+import no.hiof.webframework.Servlet.Default.LoginServlet;
+import no.hiof.webframework.Servlet.Default.LogoutServlet;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -75,8 +77,8 @@ public class App {
             addServletToContext(context);
 
             if (applicationTitle != null) {
-                DefaultServlet.setApplicationTitle(applicationTitle);
-                context.addServlet(DefaultServlet.class, "/");
+                ApplicationServlet.setApplicationTitle(applicationTitle);
+                context.addServlet(ApplicationServlet.class, "/");
             }
 
             server.setHandler(context);

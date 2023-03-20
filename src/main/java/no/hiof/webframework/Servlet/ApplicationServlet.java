@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/")
-public class DefaultServlet extends HttpServlet {
+public class ApplicationServlet extends HttpServlet {
     private static String applicationTitle = "";
 
     @Override
