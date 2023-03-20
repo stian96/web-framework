@@ -2,6 +2,7 @@ package no.hiof.webframework;
 
 import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Frontend.HtmlFactory;
+import no.hiof.webframework.Frontend.HtmlPageBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
 
@@ -22,6 +23,12 @@ public class Main {
 
         app.addHtmlPage(factory.createHomePage());
         app.setHomePageTitle("Home");
+
+        HtmlPageBuilder builder = new HtmlPageBuilder();
+        builder.addHeader("Login Page");
+        builder.addForm(HttpMethod.POST, "username", "password", "age");
+        app.addCustomHtmlPage(builder.build());
+
         app.run();
     }
 }

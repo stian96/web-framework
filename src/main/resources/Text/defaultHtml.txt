@@ -65,12 +65,51 @@
             font-size: 18px;
             line-height: 1.5;
         }
-
         footer {
             background-color: #333;
             color: white;
             padding: 10px;
             text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 3px;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
         }
     </style>
 </head>
@@ -81,6 +120,7 @@
 </header>
 <main>
 <!--MAIN_PLACEHOLDER-->
+<!--FORM_PLACEHOLDER-->
 </main>
 <!--FOOTER_PLACEHOLDER-->
 </body>
