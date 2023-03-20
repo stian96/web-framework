@@ -2,10 +2,15 @@ package no.hiof.webframework.Repository;
 
 import no.hiof.webframework.Interface.RepositoryConnection;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class SqlConnection implements RepositoryConnection {
     private String url;
     private String username;
     private String password;
+    private Connection connection;
 
 /**
  *  Constructs a new SqlConnection object with the given URL, username, and password parameters.
@@ -22,11 +27,25 @@ public class SqlConnection implements RepositoryConnection {
 
     @Override
     public void connect() {
-        //TODO
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected to database.");
+        } catch (SQLException e) {
+            System.err.println("Error connecting to the database: " + e.getMessage());
+        }
+
     }
 
     @Override
     public void disconnect() {
-        //TODO
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                System.out.println("Disconnected from database.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error disconnecting from database: " + e.getMessage());
+        }
     }
+
 }

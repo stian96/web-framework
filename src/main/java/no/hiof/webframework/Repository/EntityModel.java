@@ -2,36 +2,52 @@ package no.hiof.webframework.Repository;
 
 import no.hiof.webframework.Interface.EntityModelBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Scenario 4.2
 /**
  * Class for creating an entity model and adding to a database
  */
 public class EntityModel implements EntityModelBuilder {
     private final String tableName;
-    private final Field field;
+    private List<Field> fields = new ArrayList<>();
 
 
-    public EntityModel(String tableName, Field field) {
+
+    public EntityModel(String tableName, List<Field> fields) {
         this.tableName = tableName;
-        this.field = field;
+        this.fields = fields;
     }
 
     @Override
     public EntityModelBuilder setTableName(String tableName) {
-        return null;
+
+        return this;
     }
 
+    /**
+     * Method that adds a new field to the entity
+     * @param name
+     * @param type
+     * @param nullable
+     * @return Field
+     */
     @Override
     public EntityModelBuilder addField(String name, String type, boolean nullable) {
-        return null;
+        fields.add(new Field(name,type,nullable));
+        return this;
 
-        //Have to fix this. Doesn't make sense
-        // TODO
+
     }
 
+    /**
+     * Method for building a new EntityModel
+     * @return EntityModel
+     */
     @Override
     public EntityModel build() {
-        return null;
+        return new EntityModel(tableName, fields);
     }
 
     /**
@@ -40,4 +56,5 @@ public class EntityModel implements EntityModelBuilder {
     public void generateSchema(){
         //TODO
     }
+
 }
