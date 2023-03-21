@@ -19,6 +19,11 @@ public class LogInAuthentication {
         this.codeGenerator=codeGenerator;
     }
 
+    public LogInAuthentication(){
+        this.auth=FactoryAuth.createAuthenticator();
+        this.codeGenerator=FactoryAuth.createSMSCodeGenerator();
+    }
+
     /**
      * Attempts to log in a user using authentication and SMS verification.
      *
@@ -31,14 +36,11 @@ public class LogInAuthentication {
     public boolean login(String username, String password, String phoneNumber, String code) {
         boolean authenticated = auth.authenticateLogIn(username, password);
 
-        if (authenticated) {
-            String generatedCode = codeGenerator.generateCode(phoneNumber);
-
-            if (code.equals(generatedCode)) {
-                return true;
-            }
+        if (!authenticated) {
+            return false;
         }
+        String generatedCode = codeGenerator.generateCode(phoneNumber);
+        return (code.equals(generatedCode));
 
-        return false;
     }
 }
