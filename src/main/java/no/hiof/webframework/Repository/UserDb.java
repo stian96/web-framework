@@ -3,23 +3,35 @@ package no.hiof.webframework.Repository;
 import no.hiof.webframework.Data.User;
 import no.hiof.webframework.Interface.UserDAO;
 
+import java.util.ArrayList;
+
 public class UserDb implements UserDAO {
+
+    // Temporary database storage.
+    private final ArrayList<User> db = new ArrayList<>();
 
     // TODO: Connect to database.
 
     @Override
     public void save(User user) {
-        // TODO: save user to database.
+        db.add(user);
     }
 
     @Override
     public User get(String username) {
-        // TODO: return user from database.
+        for (User user : db) {
+            if (user.username().equals(username))
+                return user;
+        }
         return null;
     }
 
     @Override
     public void delete(String username) {
-        // TODO: delete user from database.
+        db.removeIf(user -> user.username().equals(username));
+    }
+
+    public ArrayList<User> getDb() {
+        return db;
     }
 }

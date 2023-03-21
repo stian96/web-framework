@@ -20,7 +20,7 @@ public class UserController {
 
         User user = userDAO.get(username);
 
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && user.password().equals(password)) {
             response.sendRedirect("/home");
         }
         else {

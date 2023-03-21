@@ -27,6 +27,7 @@ public class HtmlPageBuilder implements IHtmlBuilder {
         }
     }
 
+
     private void fillHttpList() {
         httpMethods.add(HttpMethod.GET);
         httpMethods.add(HttpMethod.POST);

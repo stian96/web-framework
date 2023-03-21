@@ -1,8 +1,10 @@
 package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Parser.HtmlParser;
+import no.hiof.webframework.Data.User;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Routes.Route;
+import no.hiof.webframework.Repository.UserDb;
 import no.hiof.webframework.Servlet.*;
 import no.hiof.webframework.Servlet.Default.HomeServlet;
 import no.hiof.webframework.Servlet.Default.LoginServlet;
@@ -29,6 +31,8 @@ public class App {
     private String applicationTitle, loginPageTitle, homePageTitle, logoutPageTitle;
     private String customPage;
     private String content;
+
+    private UserDb dbUser;
     private int titleCounter = 0;
 
     public App() {
@@ -69,6 +73,13 @@ public class App {
         setCustomPage(page);
         htmlPageMap.put(title, null);
 
+    }
+
+    public void addCustomHtmlPage(String page, UserDb user) {
+        String title = HtmlParser.readCustomHtmlPage(page);
+        setCustomPage(page);
+        dbUser = user;
+        htmlPageMap.put(title, null);
     }
 
     public void addDefaultPage(String content) {
@@ -130,6 +141,9 @@ public class App {
     }
 
     private ServletHolder getServlet(String title, HtmlPages page) {
+        if (dbUser != null) {
+            return new ServletHolder(new CustomServlet(customPage, dbUser));
+        }
         return switch (title) {
             case "Login Page" -> new ServletHolder(new LoginServlet(page, loginPageTitle));
             case "Home Page" -> new ServletHolder(new HomeServlet(page, homePageTitle));
