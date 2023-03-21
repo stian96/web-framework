@@ -14,6 +14,9 @@ context handler with a map of routes and HTML pages.
     * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
     * [public void run()](#run)
 * [Getting started](#getting_started)
+    * [creating a simple application with a title](simple_application)
+    * [creating default pages](default_pages)
+    * [creating custom pages](custom_pages)
 
 <br>
 
@@ -93,22 +96,110 @@ Starts and runs the application. The program can be run after this method is cal
 <a id="getting_started"></a>
 ## Getting Started
 
-Note: Before running the application, you must have called the **'addRoute()'** and **'addHtmlPage()'** methods at least once to add routes and HTML pages respectively.
+<a id="simple_application"></a>
+### A simple web application
+
+Create an instans of the **'App'** object and make a call to the method **'setTitle()'**
 
 ```java
 public class Main {
   public static void main(String[] args) {
 
     App myApp = new App();
-    myApp.addRoute("home", HttpMethod.GET);
+    myApp.setTitle("Title of the application!");
+    myApp.run();
+    
+  }
+}
+```
 
+After running the program, navigate to 'http://localhost:8080/' and you should see the title in the browser.
+
+<br>
+
+<a id="default_pages"></a>
+### Creating default pages
+
+Before running the application, you must have called the **'addRoute()'** and **'addHtmlPage()'** methods at least once to add routes and HTML pages respectively. Setting page titles is optional.
+
+```java
+public class Main {
+  public static void main(String[] args) {
+
+    App myApp = new App();
+    
+    // Add routes and Http method.
+    myApp.addRoute("home", HttpMethod.GET);
+    myApp.addRoute("login", HttpMethod.GET);
+    myApp.addRoute("logout", HttpMethod.GET);
+   
+    // Create an instans of the factory and create the default pages.
     HtmlFactory factory = new HtmlFactory();
     myApp.addHtmlPage(factory.createHomePage());
+    myApp.setHomePageTitle("Welcome to home page");
+    
+    myApp.addHtmlPage(factory.createLoginPage());
+    myApp.setLoginPageTitle("Login");
+    
+    myApp.addHtmlPage(factory.createLogoutPage());
+    myApp.setLogoutPageTitle("Logout");
 
     myApp.run();
   }
 }
 ```
+After running the program, navigate to the following urls to see the pages:
+* http://localhost:8080/login
+* http://localhost:8080/home
+* http://localhost:8080/logout
+
+<br>
+
+<a id="custom_pages"></a>
+### Creating a custom page
+
+To create a custom page we need to use the **'HtmlPageBuilder'** class. 
+After the page is built, we can call the **'addCustomHtmlPage()'** method in the **'App'** API, and
+pass it the **'builder.build()'** argument.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+
+        App myApp = new App();
+        myApp.addRoute("custom", HttpMethod.GET);
+
+        // Builder to create custom html pages.
+        HtmlPageBuilder builder = new HtmlPageBuilder();
+
+        // Adds a header to the page.
+        builder.addHeader("Custom page");
+
+        // Adds elements in a navbar.
+        builder.addNavElements("home", "about", "contact");
+
+        String paragraph = """
+                           Contrary to popular belief, Lorem Ipsum is not simply random text. 
+                           It has roots in a piece of classical Latin literature from 45 BC, 
+                           making it over 2000 years old. Richard McClintock, a Latin professor 
+                           at Hampden-Sydney College in Virginia, looked up one of the more obscure 
+                           Latin words, consectetur, from a Lorem Ipsum passage, and going through 
+                           the cites of the word in classical literature, discovered the undoubtable 
+                           """;
+        // Adds a main section with a header and a paragraph.
+        builder.addMainSection("Main section", paragraph);
+
+        // Adds a footer section with contact information.
+        builder.addFooterSection("Home-street 5B", "46578987", "example@gmail.com");
+
+        // Send the html page as a string to the addCustomHtmlPage method.
+        myApp.addCustomHtmlPage(builder.build());
+        myApp.run();
+    }
+}
+```
+We can now navigate to 'http://localhost:8080/custom' to see the results.
+
                                                     
    
    
