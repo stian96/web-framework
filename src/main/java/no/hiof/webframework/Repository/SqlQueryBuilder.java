@@ -1,6 +1,6 @@
 package no.hiof.webframework.Repository;
 
-//Scenarios 4.4 - 4.6
+//Scenarios 4.4 - 4.6 can be made using this
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
