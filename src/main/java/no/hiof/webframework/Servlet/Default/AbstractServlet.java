@@ -17,6 +17,9 @@ abstract class AbstractServlet extends HttpServlet {
         this.title = title;
     }
 
+    public AbstractServlet() {
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
