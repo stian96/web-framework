@@ -10,15 +10,19 @@ import java.util.List;
  * Class for creating an entity model and adding to a database
  */
 public class EntityModel implements EntityModelBuilder {
-    private final String tableName;
+    private String tableName;
     private List<Field> fields = new ArrayList<>();
 
 
-
+/*
     public EntityModel(String tableName, List<Field> fields) {
         this.tableName = tableName;
-        this.fields = fields;
+
     }
+
+
+ */
+
 
     @Override
     public EntityModelBuilder setTableName(String tableName) {
@@ -47,7 +51,7 @@ public class EntityModel implements EntityModelBuilder {
      */
     @Override
     public EntityModel build() {
-        return new EntityModel(tableName, fields);
+        return this;
     }
 
     /**
