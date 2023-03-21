@@ -43,7 +43,8 @@ public class CustomServlet extends HttpServlet {
         User user = new User(username, password);
 
         if (userDb.getDb().contains(user)) {
-            response.getWriter().println("<h3>Login success!</h3>");
+            response.sendRedirect("/home");
+            // response.getWriter().println("<h3>Login success!</h3>");
         }
         else {
             response.getWriter().println("<h3>User do not exists.</h3>");

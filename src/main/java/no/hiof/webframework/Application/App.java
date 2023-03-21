@@ -1,6 +1,5 @@
 package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Parser.HtmlParser;
-import no.hiof.webframework.Data.User;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Routes.Route;
@@ -141,16 +140,20 @@ public class App {
     }
 
     private ServletHolder getServlet(String title, HtmlPages page) {
-        if (dbUser != null) {
-            return new ServletHolder(new CustomServlet(customPage, dbUser));
+        switch (title) {
+            case "Login Page": return new ServletHolder(new LoginServlet(page, loginPageTitle));
+            case "Home Page": return new ServletHolder(new HomeServlet(page, homePageTitle));
+            case "Logout Page": return new ServletHolder(new LogoutServlet(page, logoutPageTitle));
+            case "Custom Page": {
+                if (dbUser != null) {
+                    return new ServletHolder(new CustomServlet(customPage, dbUser));
+                }
+                else {
+                   return new ServletHolder(new CustomServlet(customPage));
+                }
+            }
+            default: return new ServletHolder(new DefaultServlet(content));
         }
-        return switch (title) {
-            case "Login Page" -> new ServletHolder(new LoginServlet(page, loginPageTitle));
-            case "Home Page" -> new ServletHolder(new HomeServlet(page, homePageTitle));
-            case "Logout Page" -> new ServletHolder(new LogoutServlet(page, logoutPageTitle));
-            case "Custom Page" -> new ServletHolder(new CustomServlet(customPage));
-            default -> new ServletHolder(new DefaultServlet(content));
-        };
     }
 
     private boolean checkForHtmlPage() {

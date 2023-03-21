@@ -3,6 +3,7 @@ package no.hiof.webframework;
 import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Data.User;
 import no.hiof.webframework.Exceptions.HttpMethodException;
+import no.hiof.webframework.Frontend.HtmlFactory;
 import no.hiof.webframework.Frontend.HtmlPageBuilder;
 import no.hiof.webframework.Repository.UserDb;
 import org.eclipse.jetty.http.HttpMethod;
@@ -13,6 +14,11 @@ public class Main {
 
         App myApp = new App();
         myApp.addRoute("login", HttpMethod.GET);
+        myApp.addRoute("home", HttpMethod.GET);
+
+        HtmlFactory factory = new HtmlFactory();
+        myApp.addHtmlPage(factory.createHomePage());
+        myApp.setHomePageTitle("Home");
 
         HtmlPageBuilder builder = new HtmlPageBuilder();
         builder.addHeader("Login");
@@ -25,6 +31,7 @@ public class Main {
         userDb.save(new User("Per", "kake"));
 
         myApp.addCustomHtmlPage(builder.build(), userDb);
+
         myApp.run();
     }
 }
