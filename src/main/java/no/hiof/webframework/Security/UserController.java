@@ -1,6 +1,16 @@
 package no.hiof.webframework.Security;
+
+import no.hiof.webframework.Interface.PasswordEncryptionAlgorithm;
+
 //Scenario 3.3
 public class UserController {
+    private final PasswordEncryptionAlgorithm encryptionAlgorithm;
+
+    public UserController(PasswordEncryptionAlgorithm encryptionAlgorithm) {
+        this.encryptionAlgorithm = encryptionAlgorithm;
+
+    }
+
     /**
      * Register a new user with the given username and password
      * @param username the username for the new user
@@ -18,6 +28,8 @@ public class UserController {
      * @param password the password to be encrypted
      * @param salt used to add an extra layer of security to the password encryption process*/
     public void encryptPassword(String password, byte[] salt) {
+        byte[] encryptedPassword = encryptionAlgorithm.encryptPw(password, salt);
+
     }
 
     /**
