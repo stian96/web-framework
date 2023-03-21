@@ -1,18 +1,10 @@
 package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Parser.HtmlParser;
-import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Routes.Route;
 import no.hiof.webframework.Repository.UserDb;
-import no.hiof.webframework.Servlet.*;
-import no.hiof.webframework.Servlet.Default.HomeServlet;
-import no.hiof.webframework.Servlet.Default.LoginServlet;
-import no.hiof.webframework.Servlet.Default.LogoutServlet;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,15 +18,13 @@ public class App {
     private static final int PORT = 8080;
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
-
-    private String applicationTitle, loginPageTitle, homePageTitle, logoutPageTitle;
-    private String customPage;
-    private String content;
-
+    private String customPage, applicationTitle;
     private UserDb dbUser;
-    private int titleCounter = 0;
+    private String content;
+    protected int titleCounter;
 
     public App() {
+        this.titleCounter = 0;
     }
 
     /**
@@ -53,12 +43,13 @@ public class App {
      * @param htmlPage InputStream of the html page. You
      * can get this from the HtmlFactory.
      */
-    public void addHtmlPage(InputStream htmlPage)  {
+    public void addHtmlPage(InputStream htmlPage, String title)  {
         HtmlPages page = new HtmlPages();
         page.setHtmlPage(htmlPage);
+        page.setTitle(title);
 
-        String title = HtmlParser.getTitleFromHtmlPage(htmlPage);
-        htmlPageMap.put(title, page);
+        String pageTitle = HtmlParser.getTitleFromHtmlPage(htmlPage);
+        htmlPageMap.put(pageTitle, page);
     }
 
     /**
@@ -86,85 +77,6 @@ public class App {
         htmlPageMap.put(content, null);
     }
 
-    private void initializeHandler(Server server) {
-        try {
-            ServletContextHandler context = new ServletContextHandler();
-            context.setContextPath("/");
-            addServletToContext(context);
-
-            if (applicationTitle != null) {
-                ApplicationServlet.setApplicationTitle(applicationTitle);
-                context.addServlet(ApplicationServlet.class, "/");
-            }
-
-            server.setHandler(context);
-            startServer(server);
-        }
-        catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
-        }
-    }
-
-    private void addServletToContext(ServletContextHandler context) throws NoHtmlContentException {
-        for (Map.Entry<String, Route> entry : routeMap.entrySet()) {
-            Route route = entry.getValue();
-            String uri = "/" + route.getRoute() + "/*";
-            String keySet = htmlPageMap.keySet().toString();
-
-            if (!checkForHtmlPage()) {
-                addServletIfNeeded(keySet, uri, context);
-                titleCounter++;
-            }
-            else {
-                throw new NoHtmlContentException("Need to add html pages to the application.");
-            }
-        }
-    }
-
-    private void addServletIfNeeded(String titleSet, String uri, ServletContextHandler context) {
-        String [] titles = mapSetToArray(titleSet);
-
-        if (titleCounter <= htmlPageMap.size() - 1) {
-            HtmlPages page = htmlPageMap.get(titles[titleCounter].trim());
-            ServletHolder servlet = getServlet(titles[titleCounter].trim(), page);
-            context.addServlet(servlet, uri);
-        }
-    }
-
-    private String[] mapSetToArray(String set) {
-        if (set != null) {
-            set = set.replace("[", "").replace("]", "");
-            return set.split(",");
-        }
-        return null;
-    }
-
-    private ServletHolder getServlet(String title, HtmlPages page) {
-        switch (title) {
-            case "Login Page": return new ServletHolder(new LoginServlet(page, loginPageTitle));
-            case "Home Page": return new ServletHolder(new HomeServlet(page, homePageTitle));
-            case "Logout Page": return new ServletHolder(new LogoutServlet(page, logoutPageTitle));
-            case "Custom Page": {
-                if (dbUser != null) {
-                    return new ServletHolder(new CustomServlet(customPage, dbUser));
-                }
-                else {
-                   return new ServletHolder(new CustomServlet(customPage));
-                }
-            }
-            default: return new ServletHolder(new DefaultServlet(content));
-        }
-    }
-
-    private boolean checkForHtmlPage() {
-        return htmlPageMap.size() == 0;
-    }
-
-    private void startServer(Server server) throws Exception {
-        server.start();
-        server.join();
-    }
-
     /**
      * Starts and run the application. Program can be
      * run after this method is called.
@@ -173,8 +85,12 @@ public class App {
         Logger.turnLoggerOFF();
         printUrlInformation();
 
-        Server server = new Server(PORT);
-        initializeHandler(server);
+        ServerHandler server;
+        if (applicationTitle != null)
+            server = new ServerHandler(applicationTitle);
+        else
+            server = new ServerHandler();
+        server.initializeHandler(new Server(PORT), this);
     }
 
     private void printUrlInformation() {
@@ -182,36 +98,40 @@ public class App {
         System.out.println("http://localhost:" + PORT + "/");
     }
 
-    /**
-     * Sets the title of the login html-page.
-     * @param loginPageTitle The title to be set.
-     */
-    public void setLoginPageTitle(String loginPageTitle) {
-        this.loginPageTitle = loginPageTitle;
-    }
-
-    /**
-     * Sets the title of the home html-page.
-     * @param homePageTitle The title to be set.
-     */
-    public void setHomePageTitle(String homePageTitle) {
-        this.homePageTitle = homePageTitle;
-    }
-
-    public void setLogoutPageTitle(String logoutPageTitle) {
-        this.logoutPageTitle = logoutPageTitle;
-    }
-
-    public void setTitle(String title) {
-        this.applicationTitle = title;
-    }
-
     private void setCustomPage(String content) {
         customPage = content;
     }
 
+    protected Map<String, Route> getRouteMap() {
+        return routeMap;
+    }
+
+    protected Map<String, HtmlPages> getHtmlPageMap() {
+        return htmlPageMap;
+    }
+
     private void setContent(String content) {
         this.content = content;
+    }
+
+    protected String getContent() {
+        return content;
+    }
+
+    protected String getCustomPage() {
+        return customPage;
+    }
+
+    public void setApplicationTitle(String title) {
+        this.applicationTitle = title;
+    }
+
+    protected UserDb getDbUser() {
+        return dbUser;
+    }
+
+    protected void setDbUser(UserDb dbUser) {
+        this.dbUser = dbUser;
     }
 }
 

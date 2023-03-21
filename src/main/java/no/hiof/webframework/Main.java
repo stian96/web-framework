@@ -1,37 +1,22 @@
 package no.hiof.webframework;
-
 import no.hiof.webframework.Application.App;
-import no.hiof.webframework.Data.User;
-import no.hiof.webframework.Exceptions.HttpMethodException;
 import no.hiof.webframework.Frontend.HtmlFactory;
-import no.hiof.webframework.Frontend.HtmlPageBuilder;
-import no.hiof.webframework.Repository.UserDb;
 import org.eclipse.jetty.http.HttpMethod;
 
 
 public class Main {
-    public static void main(String[] args) throws HttpMethodException {
+    public static void main(String[] args) throws Exception {
 
-        App myApp = new App();
-        myApp.addRoute("login", HttpMethod.GET);
-        myApp.addRoute("home", HttpMethod.GET);
+        App app = new App();
+        app.setApplicationTitle("hello world");
+        app.addRoute("login", HttpMethod.GET);
+        app.addRoute("home", HttpMethod.GET);
 
         HtmlFactory factory = new HtmlFactory();
-        myApp.addHtmlPage(factory.createHomePage());
-        myApp.setHomePageTitle("Home");
+        app.addHtmlPage(factory.createLoginPage(), "Hello login page");
+        app.addHtmlPage(factory.createHomePage(), "Home is the best!");
 
-        HtmlPageBuilder builder = new HtmlPageBuilder();
-        builder.addHeader("Login");
-        builder.addForm(HttpMethod.POST, "username", "password");
+        app.run();
 
-        // save a user to the db.
-        UserDb userDb = new UserDb();
-        userDb.save(new User("Stian", "hello123"));
-        userDb.save(new User("Ole", "heisann1"));
-        userDb.save(new User("Per", "kake"));
-
-        myApp.addCustomHtmlPage(builder.build(), userDb);
-
-        myApp.run();
     }
 }

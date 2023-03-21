@@ -9,6 +9,7 @@ import java.io.InputStream;
 public class HtmlPages implements IHtmlPage {
 
     private InputStream htmlPage;
+    private String title;
 
 
     public HtmlPages() {
@@ -48,6 +49,14 @@ public class HtmlPages implements IHtmlPage {
 
     public void setHtmlPage(InputStream htmlPage) {
         this.htmlPage = htmlPage;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }
