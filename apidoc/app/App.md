@@ -13,6 +13,7 @@ context handler with a map of routes and HTML pages.
     * [public void addHtmlPage(InputStream htmlPage)](#addHtmlPage)
     * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
     * [public void run()](#run)
+* [Getting started](#getting_started)
 
 <br>
 
@@ -88,8 +89,10 @@ Adds a custom made HTML page to the application.
 Starts and runs the application. The program can be run after this method is called.
 
 <br>
-   
-## Important
+
+<a id="getting_started"></a>
+## Getting Started
+
 Note: Before running the application, you must have called the **'addRoute()'** and **'addHtmlPage()'** methods at least once to add routes and HTML pages respectively.
 
 ```Java
