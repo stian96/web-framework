@@ -8,11 +8,11 @@ context handler with a map of routes and HTML pages.
 
 ## Table of contents
 * [Fields](#field_section)
-* [Methods](method_section) 
-    * [public void addRoute(String endpoint, HttpMethod httpMethod)](#)
-    * [public void addHtmlPage(InputStream htmlPage)](#)
-    * [public void addCustomHtmlPage(String page)](#)
-    * [public void run()](#)
+* [Methods](#method_section) 
+    * [public void addRoute(String endpoint, HttpMethod httpMethod)](#addRoute)
+    * [public void addHtmlPage(InputStream htmlPage)](#addHtmlPage)
+    * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
+    * [public void run()](#run)
 
 <br>
 
@@ -45,7 +45,8 @@ context handler with a map of routes and HTML pages.
 
 <a id="method_section"></a>
 ## Methods
-
+   
+   <a id="addRoute"></a>
 1. #### 'public void addRoute(String endpoint, HttpMethod httpMethod)'
    Adds a new route to the application.
    
@@ -56,6 +57,7 @@ context handler with a map of routes and HTML pages.
    
    <br>
    
+   <a id="addHtmlPage"></a>
 2. #### 'public void addHtmlPage(InputStream htmlPage)'
    Adds a ready-made HTML page to the specified route, where all the HTML and CSS is pre-built.
    
@@ -63,6 +65,7 @@ context handler with a map of routes and HTML pages.
    |:----------- |:--------------|:------------------------------------------------------------------------|
    | 'htmlPage'  | 'InputStream' | An input stream of the HTML page. Can get this from the **HtmlFactory**.|
    
+   <a id="addCustomHtmlPage"></a>
 3. #### 'public void addCustomHtmlPage(String page)'
    Adds a custom made HTML page to the application.
    
@@ -70,6 +73,7 @@ context handler with a map of routes and HTML pages.
    |:----------- |:--------------|:-----------------------------------------------------------|
    | 'page'      | 'String'      | The HTML page as a string. Can be obtained from the build() <br> method in the **HtmlPageBuilder** class.| 
    
+   <a id="run"></a>
 4. #### 'public void run()'
    Starts and runs the application. The program can be run after this method is called.
 
