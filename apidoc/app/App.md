@@ -100,7 +100,7 @@ public class Main {
   public static void main(String[] args) {
 
     App myApp = new App();
-    myApp.addRoute("/home", HttpMethod.GET);
+    myApp.addRoute("home", HttpMethod.GET);
 
     HtmlFactory factory = new HtmlFactory();
     myApp.addHtmlPage(factory.createHomePage());
