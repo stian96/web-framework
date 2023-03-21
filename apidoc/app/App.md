@@ -99,7 +99,7 @@ Starts and runs the application. The program can be run after this method is cal
 <a id="simple_application"></a>
 ### A simple web application
 
-Create an instans of the **'App'** object and make a call to the method **'setTitle()'**
+Create an instance of the **'App'** object and make a call to the method **'setTitle()'**
 
 ```java
 public class Main {
