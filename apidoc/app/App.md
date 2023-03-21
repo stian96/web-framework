@@ -14,9 +14,9 @@ context handler with a map of routes and HTML pages.
     * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
     * [public void run()](#run)
 * [Getting started](#getting_started)
-    * [creating a simple application with a title](simple_application)
-    * [creating default pages](default_pages)
-    * [creating custom pages](custom_pages)
+    * [creating a simple application with a title](#simple_application)
+    * [creating default pages](#default_pages)
+    * [creating custom pages](#custom_pages)
 
 <br>
 
