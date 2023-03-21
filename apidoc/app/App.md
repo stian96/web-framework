@@ -68,9 +68,9 @@ Adds a ready-made HTML page to the specified route, where all the HTML and CSS i
 | Parameter   | Type          | Description                                                             |
 |:----------- |:--------------|:------------------------------------------------------------------------|
 | 'htmlPage'  | 'InputStream' | An input stream of the HTML page. Can get this from the **HtmlFactory**.|
-
+ 
 <br>
-   
+
 <a id="addCustomHtmlPage"></a>
 #### 'public void addCustomHtmlPage(String page)'
 
@@ -92,16 +92,18 @@ Starts and runs the application. The program can be run after this method is cal
 ## Important
 Note: Before running the application, you must have called the **'addRoute()'** and **'addHtmlPage()'** methods at least once to add routes and HTML pages respectively.
 
-```Java
-public static void main(String[] args) {
+```java
+public class Main {
+  public static void main(String[] args) {
 
     App myApp = new App();
     myApp.addRoute("/home", HttpMethod.GET);
-    
+
     HtmlFactory factory = new HtmlFactory();
     myApp.addHtmlPage(factory.createHomePage());
 
     myApp.run();
+  }
 }
 ```
                                                     
