@@ -28,6 +28,7 @@ public class App {
 
     private String applicationTitle, loginPageTitle, homePageTitle, logoutPageTitle;
     private String customPage;
+    private String content;
     private int titleCounter = 0;
 
     public App() {
@@ -68,6 +69,11 @@ public class App {
         setCustomPage(page);
         htmlPageMap.put(title, null);
 
+    }
+
+    public void addDefaultPage(String content) {
+        setContent(content);
+        htmlPageMap.put(content, null);
     }
 
     private void initializeHandler(Server server) {
@@ -129,7 +135,7 @@ public class App {
             case "Home Page" -> new ServletHolder(new HomeServlet(page, homePageTitle));
             case "Logout Page" -> new ServletHolder(new LogoutServlet(page, logoutPageTitle));
             case "Custom Page" -> new ServletHolder(new CustomServlet(customPage));
-            default -> throw new IllegalArgumentException("error");
+            default -> new ServletHolder(new DefaultServlet(content));
         };
     }
 
@@ -185,6 +191,10 @@ public class App {
 
     private void setCustomPage(String content) {
         customPage = content;
+    }
+
+    private void setContent(String content) {
+        this.content = content;
     }
 }
 
