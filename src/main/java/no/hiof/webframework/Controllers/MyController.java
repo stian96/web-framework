@@ -16,7 +16,7 @@ public class MyController extends Controller {
     }
 
     @Override
-    protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
+    public void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
 
         HtmlPageBuilder builder = new HtmlPageBuilder();
         builder.addHeader("Controller test");
@@ -26,7 +26,7 @@ public class MyController extends Controller {
     }
 
     @Override
-    protected void handlePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void handlePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         String username = request.getParameter("username");
         String password = request.getParameter("password");

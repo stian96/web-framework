@@ -25,10 +25,10 @@ public abstract class Controller extends HttpServlet {
         }
     }
 
-    abstract void handleGet(HttpServletRequest request, HttpServletResponse response)
+    public abstract void handleGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, HttpMethodException;
 
-    abstract void handlePost(HttpServletRequest request, HttpServletResponse response)
+    public abstract void handlePost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 
     protected void handlePut(HttpServletRequest request, HttpServletResponse response)

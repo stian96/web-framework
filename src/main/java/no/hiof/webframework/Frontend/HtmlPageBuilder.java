@@ -50,7 +50,7 @@ public class HtmlPageBuilder implements IHtmlBuilder {
         content.replace(
                 content.indexOf("<!--HEADER_PLACEHOLDER-->"),
                 content.indexOf("<!--HEADER_PLACEHOLDER-->") + "<!--HEADER_PLACEHOLDER-->".length(),
-                headerContent.toString());
+                headerContent);
 
     }
 
