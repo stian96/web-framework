@@ -4,7 +4,10 @@ import no.hiof.webframework.Exceptions.HttpMethodException;
 import no.hiof.webframework.Interface.Builders.IHtmlBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -18,13 +21,8 @@ public class HtmlPageBuilder implements IHtmlBuilder {
     private final List<HttpMethod> httpMethods = new ArrayList<>();
 
     public HtmlPageBuilder() {
-        try {
-            defaultCode();
-            fillHttpList();
-        }
-        catch (IOException ioException) {
-            System.out.println(ioException.getMessage());
-        }
+        defaultCode();
+        fillHttpList();
     }
 
 
@@ -34,10 +32,16 @@ public class HtmlPageBuilder implements IHtmlBuilder {
         httpMethods.add(HttpMethod.PUT);
     }
 
-    private void defaultCode() throws IOException {
-        String filePath = "src/main/resources/Text/defaultHtml.txt";
-        String fileContent = Files.readString(Paths.get(filePath));
-        content.append(fileContent);
+    private void defaultCode() {
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/Text/defaultHtml.txt");
+            assert inputStream != null;
+            String fileContent = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+            content.append(fileContent);
+        }
+        catch (IOException ioException) {
+            System.out.println(ioException.getMessage());
+        }
     }
 
     /**
