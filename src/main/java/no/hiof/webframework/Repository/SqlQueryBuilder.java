@@ -1,8 +1,9 @@
 package no.hiof.webframework.Repository;
 
-//Scenarios 4.4 - 4.6 can be made using this
+//Scenarios 4.4 and 4.6 can be made using this
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,7 +59,7 @@ public class SqlQueryBuilder {
      * @return PreparedStatement object
      * @throws SQLException if problem creating the object
      */
-    public PreparedStatement build(Connection conn) throws SQLException {
+    public ResultSet build(Connection conn) throws SQLException {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT");
         if (columns.isEmpty()) {
@@ -70,7 +71,8 @@ public class SqlQueryBuilder {
         if (!conditions.isEmpty()) {
             sb.append(" WHERE ").append(String.join(" AND ", conditions));
         }
-        return conn.prepareStatement(sb.toString());
+        PreparedStatement stmt = conn.prepareStatement(sb.toString());
+        return stmt.executeQuery();
 
     }
 
