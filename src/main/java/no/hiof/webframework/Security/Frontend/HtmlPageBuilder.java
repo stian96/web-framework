@@ -1,4 +1,4 @@
-package no.hiof.webframework.Frontend;
+package no.hiof.webframework.Security.Frontend;
 
 import no.hiof.webframework.Exceptions.HttpMethodException;
 import no.hiof.webframework.Interface.Builders.IHtmlBuilder;
