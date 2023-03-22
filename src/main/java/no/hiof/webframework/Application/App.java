@@ -16,6 +16,7 @@ import java.util.Map;
  * Application class: App name = new App();
  */
 
+// TODO: Change the class to be a Singleton in the next iteration.
 public class App {
     private static final int PORT = 8080;
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
