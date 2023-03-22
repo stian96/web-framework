@@ -19,6 +19,7 @@ context handler with a map of routes and HTML pages.
     * [creating a simple application with a title](#simple_application)
     * [creating default pages](#default_pages)
     * [creating custom pages](#custom_pages)
+    * [creating a controller](#controller)
 
 <br>
 
@@ -230,6 +231,7 @@ We can now navigate to 'http://localhost:8080/custom' to see the results.
 
 <br>
 
+<a id="controller"></a>
 ### Add controller to the server
 
 To add a controller to the server we first need to create a new class **'MyController'** that
