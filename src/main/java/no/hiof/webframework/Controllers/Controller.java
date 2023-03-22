@@ -8,14 +8,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Abstract class representing a controller in the MVC-pattern for web applications. Extends the HttpServlet class
+ * to handle HTTP requests. It provides methods for handling GET, POST, PUT and other HTTP requests, as well as rendering
+ * HTML pages. The class also contains a switch statement that determines how to handle the request based on its HTTP method.
+ * The endpoint is a String that represents the URL path for the controller.
+ */
 public abstract class Controller extends HttpServlet {
 
     private final String endpoint;
 
+    /**
+     * Constructor for the Controller class.
+     * @param endpoint a String representing the URL path for the controller
+     */
     public Controller(String endpoint) {
         this.endpoint = endpoint;
     }
 
+    /**
+     * Method for handling an HTTP request. Determines how to handle the request based on its HTTP method.
+     * Calls the appropriate method for handling the request.
+     * @param request an HttpServletRequest object representing the request
+     * @param response an HttpServletResponse object representing the response
+     * @throws ServletException if an error occurs while processing the request
+     * @throws IOException if an error occurs while processing the request or response
+     * @throws HttpMethodException if an unsupported HTTP method is used
+     */
     protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
         switch (request.getMethod()) {
             case "GET" -> handleGet(request, response);
@@ -25,19 +44,46 @@ public abstract class Controller extends HttpServlet {
         }
     }
 
+    /**
+     * Abstract method for handling GET-requests. Subclasses must provide an implementation for this method.
+     * @param request an HttpServletRequest object representing the request
+     * @param response an HttpServletResponse object representing the response
+     * @throws ServletException if an error occurs while processing the request
+     * @throws IOException if an error occurs while processing the request or response
+     * @throws HttpMethodException if an unsupported HTTP method is used
+     */
     public abstract void handleGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, HttpMethodException;
 
+    /**
+     * Abstract method for handling POST-requests. Subclasses must provide an implementation for this method.
+     * @param request an HttpServletRequest object representing the request
+     * @param response an HttpServletResponse object representing the response
+     * @throws ServletException if an error occurs while processing the request
+     * @throws IOException if an error occurs while processing the request or response
+     */
     public abstract void handlePost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 
-    protected void handlePut(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {}
+    /**
+     * Empty method for handling PUT-requests. Can be overridden if needed.
+     */
+    protected void handlePut(HttpServletRequest request, HttpServletResponse response) {}
 
-    protected void handleOther(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {}
+    /**
+     * Empty method for handling other HTTP requests. Can be overridden if needed.
+     */
+    protected void handleOther(HttpServletRequest request, HttpServletResponse response) {}
 
-    protected void render(String pageContent, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * Renders the specified HTML content to the response.
+     * Sets the response content type to "text/html".
+     * @param pageContent The HTML content to render.
+     * @param request The HttpServletRequest object.
+     * @param response The HttpServletResponse object.
+     * @throws IOException if there is an I/O exception.
+     */
+    protected void render(String pageContent, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         response.getWriter().println(pageContent);
     }
@@ -52,7 +98,7 @@ public abstract class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             handleRequest(request, response);
         } catch (Exception e) {
@@ -61,7 +107,7 @@ public abstract class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             handleRequest(request, response);
         } catch (Exception e) {
@@ -69,7 +115,7 @@ public abstract class Controller extends HttpServlet {
         }
     }
 
-    protected void doOther(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doOther(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             handleRequest(request, response);
         } catch (Exception e) {
