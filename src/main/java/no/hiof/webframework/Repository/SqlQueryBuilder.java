@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class for creating sql queries easily.
@@ -16,6 +17,7 @@ public class SqlQueryBuilder {
     private String tableName;
     private List<String> columns = new ArrayList<>();
     private List<String> conditions = new ArrayList<>();
+
 
     /**
      * Method for adding a specified column to the list of columns
@@ -71,4 +73,16 @@ public class SqlQueryBuilder {
         return conn.prepareStatement(sb.toString());
 
     }
+
+    /**
+     * Method that insert data into a table
+     * @param tableName
+     * @param data
+     * @throws SQLException
+     */
+    public void insert(String tableName, Map<String, Object> data) throws SQLException {
+        //TODO:implementation of this
+    }
+
+
 }
