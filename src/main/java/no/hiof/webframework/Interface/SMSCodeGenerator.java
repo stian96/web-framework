@@ -1,8 +1,9 @@
 package no.hiof.webframework.Interface;
+//Scenario 3.5
 /**
  * The SMSCodeGenerator interface provides a contract for classes that generate and send verification codes via SMS.
  */
 public interface SMSCodeGenerator {
-    String generateCode(String phoneNumber);
+    String generateSMSCode(String phoneNumber);
 
 }

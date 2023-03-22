@@ -1,5 +1,6 @@
 package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Routes.Route;
+import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Servlet.ApplicationServlet;
@@ -16,9 +17,14 @@ import java.util.Map;
 
 class ServerHandler {
     private String applicationTitle;
+    private Controller controller;
 
     protected ServerHandler(String title) {
         this.applicationTitle = title;
+    }
+
+    protected ServerHandler(Controller controller) {
+        this.controller = controller;
     }
 
     protected ServerHandler() {}
@@ -32,6 +38,9 @@ class ServerHandler {
             if (applicationTitle != null) {
                 ApplicationServlet.setApplicationTitle(applicationTitle);
                 context.addServlet(ApplicationServlet.class, "/");
+            }
+            if (controller != null) {
+                context.addServlet(new ServletHolder(controller), "/" + controller.getEndpoint());
             }
 
             server.setHandler(context);
@@ -89,7 +98,7 @@ class ServerHandler {
                     return new ServletHolder(new CustomServlet(app.getCustomPage()));
                 }
             }
-            default: return new ServletHolder(new DefaultServlet(app.getContent()));
+            default: return new ServletHolder(new DefaultServlet(app.getResponse()));
         }
     }
 
