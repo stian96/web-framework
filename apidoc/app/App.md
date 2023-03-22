@@ -20,6 +20,7 @@ context handler with a map of routes and HTML pages.
     * [creating default pages](#default_pages)
     * [creating custom pages](#custom_pages)
     * [creating a controller](#controller)
+    * [adding response to page](#response)
 
 <br>
 
@@ -288,6 +289,27 @@ public class Main {
 ```
 We can now navigate to 'http://localhost:8080/myController' to see the results,
 and test that the **'GET'** and **'POST'** methods are working as expected.
+
+<br>
+
+<a id="response"></a>
+### Adding response to page
+
+To send a simple request to the server that returns a response, you can do 
+the following.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+
+        App app = new App();
+        app.addRoute("response", HttpMethod.GET);
+        app.addResponseToPage("Hello word!");
+        app.run();
+    }
+}
+```
+Navigate to 'http://localhost:8080/response' to see the response.
 
 
                                                     
