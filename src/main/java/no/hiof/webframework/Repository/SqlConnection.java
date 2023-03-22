@@ -24,7 +24,9 @@ public class SqlConnection implements RepositoryConnection {
         this.password = password;
     }
 
-
+    /**
+     * Connects to a database
+     */
     @Override
     public void connect() {
         try {
@@ -36,6 +38,9 @@ public class SqlConnection implements RepositoryConnection {
 
     }
 
+    /**
+     * Disconnects from the database
+     */
     @Override
     public void disconnect() {
         try {

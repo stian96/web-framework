@@ -17,12 +17,21 @@ public class SqlQueryBuilder {
     private List<String> columns = new ArrayList<>();
     private List<String> conditions = new ArrayList<>();
 
-
+    /**
+     * Method for adding a specified column to the list of columns
+     * @param columns
+     * @return instance of SqlQueryBuilder
+     */
     public SqlQueryBuilder select(String columns) {
         this.columns.addAll(Arrays.asList(columns));
         return this;
     }
 
+    /**
+     * Method for setting the table name in an SQL query
+     * @param tableName
+     * @return instance of SqlQueryBuilder
+     */
 
     public SqlQueryBuilder from(String tableName) {
         this.tableName = tableName;
@@ -30,7 +39,7 @@ public class SqlQueryBuilder {
     }
 
     /**
-     * Method for the where part of the
+     * Method that adds condition to the SQL query
      *
      * @param condition
      * @return SqlQueryBuilder instance
@@ -42,9 +51,10 @@ public class SqlQueryBuilder {
     }
 
     /**
-     * method to build the string
-     *
-     * @param conn
+     * Builds an SQL query as a PreparedStatement object and returns it
+     * @param conn a Connection object representing the database connection
+     * @return PreparedStatement object
+     * @throws SQLException if problem creating the object
      */
     public PreparedStatement build(Connection conn) throws SQLException {
         StringBuilder sb = new StringBuilder();
