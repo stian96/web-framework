@@ -12,11 +12,15 @@ context handler with a map of routes and HTML pages.
     * [public void addRoute(String endpoint, HttpMethod httpMethod)](#addRoute)
     * [public void addHtmlPage(InputStream htmlPage)](#addHtmlPage)
     * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
+    * [public void addResponseToPage(String response)](#addResponse)
+    * [public void addController(Controller controller)](#addController)
     * [public void run()](#run)
 * [Getting started](#getting_started)
     * [creating a simple application with a title](#simple_application)
     * [creating default pages](#default_pages)
     * [creating custom pages](#custom_pages)
+    * [creating a controller](#controller)
+    * [adding response to page](#response)
 
 <br>
 
@@ -35,13 +39,21 @@ The port number that the embedded Jetty server listens on.
 
 A **'LinkedHashMap'** that maps a HTML page title to a **'HtmlPages'** object.
 
-#### 'private String applicationTitle, loginPageTitle, homePageTitle, logoutPageTitle'
+#### 'private String applicationTitle'
 
-The title of the application, login page, home page, and logout page respectively.
+The title of the application, this is found at route "/".
 
 #### 'private String customPage'
 
 A string that holds the custom HTML page.
+
+### 'private UserDb userDb'
+
+A user database object that can be used to get, save and delete users.
+
+### 'private String response'
+
+String that is used to deliver a response to an empty page.
    
 #### 'private int titleCounter = 0'
 
@@ -65,13 +77,14 @@ Adds a new route to the application.
 <br>
    
 <a id="addHtmlPage"></a>
-#### 'public void addHtmlPage(InputStream htmlPage)'
+#### 'public void addHtmlPage(InputStream htmlPage, String title)'
 
 Adds a ready-made HTML page to the specified route, where all the HTML and CSS is pre-built.
    
 | Parameter   | Type          | Description                                                             |
 |:----------- |:--------------|:------------------------------------------------------------------------|
 | 'htmlPage'  | 'InputStream' | An input stream of the HTML page. Can get this from the **HtmlFactory**.|
+| 'title'     | 'String'      ' Sets the title of the page.                                             |
  
 <br>
 
@@ -83,6 +96,28 @@ Adds a custom made HTML page to the application.
 | Parameter   | Type          | Description                                                |
 |:----------- |:--------------|:-----------------------------------------------------------|
 | 'page'      | 'String'      | The HTML page as a string. Can be obtained from the build() <br> method in the **HtmlPageBuilder** class.| 
+
+<br>
+
+<a id="addResponse"></a>
+### 'public void addResponseToPage(String response)'
+
+Adds a response as a **'String'** to an empty page.
+
+| Parameter   | Type          | Description                                                |
+|:----------- |:--------------|:-----------------------------------------------------------|
+| 'response'  | 'String'      | Adds a response to an empty page with no html content.     | 
+
+<br>
+
+<a id="addController"></a>
+### 'public void addController(Controller controller)'
+
+Adds a user-created controller to the server.
+
+| Parameter    | Type          | Description                                   |
+|:-----------  |:--------------|:----------------------------------------------|
+| 'controller' | 'Controller'  | Adds a user-defined controller to the server. |
 
 <br>
    
@@ -133,17 +168,12 @@ public class Main {
     myApp.addRoute("login", HttpMethod.GET);
     myApp.addRoute("logout", HttpMethod.GET);
    
-    // Create an instans of the factory and create the default pages.
+    // Create an instance of the factory and create the default pages.
     HtmlFactory factory = new HtmlFactory();
-    myApp.addHtmlPage(factory.createHomePage());
-    myApp.setHomePageTitle("Welcome to home page");
+    myApp.addHtmlPage(factory.createHomePage(), "Welcome to home page!");
+    myApp.addHtmlPage(factory.createLoginPage(), "Login");
+    myApp.addHtmlPage(factory.createLogoutPage(), "Logout");
     
-    myApp.addHtmlPage(factory.createLoginPage());
-    myApp.setLoginPageTitle("Login");
-    
-    myApp.addHtmlPage(factory.createLogoutPage());
-    myApp.setLogoutPageTitle("Logout");
-
     myApp.run();
   }
 }
@@ -199,6 +229,88 @@ public class Main {
 }
 ```
 We can now navigate to 'http://localhost:8080/custom' to see the results.
+
+<br>
+
+<a id="controller"></a>
+### Add controller to the server
+
+To add a controller to the server we first need to create a new class **'MyController'** that
+extends the abstract **'Controller'** class. Then we need to define the **'handleGet'** and 
+**'handlePost'** methods before we pass the controller to the **'App'** instace.
+
+```java
+public class MyController extends Controller {
+
+    public MyController(String endpoint) {
+        super(endpoint);
+    }
+
+    @Override
+    protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
+        
+        // Build a simple html page with a login form that we pass
+        // to the 'render()' method.
+        HtmlPageBuilder builder = new HtmlPageBuilder();
+        builder.addHeader("Controller test");
+        builder.addForm(HttpMethod.POST, "username", "password");
+
+        render(builder.build(), request, response);
+    }
+
+    @Override
+    protected void handlePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        
+        // Check if the response from the form matches with these values.
+        if (username.equals("Jake") && password.equals("hello123"))
+            response.getWriter().println("<h3>Login success!</h3>");
+        else
+            response.getWriter().println("<h3>User do not exists.</h3>");
+
+    }
+}
+```
+
+Then we can add the following code in the Main.java file.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+
+        App app = new App();
+        MyController myController = new MyController("myController");
+        app.addController(myController);
+        app.run();
+    }
+}
+```
+We can now navigate to 'http://localhost:8080/myController' to see the results,
+and test that the **'GET'** and **'POST'** methods are working as expected.
+
+<br>
+
+<a id="response"></a>
+### Adding response to page
+
+To send a simple request to the server that returns a response, you can do 
+the following.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+
+        App app = new App();
+        app.addRoute("response", HttpMethod.GET);
+        app.addResponseToPage("Hello word!");
+        app.run();
+    }
+}
+```
+Navigate to 'http://localhost:8080/response' to see the response.
+
 
                                                     
    
