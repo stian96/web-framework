@@ -16,7 +16,7 @@ public class MyController extends Controller {
     }
 
     @Override
-    public void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
+    public void handleGet(HttpServletRequest request, HttpServletResponse response) throws IOException, HttpMethodException {
 
         HtmlPageBuilder builder = new HtmlPageBuilder();
         builder.addHeader("Controller test");
