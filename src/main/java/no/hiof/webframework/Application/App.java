@@ -1,10 +1,12 @@
 package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Parser.HtmlParser;
+import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Routes.Route;
 import no.hiof.webframework.Repository.UserDb;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
+
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,8 +21,11 @@ public class App {
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
     private String customPage, applicationTitle;
+
+    private Controller controller;
     private UserDb dbUser;
-    private String content;
+
+    private String response;
     protected int titleCounter;
 
     public App() {
@@ -42,6 +47,7 @@ public class App {
      * where all the html and css is pre-built.
      * @param htmlPage InputStream of the html page. You
      * can get this from the HtmlFactory.
+     * @param title Sets the title of the page.
      */
     public void addHtmlPage(InputStream htmlPage, String title)  {
         HtmlPages page = new HtmlPages();
@@ -65,6 +71,12 @@ public class App {
 
     }
 
+    /**
+     * Adds a custom html page that is connected to
+     * a user database.
+     * @param page The html page as a String.
+     * @param user User database from 'UserDb' class.
+     */
     public void addCustomHtmlPage(String page, UserDb user) {
         String title = HtmlParser.readCustomHtmlPage(page);
         setCustomPage(page);
@@ -72,9 +84,21 @@ public class App {
         htmlPageMap.put(title, null);
     }
 
-    public void addDefaultPage(String content) {
-        setContent(content);
-        htmlPageMap.put(content, null);
+    /**
+     * Adds a response as a String to a page with no html content.
+     * @param response The response to be delivered on the page.
+     */
+    public void addResponseToPage(String response) {
+        setResponse(response);
+        htmlPageMap.put(response, null);
+    }
+
+    /**
+     * Adds a controller to the server.
+     * @param controller The controller to be passed.
+     */
+    public void addController(Controller controller) {
+        this.controller = controller;
     }
 
     /**
@@ -88,6 +112,8 @@ public class App {
         ServerHandler server;
         if (applicationTitle != null)
             server = new ServerHandler(applicationTitle);
+        else if (controller != null)
+            server = new ServerHandler(controller);
         else
             server = new ServerHandler();
         server.initializeHandler(new Server(PORT), this);
@@ -110,12 +136,12 @@ public class App {
         return htmlPageMap;
     }
 
-    private void setContent(String content) {
-        this.content = content;
+    private void setResponse(String content) {
+        this.response = content;
     }
 
-    protected String getContent() {
-        return content;
+    protected String getResponse() {
+        return response;
     }
 
     protected String getCustomPage() {

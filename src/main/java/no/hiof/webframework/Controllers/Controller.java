@@ -10,6 +10,12 @@ import java.io.IOException;
 
 public abstract class Controller extends HttpServlet {
 
+    private final String endpoint;
+
+    public Controller(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
     protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
         switch (request.getMethod()) {
             case "GET" -> handleGet(request, response);
@@ -19,11 +25,11 @@ public abstract class Controller extends HttpServlet {
         }
     }
 
-    protected void handleGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, HttpMethodException {}
+    abstract void handleGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, HttpMethodException;
 
-    protected void handlePost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {}
+    abstract void handlePost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException;
 
     protected void handlePut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {}
@@ -69,6 +75,10 @@ public abstract class Controller extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException("Error in handling other requests", e);
         }
+    }
+
+    public String getEndpoint() {
+        return endpoint;
     }
 }
 

@@ -11,6 +11,10 @@ import java.io.IOException;
 
 public class MyController extends Controller {
 
+    public MyController(String endpoint) {
+        super(endpoint);
+    }
+
     @Override
     protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
 
