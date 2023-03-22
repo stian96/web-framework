@@ -46,6 +46,10 @@ public class App {
 
     private App() {}
 
+    /**
+     * Method used to create one instance of the application.
+     * @return The application object.
+     */
     public static App create() {
         return Objects.requireNonNullElseGet(instance, App::new);
     }
