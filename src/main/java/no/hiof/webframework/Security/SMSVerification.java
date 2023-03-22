@@ -1,10 +1,10 @@
 package no.hiof.webframework.Security;
-
+//Scenario 3.5
 import no.hiof.webframework.Interface.SMSCodeGenerator;
 /**
  * The SMS class generates and sends verification codes via SMS.
  */
-public class SMS implements SMSCodeGenerator {
+public class SMSVerification implements SMSCodeGenerator {
     /**
      * Generates a verification code and sends it to a given phone number.
      *
@@ -12,7 +12,7 @@ public class SMS implements SMSCodeGenerator {
      * @return the generated verification code.
      */
     @Override
-    public String generateCode(String phoneNumber) {
+    public String generateSMSCode(String phoneNumber) {
         // Generer og send kode via SMS
         return null;
     }

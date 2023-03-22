@@ -3,7 +3,9 @@ package no.hiof.webframework.Repository;
 
 /**
  * Class for adding entity fields(columns)
+ * to the database
  */
+//TODO: Move to the EntityModel class to allow for better control
 public class Field {
 
     private final String name;

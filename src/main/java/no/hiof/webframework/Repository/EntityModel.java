@@ -23,6 +23,11 @@ public class EntityModel implements EntityModelBuilder {
 
  */
 
+    /**
+     * Method for setting the table name in the schema
+     * @param tableName
+     * @return an instance of EntityModelBuilder
+     */
 
     @Override
     public EntityModelBuilder setTableName(String tableName) {
@@ -32,10 +37,10 @@ public class EntityModel implements EntityModelBuilder {
 
     /**
      * Method that adds a new field to the entity
-     * @param name
-     * @param type
+     * @param name of column
+     * @param type datatype of the column
      * @param nullable
-     * @return Field
+     * @return EntityModelBuilder instance
      */
     @Override
     public EntityModelBuilder addField(String name, String type, boolean nullable) {
@@ -47,7 +52,7 @@ public class EntityModel implements EntityModelBuilder {
 
     /**
      * Method for building a new EntityModel
-     * @return EntityModel
+     * @return instance of EntityModel
      */
     @Override
     public EntityModel build() {

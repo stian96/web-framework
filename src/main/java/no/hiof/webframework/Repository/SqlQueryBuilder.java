@@ -1,12 +1,14 @@
 package no.hiof.webframework.Repository;
 
-//Scenarios 4.4 - 4.6 can be made using this
+//Scenarios 4.4 and 4.6 can be made using this
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class for creating sql queries easily.
@@ -18,11 +20,21 @@ public class SqlQueryBuilder {
     private List<String> conditions = new ArrayList<>();
 
 
+    /**
+     * Method for adding a specified column to the list of columns
+     * @param columns
+     * @return instance of SqlQueryBuilder
+     */
     public SqlQueryBuilder select(String columns) {
         this.columns.addAll(Arrays.asList(columns));
         return this;
     }
 
+    /**
+     * Method for setting the table name in an SQL query
+     * @param tableName
+     * @return instance of SqlQueryBuilder
+     */
 
     public SqlQueryBuilder from(String tableName) {
         this.tableName = tableName;
@@ -30,7 +42,7 @@ public class SqlQueryBuilder {
     }
 
     /**
-     * Method for the where part of the
+     * Method that adds condition to the SQL query
      *
      * @param condition
      * @return SqlQueryBuilder instance
@@ -42,11 +54,12 @@ public class SqlQueryBuilder {
     }
 
     /**
-     * method to build the string
-     *
-     * @param conn
+     * Builds an SQL query as a PreparedStatement object and returns it
+     * @param conn a Connection object representing the database connection
+     * @return PreparedStatement object
+     * @throws SQLException if problem creating the object
      */
-    public PreparedStatement build(Connection conn) throws SQLException {
+    public ResultSet build(Connection conn) throws SQLException {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT");
         if (columns.isEmpty()) {
@@ -58,7 +71,20 @@ public class SqlQueryBuilder {
         if (!conditions.isEmpty()) {
             sb.append(" WHERE ").append(String.join(" AND ", conditions));
         }
-        return conn.prepareStatement(sb.toString());
+        PreparedStatement stmt = conn.prepareStatement(sb.toString());
+        return stmt.executeQuery();
 
     }
+
+    /**
+     * Method that insert data into a table
+     * @param tableName
+     * @param data
+     * @throws SQLException
+     */
+    public void insert(String tableName, Map<String, Object> data) throws SQLException {
+        //TODO:implementation of this
+    }
+
+
 }

@@ -1,5 +1,5 @@
 package no.hiof.webframework.Security;
-
+//Scenario 3.5
 import no.hiof.webframework.Interface.Authenticator;
 /**
  * The Authentication class handles user authentication.

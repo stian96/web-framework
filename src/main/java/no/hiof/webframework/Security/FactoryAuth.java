@@ -20,7 +20,7 @@ public class FactoryAuth {
      * @return an object that implements the SMSCodeGenerator interface.*/
     public static SMSCodeGenerator createSMSCodeGenerator(){
         //Returnerer en implementasjon av SMSCodeGenerator interfacet basert på gitte kriterier.
-        return new SMS();
+        return new SMSVerification();
     }
 
 
