@@ -15,20 +15,39 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import java.util.Map;
 
+/**
+ * This class represents the server handler that handles the server requests and responses.
+ */
 class ServerHandler {
     private String applicationTitle;
     private Controller controller;
 
+    /**
+     * Creates a new ServerHandler object with the specified application title.
+     * @param title the application title.
+     */
     protected ServerHandler(String title) {
         this.applicationTitle = title;
     }
 
+    /**
+     * Creates a new ServerHandler object with the specified controller.
+     * @param controller the controller object.
+     */
     protected ServerHandler(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Creates a new ServerHandler object.
+     */
     protected ServerHandler() {}
 
+    /**
+     * Initializes the server handler with the specified server and app objects.
+     * @param server the server object.
+     * @param app the app object.
+     */
     protected void initializeHandler(Server server, App app) {
         try {
             ServletContextHandler context = new ServletContextHandler();
@@ -111,6 +130,10 @@ class ServerHandler {
         server.join();
     }
 
+    /**
+     * Sets the title of the application.
+     * @param title The title to be set as a string.
+     */
     public void setTitle(String title) {
         this.applicationTitle = title;
     }
