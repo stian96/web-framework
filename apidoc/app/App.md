@@ -12,6 +12,7 @@ context handler with a map of routes and HTML pages.
     * [public void addRoute(String endpoint, HttpMethod httpMethod)](#addRoute)
     * [public void addHtmlPage(InputStream htmlPage)](#addHtmlPage)
     * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
+    * [public void addResponseToPage(String response)](#addResponse)
     * [public void run()](#run)
 * [Getting started](#getting_started)
     * [creating a simple application with a title](#simple_application)
@@ -35,13 +36,21 @@ The port number that the embedded Jetty server listens on.
 
 A **'LinkedHashMap'** that maps a HTML page title to a **'HtmlPages'** object.
 
-#### 'private String applicationTitle, loginPageTitle, homePageTitle, logoutPageTitle'
+#### 'private String applicationTitle'
 
-The title of the application, login page, home page, and logout page respectively.
+The title of the application, this is found at route "/".
 
 #### 'private String customPage'
 
 A string that holds the custom HTML page.
+
+### 'private UserDb userDb'
+
+A user database object that can be used to get, save and delete users.
+
+### 'private String response'
+
+String that is used to deliver a response to an empty page.
    
 #### 'private int titleCounter = 0'
 
@@ -65,13 +74,14 @@ Adds a new route to the application.
 <br>
    
 <a id="addHtmlPage"></a>
-#### 'public void addHtmlPage(InputStream htmlPage)'
+#### 'public void addHtmlPage(InputStream htmlPage, String title)'
 
 Adds a ready-made HTML page to the specified route, where all the HTML and CSS is pre-built.
    
 | Parameter   | Type          | Description                                                             |
 |:----------- |:--------------|:------------------------------------------------------------------------|
 | 'htmlPage'  | 'InputStream' | An input stream of the HTML page. Can get this from the **HtmlFactory**.|
+| 'title'     | 'String'      ' Sets the title of the page.                                             |
  
 <br>
 
@@ -83,6 +93,17 @@ Adds a custom made HTML page to the application.
 | Parameter   | Type          | Description                                                |
 |:----------- |:--------------|:-----------------------------------------------------------|
 | 'page'      | 'String'      | The HTML page as a string. Can be obtained from the build() <br> method in the **HtmlPageBuilder** class.| 
+
+<br>
+
+<a id="addResponse"></a>
+### 'public void addResponseToPage(String response)'
+
+Adds a response as a **'String'** to an empty page.
+
+| Parameter   | Type          | Description                                                |
+|:----------- |:--------------|:-----------------------------------------------------------|
+| 'response'  | 'String'      | Adds a response to an empty page with no html content.     | 
 
 <br>
    
@@ -133,17 +154,12 @@ public class Main {
     myApp.addRoute("login", HttpMethod.GET);
     myApp.addRoute("logout", HttpMethod.GET);
    
-    // Create an instans of the factory and create the default pages.
+    // Create an instance of the factory and create the default pages.
     HtmlFactory factory = new HtmlFactory();
-    myApp.addHtmlPage(factory.createHomePage());
-    myApp.setHomePageTitle("Welcome to home page");
+    myApp.addHtmlPage(factory.createHomePage(), "Welcome to home page!");
+    myApp.addHtmlPage(factory.createLoginPage(), "Login");
+    myApp.addHtmlPage(factory.createLogoutPage(), "Logout");
     
-    myApp.addHtmlPage(factory.createLoginPage());
-    myApp.setLoginPageTitle("Login");
-    
-    myApp.addHtmlPage(factory.createLogoutPage());
-    myApp.setLogoutPageTitle("Logout");
-
     myApp.run();
   }
 }
