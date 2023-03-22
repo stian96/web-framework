@@ -84,7 +84,7 @@ Adds a ready-made HTML page to the specified route, where all the HTML and CSS i
 | Parameter   | Type          | Description                                                             |
 |:----------- |:--------------|:------------------------------------------------------------------------|
 | 'htmlPage'  | 'InputStream' | An input stream of the HTML page. Can get this from the **HtmlFactory**.|
-| 'title'     | 'String'      ' Sets the title of the page.                                             |
+| 'title'     | 'String'      | Sets the title of the page.                                             |
  
 <br>
 
@@ -237,7 +237,7 @@ We can now navigate to 'http://localhost:8080/custom' to see the results.
 
 To add a controller to the server we first need to create a new class **'MyController'** that
 extends the abstract **'Controller'** class. Then we need to define the **'handleGet'** and 
-**'handlePost'** methods before we pass the controller to the **'App'** instace.
+**'handlePost'** methods before we pass the controller to the **'App'** instance.
 
 ```java
 public class MyController extends Controller {
