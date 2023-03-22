@@ -4,27 +4,28 @@ import no.hiof.webframework.Exceptions.HttpMethodException;
 import no.hiof.webframework.Interface.Builders.IHtmlBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Uses the Builder pattern to create custom html-pages.
+ * This class implements the IHtmlBuilder interface
+ * and can be used to build a custom HTML page.
  */
 public class HtmlPageBuilder implements IHtmlBuilder {
     private final StringBuilder content  = new StringBuilder();
     private final List<HttpMethod> httpMethods = new ArrayList<>();
 
+    /**
+     * Constructor that sets up the default code for the HTML page
+     * and fills the HttpMethods list.
+     */
     public HtmlPageBuilder() {
         defaultCode();
         fillHttpList();
     }
-
 
     private void fillHttpList() {
         httpMethods.add(HttpMethod.GET);
@@ -97,8 +98,10 @@ public class HtmlPageBuilder implements IHtmlBuilder {
 
     /**
      * Adds a html form in the main-section of the html-page.
-     * @param method Type of Http-method (e.g. GET, POST, PUT).
+     *
+     * @param method     Type of Http-method (e.g. GET, POST, PUT).
      * @param formFields Fields to be displayed in the form.
+     * @throws HttpMethodException If the Http-method is not GET or POST.
      */
     @Override
     public void addForm(HttpMethod method, String... formFields) throws HttpMethodException {

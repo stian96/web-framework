@@ -47,7 +47,7 @@ public class App {
     private App() {}
 
     /**
-     * Method used to create one instance of the application.
+     * Method used to create only one instance of the App-class.
      * @return The application object.
      */
     public static App create() {
