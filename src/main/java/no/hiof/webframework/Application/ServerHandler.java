@@ -59,7 +59,7 @@ class ServerHandler {
 
             if (!checkForHtmlPage(app)) {
                 addServletIfNeeded(keySet, uri, context, app);
-                app.titleCounter++;
+                app.pageCounter++;
             }
             else {
                 throw new NoHtmlContentException("Need to add html pages to the application.");
@@ -70,9 +70,9 @@ class ServerHandler {
     private void addServletIfNeeded(String titleSet, String uri, ServletContextHandler context, App app) {
         String [] titles = mapSetToArray(titleSet);
 
-        if (app.titleCounter <= app.getHtmlPageMap().size() - 1) {
-            HtmlPages page = app.getHtmlPageMap().get(titles[app.titleCounter].trim());
-            ServletHolder servlet = getServlet(titles[app.titleCounter].trim(), page, app);
+        if (app.pageCounter <= app.getHtmlPageMap().size() - 1) {
+            HtmlPages page = app.getHtmlPageMap().get(titles[app.pageCounter].trim());
+            ServletHolder servlet = getServlet(titles[app.pageCounter].trim(), page, app);
             context.addServlet(servlet, uri);
         }
     }
