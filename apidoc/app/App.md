@@ -13,6 +13,7 @@ context handler with a map of routes and HTML pages.
     * [public void addHtmlPage(InputStream htmlPage)](#addHtmlPage)
     * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
     * [public void addResponseToPage(String response)](#addResponse)
+    * [public void addController(Controller controller)](#addController)
     * [public void run()](#run)
 * [Getting started](#getting_started)
     * [creating a simple application with a title](#simple_application)
@@ -104,6 +105,17 @@ Adds a response as a **'String'** to an empty page.
 | Parameter   | Type          | Description                                                |
 |:----------- |:--------------|:-----------------------------------------------------------|
 | 'response'  | 'String'      | Adds a response to an empty page with no html content.     | 
+
+<br>
+
+<a id="addController"></a>
+### 'public void addController(Controller controller)'
+
+Adds a user-created controller to the server.
+
+| Parameter    | Type          | Description                                   |
+|:-----------  |:--------------|:----------------------------------------------|
+| 'controller' | 'Controller'  | Adds a user-defined controller to the server. |
 
 <br>
    
@@ -215,6 +227,66 @@ public class Main {
 }
 ```
 We can now navigate to 'http://localhost:8080/custom' to see the results.
+
+<br>
+
+### Add controller to the server
+
+To add a controller to the server we first need to create a new class **'MyController'** that
+extends the abstract **'Controller'** class. Then we need to define the **'handleGet'** and 
+**'handlePost'** methods before we pass the controller to the **'App'** instace.
+
+```java
+public class MyController extends Controller {
+
+    public MyController(String endpoint) {
+        super(endpoint);
+    }
+
+    @Override
+    protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
+        
+        // Build a simple html page with a login form that we pass
+        // to the 'render()' method.
+        HtmlPageBuilder builder = new HtmlPageBuilder();
+        builder.addHeader("Controller test");
+        builder.addForm(HttpMethod.POST, "username", "password");
+
+        render(builder.build(), request, response);
+    }
+
+    @Override
+    protected void handlePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        
+        // Check if the response from the form matches with these values.
+        if (username.equals("Jake") && password.equals("hello123"))
+            response.getWriter().println("<h3>Login success!</h3>");
+        else
+            response.getWriter().println("<h3>User do not exists.</h3>");
+
+    }
+}
+```
+
+Then we can add the following code in the Main.java file.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+
+        App app = new App();
+        MyController myController = new MyController("myController");
+        app.addController(myController);
+        app.run();
+    }
+}
+```
+We can now navigate to 'http://localhost:8080/myController' to see the results,
+and test that the **'GET'** and **'POST'** methods are working as expected.
+
 
                                                     
    
