@@ -1,5 +1,5 @@
 package no.hiof.webframework.Security;
-
+//Scenario 3.5
 import no.hiof.webframework.Interface.Authenticator;
 import no.hiof.webframework.Interface.SMSCodeGenerator;
 /**
@@ -39,7 +39,7 @@ public class LogInAuthentication {
         if (!authenticated) {
             return false;
         }
-        String generatedCode = codeGenerator.generateCode(phoneNumber);
+        String generatedCode = codeGenerator.generateSMSCode(phoneNumber);
         return (code.equals(generatedCode));
 
     }
