@@ -1,6 +1,6 @@
 package no.hiof.webframework.Security;
 //Example class of an EncryptionAlgorithm
-//Scenario 3.5-eksempel.
+//Scenario 3.3-eksempel.
 import no.hiof.webframework.Interface.PasswordEncryptionAlgorithm;
 /**
  Implementation of the PasswordEncryptionAlgorithm interface that encrypts passwords using the BCrypt algorithm.
