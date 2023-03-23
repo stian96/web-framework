@@ -6,6 +6,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+
+ The SqlConnection class implements the RepositoryConnection interface and provides a concrete implementation of a
+ database connection for SQL databases. It uses JDBC drivers to connect to the database and provides methods for
+ connecting and disconnecting from the database.
+ */
 public class SqlConnection implements RepositoryConnection {
     private String url;
     private String username;

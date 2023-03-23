@@ -22,7 +22,7 @@ public class SqlQueryBuilder {
 
     /**
      * Method for adding a specified column to the list of columns
-     * @param columns
+     * @param columns to be selected
      * @return instance of SqlQueryBuilder
      */
     public SqlQueryBuilder select(String columns) {
@@ -32,7 +32,7 @@ public class SqlQueryBuilder {
 
     /**
      * Method for setting the table name in an SQL query
-     * @param tableName
+     * @param tableName the table where the selected columns are from
      * @return instance of SqlQueryBuilder
      */
 
@@ -44,7 +44,7 @@ public class SqlQueryBuilder {
     /**
      * Method that adds condition to the SQL query
      *
-     * @param condition
+     * @param condition the conditions by which to sort the query
      * @return SqlQueryBuilder instance
      */
 
@@ -77,9 +77,13 @@ public class SqlQueryBuilder {
     }
 
     /**
-     * Method that insert data into a table
-     * @param tableName
-     * @param data
+     * Inserts data into a table in the database specified by the given table name and data.
+     * The data is passed as a Map where the keys represent the column names and the values
+     * represent the corresponding
+     * values to be inserted in those columns.
+     * @param tableName the name of the table where the data is to be inserted
+     * @param data data a Map where the keys represent the column names and the values
+     * represent the corresponding values to be inserted in those columns
      * @throws SQLException
      */
     public void insert(String tableName, Map<String, Object> data) throws SQLException {
