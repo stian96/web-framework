@@ -1,6 +1,6 @@
 package no.hiof.webframework.Servlet.Default;
 
-import no.hiof.webframework.Frontend.HtmlPages;
+import no.hiof.webframework.Application.Frontend.HtmlPages;
 
 import java.io.InputStream;
 
