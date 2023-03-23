@@ -1,6 +1,6 @@
 package no.hiof.webframework.Servlet.Default;
 
-import no.hiof.webframework.Security.Frontend.HtmlPages;
+import no.hiof.webframework.Frontend.HtmlPages;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
