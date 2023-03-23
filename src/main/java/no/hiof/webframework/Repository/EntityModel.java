@@ -14,15 +14,6 @@ public class EntityModel implements EntityModelBuilder {
     private List<Field> fields = new ArrayList<>();
 
 
-/*
-    public EntityModel(String tableName, List<Field> fields) {
-        this.tableName = tableName;
-
-    }
-
-
- */
-
     /**
      * Method for setting the table name in the schema
      * @param tableName the name of the table for the entity model
