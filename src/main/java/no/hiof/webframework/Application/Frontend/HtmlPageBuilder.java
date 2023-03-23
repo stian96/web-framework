@@ -1,30 +1,31 @@
-package no.hiof.webframework.Frontend;
+package no.hiof.webframework.Application.Frontend;
 
 import no.hiof.webframework.Exceptions.HttpMethodException;
 import no.hiof.webframework.Interface.Builders.IHtmlBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Uses the Builder pattern to create custom html-pages.
+ * This class implements the IHtmlBuilder interface
+ * and can be used to build a custom HTML page.
  */
 public class HtmlPageBuilder implements IHtmlBuilder {
     private final StringBuilder content  = new StringBuilder();
     private final List<HttpMethod> httpMethods = new ArrayList<>();
 
+    /**
+     * Constructor that sets up the default code for the HTML page
+     * and fills the HttpMethods list.
+     */
     public HtmlPageBuilder() {
         defaultCode();
         fillHttpList();
     }
-
 
     private void fillHttpList() {
         httpMethods.add(HttpMethod.GET);
@@ -97,33 +98,39 @@ public class HtmlPageBuilder implements IHtmlBuilder {
 
     /**
      * Adds a html form in the main-section of the html-page.
-     * @param method Type of Http-method (e.g. GET, POST, PUT).
+     *
+     * @param method     Type of Http-method (e.g. GET, POST, PUT).
      * @param formFields Fields to be displayed in the form.
      */
     @Override
-    public void addForm(HttpMethod method, String... formFields) throws HttpMethodException {
+    public void addForm(HttpMethod method, String... formFields) {
         StringBuilder form = new StringBuilder();
 
-        if (!httpMethods.contains(method))
-            throw new HttpMethodException("Error: http-method must be GET or POST.");
+        try {
+            if (!httpMethods.contains(method))
+                throw new HttpMethodException("Error: http-method must be GET or POST.");
 
-        switch (method) {
-            case GET: form.append("<form method='GET'>");
-            case POST: form.append("<form method='POST'>");
-            case PUT: form.append("<form method='PUT'>");
+            switch (method) {
+                case GET: form.append("<form method='GET'>");
+                case POST: form.append("<form method='POST'>");
+                case PUT: form.append("<form method='PUT'>");
+            }
+            for (String field : formFields) {
+                form.append("<label for='").append(field).append("'>").append(field).append("</label>");
+                form.append("<input type='")
+                        .append(field).append("' id='")
+                        .append(field).append("' name='")
+                        .append(field).append("' required><br>");
+            }
+            form.append("<input type='submit' value='submit'>").append("</form>");
+            content.replace(
+                    content.indexOf("<!--FORM_PLACEHOLDER-->"),
+                    content.indexOf("<!--FORM_PLACEHOLDER-->") + "<!--FORM_PLACEHOLDER-->".length(),
+                    form.toString());
         }
-        for (String field : formFields) {
-            form.append("<label for='").append(field).append("'>").append(field).append("</label>");
-            form.append("<input type='")
-                    .append(field).append("' id='")
-                    .append(field).append("' name='")
-                    .append(field).append("' required><br>");
+        catch (HttpMethodException exception) {
+            System.out.println(exception.getMessage());
         }
-        form.append("<input type='submit' value='submit'>").append("</form>");
-        content.replace(
-                content.indexOf("<!--FORM_PLACEHOLDER-->"),
-                content.indexOf("<!--FORM_PLACEHOLDER-->") + "<!--FORM_PLACEHOLDER-->".length(),
-                form.toString());
     }
 
     @Override

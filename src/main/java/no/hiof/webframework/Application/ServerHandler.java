@@ -1,8 +1,8 @@
 package no.hiof.webframework.Application;
+import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Routes.Route;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
-import no.hiof.webframework.Frontend.HtmlPages;
 import no.hiof.webframework.Servlet.ApplicationServlet;
 import no.hiof.webframework.Servlet.CustomServlet;
 import no.hiof.webframework.Servlet.Default.HomeServlet;
@@ -15,20 +15,39 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import java.util.Map;
 
+/**
+ * This class represents the server handler that handles the server requests and responses.
+ */
 class ServerHandler {
     private String applicationTitle;
     private Controller controller;
 
+    /**
+     * Creates a new ServerHandler object with the specified application title.
+     * @param title the application title.
+     */
     protected ServerHandler(String title) {
         this.applicationTitle = title;
     }
 
+    /**
+     * Creates a new ServerHandler object with the specified controller.
+     * @param controller the controller object.
+     */
     protected ServerHandler(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Creates a new ServerHandler object.
+     */
     protected ServerHandler() {}
 
+    /**
+     * Initializes the server handler with the specified server and app objects.
+     * @param server the server object.
+     * @param app the app object.
+     */
     protected void initializeHandler(Server server, App app) {
         try {
             ServletContextHandler context = new ServletContextHandler();
@@ -59,7 +78,7 @@ class ServerHandler {
 
             if (!checkForHtmlPage(app)) {
                 addServletIfNeeded(keySet, uri, context, app);
-                app.titleCounter++;
+                app.pageCounter++;
             }
             else {
                 throw new NoHtmlContentException("Need to add html pages to the application.");
@@ -70,9 +89,9 @@ class ServerHandler {
     private void addServletIfNeeded(String titleSet, String uri, ServletContextHandler context, App app) {
         String [] titles = mapSetToArray(titleSet);
 
-        if (app.titleCounter <= app.getHtmlPageMap().size() - 1) {
-            HtmlPages page = app.getHtmlPageMap().get(titles[app.titleCounter].trim());
-            ServletHolder servlet = getServlet(titles[app.titleCounter].trim(), page, app);
+        if (app.pageCounter <= app.getHtmlPageMap().size() - 1) {
+            HtmlPages page = app.getHtmlPageMap().get(titles[app.pageCounter].trim());
+            ServletHolder servlet = getServlet(titles[app.pageCounter].trim(), page, app);
             context.addServlet(servlet, uri);
         }
     }
@@ -111,6 +130,10 @@ class ServerHandler {
         server.join();
     }
 
+    /**
+     * Sets the title of the application.
+     * @param title The title to be set as a string.
+     */
     public void setTitle(String title) {
         this.applicationTitle = title;
     }

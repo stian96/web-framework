@@ -1,10 +1,9 @@
 package no.hiof.webframework.Controllers;
 
 import no.hiof.webframework.Exceptions.HttpMethodException;
-import no.hiof.webframework.Frontend.HtmlPageBuilder;
+import no.hiof.webframework.Application.Frontend.HtmlPageBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class MyController extends Controller {
     }
 
     @Override
-    public void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, HttpMethodException {
+    public void handleGet(HttpServletRequest request, HttpServletResponse response) throws IOException, HttpMethodException {
 
         HtmlPageBuilder builder = new HtmlPageBuilder();
         builder.addHeader("Controller test");
