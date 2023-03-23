@@ -47,11 +47,11 @@ The title of the application, this is found at route "/".
 
 A string that holds the custom HTML page.
 
-### 'private UserDb userDb'
+#### 'private UserDb userDb'
 
 A user database object that can be used to get, save and delete users.
 
-### 'private String response'
+#### 'private String response'
 
 String that is used to deliver a response to an empty page.
    
@@ -100,7 +100,7 @@ Adds a custom made HTML page to the application.
 <br>
 
 <a id="addResponse"></a>
-### 'public void addResponseToPage(String response)'
+#### 'public void addResponseToPage(String response)'
 
 Adds a response as a **'String'** to an empty page.
 
@@ -111,7 +111,7 @@ Adds a response as a **'String'** to an empty page.
 <br>
 
 <a id="addController"></a>
-### 'public void addController(Controller controller)'
+#### 'public void addController(Controller controller)'
 
 Adds a user-created controller to the server.
 
