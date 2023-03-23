@@ -1,4 +1,5 @@
 package no.hiof.webframework.Application.Frontend;
+
 import no.hiof.webframework.Interface.Builders.AbstractHtmlFactory;
 import java.io.InputStream;
 
