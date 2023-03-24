@@ -11,7 +11,7 @@ public class FactoryAuth {
      * Creates an object that implements Authenticator interface.
      * @return  an object that implements the Authenticator interface*/
     public static Authenticator createAuthenticator(){
-        //Returnerer en implementasjon av Authenticator interfacet basert på gitte kriterier.
+        //Returnerer en implementasjon av Authenticator interfacet basert paa gitte kriterier.
         return new Authentication();
     }
 
@@ -19,7 +19,7 @@ public class FactoryAuth {
      * Creates an object that implements the SMSCodeGenerator interface.
      * @return an object that implements the SMSCodeGenerator interface.*/
     public static SMSCodeGenerator createSMSCodeGenerator(){
-        //Returnerer en implementasjon av SMSCodeGenerator interfacet basert på gitte kriterier.
+        //Returnerer en implementasjon av SMSCodeGenerator interfacet basert paa gitte kriterier.
         return new SMSVerification();
     }
 

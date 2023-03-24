@@ -1,5 +1,5 @@
 package no.hiof.webframework.Security;
-//Scenario 3.3 & 3.4
+//Scenario 3.3 og 3.4
 public class User {
     private String username;
     private String passwordHash;
