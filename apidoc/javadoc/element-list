@@ -1,0 +1,17 @@
+no.hiof.webframework
+no.hiof.webframework.Application
+no.hiof.webframework.Application.Chat
+no.hiof.webframework.Application.Chat.Enum
+no.hiof.webframework.Application.Frontend
+no.hiof.webframework.Application.Logging
+no.hiof.webframework.Application.Parser
+no.hiof.webframework.Application.Routes
+no.hiof.webframework.Controllers
+no.hiof.webframework.Data
+no.hiof.webframework.Exceptions
+no.hiof.webframework.Interface
+no.hiof.webframework.Interface.Builders
+no.hiof.webframework.Repository
+no.hiof.webframework.Security
+no.hiof.webframework.Servlet
+no.hiof.webframework.Servlet.Default
