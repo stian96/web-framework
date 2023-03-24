@@ -216,6 +216,10 @@ public class App {
         return dbUser;
     }
 
+    /**
+     * Returns the instance of the App object.
+     * @return The instance to be returned.
+     */
     public App getInstance() {
         return instance;
     }
