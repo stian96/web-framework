@@ -38,6 +38,11 @@ class ServerHandler {
         this.controller = controller;
     }
 
+    protected ServerHandler(String title, Controller controller) {
+        this.applicationTitle = title;
+        this.controller = controller;
+    }
+
     /**
      * Creates a new ServerHandler object.
      */
@@ -81,7 +86,10 @@ class ServerHandler {
                 app.pageCounter++;
             }
             else {
-                throw new NoHtmlContentException("Need to add html pages to the application.");
+                throw new NoHtmlContentException("" +
+                        "Application needs to have the same number of html-pages, " +
+                        "as routes defined." +
+                        "");
             }
         }
     }
@@ -122,7 +130,7 @@ class ServerHandler {
     }
 
     private boolean checkForHtmlPage(App app) {
-        return app.getHtmlPageMap().size() == 0;
+        return app.getHtmlPageMap().size() < app.getRouteMap().size();
     }
 
     private void startServer(Server server) throws Exception {

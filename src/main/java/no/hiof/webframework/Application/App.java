@@ -132,14 +132,22 @@ public class App {
         Logger.turnLoggerOFF();
         printUrlInformation();
 
-        ServerHandler server;
-        if (applicationTitle != null)
-            server = new ServerHandler(applicationTitle);
-        else if (controller != null)
-            server = new ServerHandler(controller);
-        else
-            server = new ServerHandler();
+        ServerHandler server = constructorHandler();
         server.initializeHandler(new Server(PORT), this);
+    }
+
+    private ServerHandler constructorHandler() {
+        if (applicationTitle != null && controller == null)
+            return new ServerHandler(applicationTitle);
+
+        else if (controller != null && applicationTitle == null)
+            return new ServerHandler(controller);
+
+        else if (controller == null)
+            return new ServerHandler();
+
+        else
+            return new ServerHandler(applicationTitle, controller);
     }
 
     private void printUrlInformation() {
