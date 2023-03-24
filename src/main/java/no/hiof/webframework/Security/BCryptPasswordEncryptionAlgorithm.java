@@ -13,8 +13,8 @@ public class BCryptPasswordEncryptionAlgorithm implements PasswordEncryptionAlgo
      * @param salt A byte array representing the salt to be used in the encryption process.
      */
     public byte[] encryptPw(String password, byte[] salt) {
-    // Implementer logikken for å kryptere passordet med bcrypt-algoritmen
-    // Satt til retun salt nå, fordi den mangler full implementering
+    // Implementer logikken for aa kryptere passordet med bcrypt-algoritmen
+    // Satt til retun salt naa, fordi den mangler full implementering
         return salt;
     }
 }

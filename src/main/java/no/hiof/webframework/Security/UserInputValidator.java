@@ -10,7 +10,7 @@ public class UserInputValidator {
         return (usernameLength >= 5 && usernameLength <= 20);
     }
 
-    // Validerer passord ved å sjekke lengden av feltet og om det inneholder kun alfanumeriske tegn
+    // Validerer passord ved aa sjekke lengden av feltet og om det inneholder kun alfanumeriske tegn
 
     /**Validates password by checking the length of the field and whether it contains only alphanumeric characters
      *@param password The password that needs to be validated*/
