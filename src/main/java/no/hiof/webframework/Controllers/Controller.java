@@ -89,7 +89,7 @@ public abstract class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             handleRequest(request, response);
         } catch (Exception e) {
