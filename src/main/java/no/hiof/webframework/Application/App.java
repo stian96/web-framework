@@ -11,7 +11,7 @@ import org.eclipse.jetty.server.Server;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
+
 
 /**
  * The App class is the core class of the application, responsible for managing
@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 public class App {
 
-    private static final App instance = null;
+    private static App instance = null;
     private static final int PORT = 8080;
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
@@ -45,14 +45,18 @@ public class App {
      */
     protected int pageCounter;
 
-    private App() {}
+    // Constructor used for testing. Will be set to private later.
+    public App() {}
 
     /**
      * Method used to create only one instance of the App-class.
      * @return The application object.
      */
     public static App create() {
-        return Objects.requireNonNullElseGet(instance, App::new);
+        if (instance == null) {
+            instance = new App();
+        }
+        return instance;
     }
 
     /**
@@ -60,6 +64,7 @@ public class App {
      * @param endpoint URI value of the URL.
      * @param httpMethod Method to be used (e.g. GET, POST, PUT etc.)
      */
+
     public void addRoute(String endpoint, HttpMethod httpMethod) {
         Route route = new Route(endpoint, httpMethod);
         routeMap.put(endpoint, route);
@@ -163,7 +168,7 @@ public class App {
      * Getter used to retrieve the route map collection.
      * @return A 'LinkedHashMap' containing Strings and Route-objects.
      */
-    protected Map<String, Route> getRouteMap() {
+    public Map<String, Route> getRouteMap() {
         return routeMap;
     }
 
@@ -171,7 +176,7 @@ public class App {
      * Getter used to retrieve the html-page map collection.
      * @return The 'LinkedHashMap' containing Strings and HtmlPages.
      */
-    protected Map<String, HtmlPages> getHtmlPageMap() {
+    public Map<String, HtmlPages> getHtmlPageMap() {
         return htmlPageMap;
     }
 
@@ -209,6 +214,10 @@ public class App {
      */
     protected UserDb getDbUser() {
         return dbUser;
+    }
+
+    public App getInstance() {
+        return instance;
     }
 }
 

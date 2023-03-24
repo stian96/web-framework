@@ -9,10 +9,5 @@ import org.eclipse.jetty.http.HttpMethod;
 public class Main {
     public static void main(String[] args) {
 
-        App myApp = App.create();
-        myApp.addRoute("default", HttpMethod.GET);
-        myApp.addResponseToPage("This is my first response to a empty page.");
-        myApp.run();
-
     }
 }
