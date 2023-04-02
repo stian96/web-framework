@@ -30,7 +30,6 @@ import java.util.Map;
 public class App {
 
     private static App instance = null;
-    private static final int PORT = 8080;
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
     private String customPage, applicationTitle;
@@ -143,10 +142,9 @@ public class App {
      */
     public void run() {
         Logger.turnLoggerOFF();
-        printUrlInformation();
 
         ServerHandler server = constructorHandler();
-        server.initializeHandler(new Server(PORT), this);
+        server.initializeHandler(new Server(8080), this);
     }
 
     private ServerHandler constructorHandler() {
@@ -161,11 +159,6 @@ public class App {
 
         else
             return new ServerHandler(applicationTitle, controller);
-    }
-
-    private void printUrlInformation() {
-        System.out.print("Listening on port: ");
-        System.out.println("http://localhost:" + PORT + "/");
     }
 
     private void setCustomPage(String content) {

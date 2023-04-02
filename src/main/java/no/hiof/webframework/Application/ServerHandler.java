@@ -19,6 +19,7 @@ import java.util.Map;
  * This class represents the server handler that handles the server requests and responses.
  */
 class ServerHandler {
+    private static final int PORT = 8080;
     private String applicationTitle;
     private Controller controller;
 
@@ -67,8 +68,10 @@ class ServerHandler {
                 context.addServlet(new ServletHolder(controller), "/" + controller.getEndpoint());
             }
 
+            printUrlInformation();
             server.setHandler(context);
             startServer(server);
+
         }
         catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
@@ -136,6 +139,11 @@ class ServerHandler {
     private void startServer(Server server) throws Exception {
         server.start();
         server.join();
+    }
+
+    private void printUrlInformation() {
+        System.out.print("Listening on port: ");
+        System.out.println("http://localhost:" + PORT + "/");
     }
 
     /**
