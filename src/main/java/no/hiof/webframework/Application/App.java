@@ -40,7 +40,7 @@ public class App {
 
     private String response;
     /**
-     * The 'pageCounter' is used to controller how many
+     * The 'pageCounter' is used to control how many
      * pages that the server needs to handle.
      */
     protected int pageCounter;
@@ -59,6 +59,7 @@ public class App {
         return instance;
     }
 
+    // TODO: Need to update this documentation to include the exceptions.
     /**
      * Adds a new route to the application.
      * @param endpoint URI value of the URL.
@@ -67,6 +68,13 @@ public class App {
 
     public void addRoute(String endpoint, HttpMethod httpMethod) {
         Route route = new Route(endpoint, httpMethod);
+
+        if (endpoint == null)
+            throw new NullPointerException("Endpoint cannot be null!");
+
+        else if (httpMethod == null)
+            throw new NullPointerException("HttpMethod cannot be null!");
+
         routeMap.put(endpoint, route);
     }
 

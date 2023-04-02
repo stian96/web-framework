@@ -3,6 +3,7 @@ package Application;
 import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Application.Frontend.HtmlFactory;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
+import no.hiof.webframework.Application.Routes.Route;
 import org.eclipse.jetty.http.HttpMethod;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,82 @@ class AppTest {
         // verify
         Assertions.assertNotNull(app.getRouteMap());
         assertTrue(app.getRouteMap().containsKey("login"));
+    }
+
+    @Test
+    void testAddRoute_handlesNullEndpoint() {
+        // setup
+        App app = new App();
+        HttpMethod method = HttpMethod.GET;
+
+        // action & verify
+        Assertions.assertThrows(NullPointerException.class, () -> app.addRoute(null, method));
+    }
+
+    @Test
+    void testAddRoute_handlesNullHttpMethod() {
+        // setup
+        App app = new App();
+        String endpoint = "login";
+
+        // action & verify
+        Assertions.assertThrows(NullPointerException.class, () -> app.addRoute(endpoint, null));
+    }
+
+    @Test
+    void testAddRoute_createsRouteWithCorrectValues() {
+        // setup
+        App app = new App();
+        HttpMethod method = HttpMethod.GET;
+        String endpoint = "login";
+
+        // action
+        app.addRoute(endpoint, method);
+
+        // verify
+        Map<String, Route> routeMap = app.getRouteMap();
+        Assertions.assertNotNull(routeMap);
+        Assertions.assertTrue(routeMap.containsKey(endpoint));
+
+        Route route = routeMap.get(endpoint);
+        Assertions.assertEquals(method, route.getHttpMethod());
+    }
+
+    @Test
+    void testAddRoute_addsNewRouteToRouteMap() {
+        // setup
+        App app = new App();
+        HttpMethod method = HttpMethod.GET;
+        String endpoint1 = "login";
+        String endpoint2 = "register";
+
+        // action
+        app.addRoute(endpoint1, method);
+        app.addRoute(endpoint2, method);
+
+        // verify
+        Map<String, Route> routeMap = app.getRouteMap();
+        Assertions.assertNotNull(routeMap);
+        Assertions.assertTrue(routeMap.containsKey(endpoint1));
+        Assertions.assertTrue(routeMap.containsKey(endpoint2));
+    }
+
+    @Test
+    void testAddRoute_doesNotAddExistingRouteToRouteMap() {
+        // setup
+        App app = new App();
+        HttpMethod method = HttpMethod.GET;
+        String endpoint = "login";
+        app.addRoute(endpoint, method);
+
+        // action
+        app.addRoute(endpoint, method);
+
+        // verify
+        Map<String, Route> routeMap = app.getRouteMap();
+        Assertions.assertNotNull(routeMap);
+        Assertions.assertTrue(routeMap.containsKey(endpoint));
+        Assertions.assertEquals(1, routeMap.size());
     }
 
     @Test
