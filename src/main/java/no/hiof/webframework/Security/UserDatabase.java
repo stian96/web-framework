@@ -4,7 +4,7 @@ public class UserDatabase {
     /**
      * Constructor for the UserDatabase class.
      */
-    public void UserDatabase() {
+    protected void UserDatabase() {
     }
 
 
@@ -16,7 +16,7 @@ public class UserDatabase {
      */
 
     // public boolean userExists(String username) {}
-    public void userExists(String username) {
+    protected void userExists(String username) {
 
     }
 
@@ -26,7 +26,7 @@ public class UserDatabase {
      * @param user the user to add to the database
      */
 
-    public void addUser(User user)  {
+    protected void addUser(User user)  {
 
     }
 

@@ -33,7 +33,7 @@ public class LogInAuthentication {
      * @param code the verification code to check against the generated code.
      * @return true if the user is successfully authenticated and verified, false otherwise.
      */
-    public boolean login(String username, String password, String phoneNumber, String code) {
+    protected boolean login(String username, String password, String phoneNumber, String code) {
         boolean authenticated = auth.authenticateLogIn(username, password);
 
         if (!authenticated) {
