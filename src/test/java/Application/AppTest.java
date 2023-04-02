@@ -48,7 +48,7 @@ class AppTest {
     }
 
     @Test
-    void testAddHtmlPage() {
+    void testAddHtmlPage_addsHtmlPageToMap() {
         // setup
         App app = new App();
         HtmlFactory factory = new HtmlFactory();
@@ -63,5 +63,35 @@ class AppTest {
         Assertions.assertTrue(htmlPageMap.containsKey(title));
     }
 
-    // TODO: Add more tests for App-class.
+    @Test
+    void testAddHtmlPage_setsHtmlPageAndTitle() {
+        // setup
+        App app = new App();
+        HtmlFactory factory = new HtmlFactory();
+        String title = "Home Page";
+
+        // action
+        app.addHtmlPage(factory.createHomePage(), title);
+
+        Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
+        HtmlPages page = htmlPageMap.get(title);
+
+        // verify
+        Assertions.assertNotNull(page);
+        Assertions.assertEquals(title, page.getTitle());
+    }
+
+    @Test
+    void testAddHtmlPage_handlesNullHtmlPage() {
+        // setup
+        App app = new App();
+        String title = "Home Page";
+
+        // action
+        app.addHtmlPage(null, title);
+
+        // verify
+        Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
+        Assertions.assertFalse(htmlPageMap.containsKey(title));
+    }
 }
