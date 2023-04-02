@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * This class represents the server handler that handles the server requests and responses.
  */
-class ServerHandler {
+public class ServerHandler {
     private static final int PORT = 8080;
     private String applicationTitle;
     private Controller controller;

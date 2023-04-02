@@ -2,12 +2,19 @@ package Application;
 
 import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Application.Frontend.HtmlFactory;
+import no.hiof.webframework.Application.Frontend.HtmlPageBuilder;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
+import no.hiof.webframework.Application.Test.MockApp;
 import no.hiof.webframework.Application.Routes.Route;
+import no.hiof.webframework.Application.Test.TestableApp;
+import no.hiof.webframework.Controllers.Controller;
+import no.hiof.webframework.Controllers.MyController;
 import org.eclipse.jetty.http.HttpMethod;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.Map;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +24,7 @@ class AppTest {
     @Test
     void testAddRouteAddsRouteToRouteMap() {
         // setup
-        App app = new App();
+        TestableApp app = new TestableApp();
         HttpMethod method = HttpMethod.GET;
         String endpoint = "login";
 
@@ -32,7 +39,7 @@ class AppTest {
     @Test
     void testAddRoute_handlesNullEndpoint() {
         // setup
-        App app = new App();
+        App app = new TestableApp();
         HttpMethod method = HttpMethod.GET;
 
         // action & verify
@@ -42,7 +49,7 @@ class AppTest {
     @Test
     void testAddRoute_handlesNullHttpMethod() {
         // setup
-        App app = new App();
+        App app = new TestableApp();
         String endpoint = "login";
 
         // action & verify
@@ -52,7 +59,7 @@ class AppTest {
     @Test
     void testAddRoute_createsRouteWithCorrectValues() {
         // setup
-        App app = new App();
+        TestableApp app = new TestableApp();
         HttpMethod method = HttpMethod.GET;
         String endpoint = "login";
 
@@ -71,7 +78,7 @@ class AppTest {
     @Test
     void testAddRoute_addsNewRouteToRouteMap() {
         // setup
-        App app = new App();
+        TestableApp app = new TestableApp();
         HttpMethod method = HttpMethod.GET;
         String endpoint1 = "login";
         String endpoint2 = "register";
@@ -90,7 +97,7 @@ class AppTest {
     @Test
     void testAddRoute_doesNotAddExistingRouteToRouteMap() {
         // setup
-        App app = new App();
+        TestableApp app = new TestableApp();
         HttpMethod method = HttpMethod.GET;
         String endpoint = "login";
         app.addRoute(endpoint, method);
@@ -127,7 +134,7 @@ class AppTest {
     @Test
     void testAddHtmlPage_addsHtmlPageToMap() {
         // setup
-        App app = new App();
+        App app = new TestableApp();
         HtmlFactory factory = new HtmlFactory();
         String title = "Home Page";
 
@@ -143,7 +150,7 @@ class AppTest {
     @Test
     void testAddHtmlPage_setsHtmlPageAndTitle() {
         // setup
-        App app = new App();
+        App app = new TestableApp();
         HtmlFactory factory = new HtmlFactory();
         String title = "Home Page";
 
@@ -161,7 +168,7 @@ class AppTest {
     @Test
     void testAddHtmlPage_handlesNullHtmlPage() {
         // setup
-        App app = new App();
+        App app = new TestableApp();
         String title = "Home Page";
 
         // action
@@ -170,5 +177,131 @@ class AppTest {
         // verify
         Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
         Assertions.assertFalse(htmlPageMap.containsKey(title));
+    }
+
+    @Test
+    void testAddCustomHtmlPage_AddsPageToHtmlPageMap() {
+        // setup
+        App app = new TestableApp();
+        String htmlPage = getBuilderResults();
+
+        // action
+        app.addCustomHtmlPage(htmlPage);
+
+        // verify
+        Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
+        Assertions.assertNotNull(htmlPageMap);
+        Assertions.assertTrue(htmlPageMap.containsKey("Custom Page"));
+    }
+
+    @Test
+    void testAddCustomHtmlPage_SetsCustomPage() {
+        // setup
+        App app = new TestableApp();
+        String htmlPage = getBuilderResults();
+
+        // action
+        app.addCustomHtmlPage(htmlPage);
+
+        // verify
+        Assertions.assertEquals(htmlPage, app.getCustomPage());
+    }
+
+    @Test
+    void testAddCustomHtmlPage_HtmlPageMapDoesNotContainNullValue() {
+        // setup
+        App app = new TestableApp();
+        String htmlPage = getBuilderResults();
+
+        // action
+        app.addCustomHtmlPage(htmlPage);
+
+        // verify
+        Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
+        Assertions.assertNotNull(htmlPageMap);
+        Assertions.assertFalse(htmlPageMap.containsKey(null));
+    }
+
+    @Test
+    void testAddResponseToPage_SetsResponse() {
+        // setup
+        TestableApp app = new TestableApp();
+        String response = "This is a test response.";
+
+        // action
+        app.addResponseToPage(response);
+
+        // verify
+        Assertions.assertEquals(response, app.getResponse());
+    }
+
+    @Test
+    void testAddResponseToPage_AddsToHtmlPageMap() {
+        // setup
+        App app = new TestableApp();
+        String response = "This is a test response.";
+
+        // action
+        app.addResponseToPage(response);
+
+        // verify
+        Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
+        Assertions.assertTrue(htmlPageMap.containsKey(response));
+    }
+
+    @Test
+    void testAddController_SetsController() {
+        // setup
+        TestableApp app = new TestableApp();
+        Controller controller = new MyController("/hello");
+
+        // action
+        app.addController(controller);
+
+        // verify
+        Assertions.assertEquals(controller, app.getController());
+    }
+
+    @Test
+    void testAddController_OverwritesExistingController() {
+        // setup
+        TestableApp app = new TestableApp();
+        Controller initialController = new MyController("/hello");
+        Controller newController = new MyController("/New");
+        app.addController(initialController);
+
+        // action
+        app.addController(newController);
+
+        // verify
+        Assertions.assertEquals("/New", app.getController().getEndpoint());
+    }
+
+    @Test
+    void testAddController_NullControllerThrowsException() {
+        // setup
+        App app = new TestableApp();
+
+        // verify
+        Assertions.assertThrows(NullPointerException.class, () -> app.addController(null));
+    }
+
+    @Test
+    void testRun() {
+        // setup
+        MockApp app = new MockApp();
+
+        // action
+        app.run();
+
+        // verify
+        assertTrue(app.isRunMethodCalled());
+    }
+
+    private String getBuilderResults() {
+        HtmlPageBuilder builder = new HtmlPageBuilder();
+        builder.addHeader("Test of custom pages");
+        builder.addNavElements("home", "about", "contact");
+        return builder.build();
     }
 }

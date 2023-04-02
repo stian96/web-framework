@@ -1,6 +1,6 @@
 package no.hiof.webframework.Exceptions;
 
-public class NoHtmlContentException extends RuntimeException {
+public class NoHtmlContentException extends Exception {
 
     public NoHtmlContentException(String message) {
         super(message);

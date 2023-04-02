@@ -44,8 +44,7 @@ public class App {
      */
     protected int pageCounter;
 
-    // Constructor used for testing. Will be set to private later.
-    public App() {}
+    protected App() {}
 
     /**
      * Method used to create only one instance of the App-class.
@@ -103,7 +102,6 @@ public class App {
         String title = HtmlParser.readCustomHtmlPage(page);
         setCustomPage(page);
         htmlPageMap.put(title, null);
-
     }
 
     /**
@@ -133,7 +131,10 @@ public class App {
      * @param controller The controller to be passed.
      */
     public void addController(Controller controller) {
-        this.controller = controller;
+        if (controller != null)
+            this.controller = controller;
+        else
+            throw new NullPointerException("Controller cant be null!");
     }
 
     /**
@@ -161,7 +162,7 @@ public class App {
             return new ServerHandler(applicationTitle, controller);
     }
 
-    private void setCustomPage(String content) {
+    protected void setCustomPage(String content) {
         customPage = content;
     }
 
@@ -169,7 +170,7 @@ public class App {
      * Getter used to retrieve the route map collection.
      * @return A 'LinkedHashMap' containing Strings and Route-objects.
      */
-    public Map<String, Route> getRouteMap() {
+    protected Map<String, Route> getRouteMap() {
         return routeMap;
     }
 
@@ -197,7 +198,7 @@ public class App {
      * Getter used to retrieve the content of a 'custom' html page.
      * @return The custom page as a String.
      */
-    protected String getCustomPage() {
+    public String getCustomPage() {
         return customPage;
     }
 
@@ -224,5 +225,7 @@ public class App {
     public App getInstance() {
         return instance;
     }
+
+    protected Controller getController() { return controller; }
 }
 

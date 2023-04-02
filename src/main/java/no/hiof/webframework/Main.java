@@ -11,7 +11,6 @@ public class Main {
     {
         App app = App.create();
         app.addRoute("login", HttpMethod.GET);
-        HtmlFactory factory = new HtmlFactory();
         app.run();
 
     }
