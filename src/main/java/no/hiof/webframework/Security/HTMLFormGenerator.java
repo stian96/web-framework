@@ -1,10 +1,12 @@
 package no.hiof.webframework.Security;
 //Scenario 3.1
+
 public class HTMLFormGenerator {
     /**
-     * Method to generate a login form using HTML.
+     * Method to generate a login-form using HTML.
      * */
-    public String generateLoginFormHTML () {
+    protected String generateLoginForm () {
+        //Skjema
         String html = "<form>";
         html += "<label for=\"username\">Brukernavn:</label>";
         html += "<input type=\"text\" id=\"username\" name=\"username\"><br>";
@@ -12,5 +14,22 @@ public class HTMLFormGenerator {
         html += "<input type=\"password\" id=\"password\" name=\"password\"><br>";
         html += "</form>";
         return html;
+    }
+
+    /**
+     * Method to generate HTML-page for the login-form.
+     * */
+    protected String HtmlPageWithLoginForm(){
+        String htmlPage = "<html>";
+        htmlPage += "<head>";
+        htmlPage += "<title>Login Page</title>";
+        htmlPage += "</head>";
+        htmlPage += "<body>";
+        htmlPage += generateLoginForm();
+        htmlPage += "</body>";
+        htmlPage += "</html>";
+
+        return htmlPage;
+
     }
 }
