@@ -3,6 +3,11 @@ package no.hiof.webframework.Security;
 import java.sql.*;
 import java.sql.SQLException;
 public class UserDatabase {
+    /**
+     * Constructor for the UserDatabase class.
+     */
+    protected void UserDatabase() {
+    }
 
     /**
      * Checks whether a user exists in the database.
