@@ -2,19 +2,19 @@ package no.hiof.webframework.Security;
 //Scenario 3.3 og 3.4
 public class User {
     private String username;
-    private String passwordHash;
-    private String salt;
+    private String password;
+
     /**
 
-     Creates a new User object with the provided username, password hash, and salt.
+     Creates a new User object with the provided username and password.
      @param username the username of the user
-     @param passwordHash the password hash of the user
-     @param salt the salt used to hash the password
+     @param password the password of the user
+
      */
-    public User(String username, String passwordHash, String salt) {
+    public User(String username, String password) {
         this.username = username;
-        this.passwordHash = passwordHash;
-        this.salt = salt;
+        this.password = password;
+
     }
 
     /**
@@ -34,21 +34,11 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

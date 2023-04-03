@@ -1,6 +1,5 @@
 package no.hiof.webframework.Security;
 //Scenario 3.2
-//Implementering av metoder er ferdig.
 
 /**The UserInputValidator class that contains methods for validating usernames and passwords*/
 public class UserInputValidator {

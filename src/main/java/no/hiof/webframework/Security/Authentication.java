@@ -1,6 +1,11 @@
 package no.hiof.webframework.Security;
 //Scenario 3.5
 import no.hiof.webframework.Interface.Authenticator;
+import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  * The Authentication class handles user authentication.
  */
@@ -11,10 +16,42 @@ public class Authentication implements Authenticator {
      * @param username the username to authenticate.
      * @param password the password associated with the username.
      * @return true if the user is authenticated, false otherwise.
+     *
      */
+
     @Override
     public boolean authenticateLogIn(String username, String password) {
-        // Valider brukernavn og passord
-        return false;
+        boolean UserAuthenticated = false;
+        if (UserDatabase.userExists(username)) {
+            Connection DBconnection = null;
+            PreparedStatement SQLstmt = null;
+            ResultSet rsQry = null;
+
+            try {
+                DBconnection = DriverManager.getConnection("jdbc:mysql://localhost:3001/appDB",
+                        "exampleName", "examplePW");
+
+                SQLstmt = DBconnection.prepareStatement("SELECT password FROM users WHERE username = ?");
+
+                SQLstmt.setString(1, username);
+
+                rsQry = SQLstmt.executeQuery();
+                if (rsQry.next()) {
+                    String passwordFromDB = rsQry.getString("password");
+                    //sjekker om passord fra databasen er lik det som blir oppgitt.
+                    if (passwordFromDB.equals(password)) {
+                        UserAuthenticated = true;
+                    }
+                }
+
+                if (rsQry != null) rsQry.close();
+                if (SQLstmt != null) SQLstmt.close();
+                if (DBconnection != null) DBconnection.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return UserAuthenticated;
     }
 }

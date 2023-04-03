@@ -19,7 +19,6 @@ public class SMSVerification implements SMSCodeGenerator {
     public String generateSMSCode(String phoneNumber) {
         Random randomCode = new Random();
         int smsCode= 10000000 + randomCode.nextInt(90000000);
-        String msg = "Verification code: " + smsCode;
         return String.valueOf(smsCode);
     }
 
