@@ -2,8 +2,7 @@ package no.hiof.webframework.Security;
 import no.hiof.webframework.Interface.PasswordEncryptionAlgorithm;
 
 import java.security.SecureRandom;
-import java.sql.*;
-import java.sql.SQLException;
+
 //Scenario 3.3
 public class UserController {
     private final PasswordEncryptionAlgorithm encryptionAlgorithm;
@@ -19,7 +18,7 @@ public class UserController {
     protected void registerNewUser(String username, String password) {
         byte[] salt = generateSalt();
         byte[] encryptedPassword = encryptPassword(password, salt);
-        saveUserToDatabase(username,salt,encryptedPassword);
+        UserDatabase.addUser(username,salt,encryptedPassword);
     }
 
     /**
@@ -38,37 +37,5 @@ public class UserController {
         return encryptionAlgorithm.encryptPw(password, salt);
     }
 
-    /**
-     * Saves a new user to the database with the given username, salt, and encrypted password.
-     * @param username the username for the new user
-     * @param salt the salt used to encrypt the user's password
-     * @param encryptedPassword the encrypted password for the new user
-     */
-
-    //3.4
-    protected void saveUserToDatabase(String username, byte[] salt, byte[] encryptedPassword) {
-        try {
-            // Opprett en JDBC-tilkobling til databasen
-            Connection DBconnection = DriverManager.getConnection("jdbc:mysql://localhost:3001/appDB",
-                    "exampleName", "examplePW");
-
-            // Lag en PreparedStatement for å utfoere INSERT-spoerring
-            PreparedStatement SQLstmt = DBconnection.prepareStatement("INSERT INTO users (username, salt, password) " +
-                    "VALUES (?, ?, ?)");
-
-            SQLstmt.setString(1, username);
-            SQLstmt.setBytes(2, salt);
-            SQLstmt.setBytes(3, encryptedPassword);
-
-            SQLstmt.executeUpdate();
-
-            SQLstmt.close();
-            DBconnection.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 }

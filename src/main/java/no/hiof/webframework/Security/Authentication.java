@@ -44,9 +44,9 @@ public class Authentication implements Authenticator {
                     }
                 }
 
-                if (rsQry != null) rsQry.close();
-                if (SQLstmt != null) SQLstmt.close();
-                if (DBconnection != null) DBconnection.close();
+                if (rsQry != null){ rsQry.close();}
+                if (SQLstmt != null) { SQLstmt.close();}
+                if (DBconnection != null) { DBconnection.close();}
 
             } catch (SQLException e) {
                 e.printStackTrace();

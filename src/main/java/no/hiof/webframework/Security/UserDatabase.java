@@ -52,8 +52,8 @@ public class UserDatabase {
      * @param encryptedPassword the encrypted password for the new user
      */
 
-    //Merk samme kode som saveUserToDatabase i usercontroller.
-    protected void addUser(String username, byte[] salt, byte[] encryptedPassword) {
+
+    protected static void addUser(String username, byte[] salt, byte[] encryptedPassword) {
         try {
             // Opprett en JDBC-tilkobling til databasen
             Connection DBconnection = DriverManager.getConnection("jdbc:mysql://localhost:3001/appDB",
