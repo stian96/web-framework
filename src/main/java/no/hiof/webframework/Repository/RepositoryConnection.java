@@ -1,7 +1,5 @@
 package no.hiof.webframework.Repository;
 
-import no.hiof.webframework.Interface.RepositoryConnection;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,19 +10,21 @@ import java.sql.SQLException;
  database connection for SQL databases. It uses JDBC drivers to connect to the database and provides methods for
  connecting and disconnecting from the database.
  */
-public class SqlConnection implements RepositoryConnection {
+public class RepositoryConnection {
+
+    private static RepositoryConnection instance = null;
     private String url;
     private String username;
     private String password;
     private Connection connection;
 
-/**
- *  Constructs a new SqlConnection object with the given URL, username, and password parameters.
- *  @param url The URL of the SQL database.
- *  @param username The username for accessing the SQL database.
- *  @param password The password for accessing the SQL database.
- */
-    public SqlConnection(String url, String username, String password) {
+    /**
+     *  Constructs a new SqlConnection object with the given URL, username, and password parameters.
+     *  @param url The URL of the SQL database.
+     *  @param username The username for accessing the SQL database.
+     *  @param password The password for accessing the SQL database.
+     */
+    public RepositoryConnection(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
@@ -33,7 +33,7 @@ public class SqlConnection implements RepositoryConnection {
     /**
      * Connects to a database
      */
-    @Override
+
     public void connect() {
         try {
             connection = DriverManager.getConnection(url, username, password);
@@ -47,7 +47,7 @@ public class SqlConnection implements RepositoryConnection {
     /**
      * Disconnects from the database
      */
-    @Override
+
     public void disconnect() {
         try {
             if (connection != null && !connection.isClosed()) {
