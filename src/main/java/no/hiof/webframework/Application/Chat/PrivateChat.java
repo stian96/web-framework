@@ -15,9 +15,17 @@ public class PrivateChat implements ChatStrategy {
 
     public PrivateChat() {}
 
-    public PrivateChat(ChatUser user1, ChatUser user2) {
-        this.user1 = user1;
-        this.user2 = user2;
+    public PrivateChat(ChatUser ...users) {
+
+        if (users.length > 2)
+            throw new IllegalArgumentException("PrivateChat can only have two users!");
+
+        if (users.length > 0)
+            user1 = users[0];
+
+        if (users.length > 1)
+            user2 = users[1];
+
         messages = new ArrayList<>();
     }
 
@@ -26,6 +34,7 @@ public class PrivateChat implements ChatStrategy {
         if (isValidUser(sender)) {
             String formattedMessage = sender.getName() + ": " + message;
             messages.add(formattedMessage);
+            sender.setLatestMessage(message);
         }
         else
             throw new IllegalArgumentException("Sender is not part of this private chat.");
