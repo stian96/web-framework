@@ -136,7 +136,7 @@ public class ServerHandler {
         return app.getHtmlPageMap().size() < app.getRouteMap().size();
     }
 
-    private void startServer(Server server) throws Exception {
+    protected void startServer(Server server) throws Exception {
         server.start();
         server.join();
     }
