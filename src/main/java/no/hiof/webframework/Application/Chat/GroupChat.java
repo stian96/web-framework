@@ -24,6 +24,7 @@ public class GroupChat implements ChatStrategy {
         if (isValidUser(sender)) {
             String formattedMessage = sender.getName() + ": " + message;
             messages.add(formattedMessage);
+            sender.setLatestMessage(message);
             for (ChatUser chatUser : chatUsers) {
                 if (!chatUser.equals(sender)) {
                     receiveMessage(chatUser, formattedMessage);
