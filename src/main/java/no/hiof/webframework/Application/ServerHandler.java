@@ -78,7 +78,7 @@ public class ServerHandler {
         }
     }
 
-    private void addServletToContext(ServletContextHandler context, App app) throws NoHtmlContentException {
+    protected void addServletToContext(ServletContextHandler context, App app) throws NoHtmlContentException {
         for (Map.Entry<String, Route> entry : app.getRouteMap().entrySet()) {
             Route route = entry.getValue();
             String uri = "/" + route.getRoute() + "/*";
@@ -86,7 +86,7 @@ public class ServerHandler {
 
             if (!checkForHtmlPage(app)) {
                 addServletIfNeeded(keySet, uri, context, app);
-                app.pageCounter++;
+                app.incrementPageCounter();
             }
             else {
                 throw new NoHtmlContentException("" +
@@ -153,4 +153,6 @@ public class ServerHandler {
     public void setTitle(String title) {
         this.applicationTitle = title;
     }
+
+    public String getTitle() { return applicationTitle; }
 }

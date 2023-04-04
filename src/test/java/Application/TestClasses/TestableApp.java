@@ -29,4 +29,10 @@ public class TestableApp extends App {
     public String getCustomPage() {
         return super.getCustomPage();
     }
+
+    @Override
+    public int getPageCounter() {return super.getPageCounter(); }
+
+    @Override
+    public void incrementPageCounter() { super.incrementPageCounter();}
 }

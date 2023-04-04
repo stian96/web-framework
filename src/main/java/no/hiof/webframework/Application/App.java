@@ -161,6 +161,8 @@ public class App {
             return new ServerHandler(applicationTitle, controller);
     }
 
+    protected void incrementPageCounter() { pageCounter++; }
+
     protected void setCustomPage(String content) {
         customPage = content;
     }
@@ -226,5 +228,7 @@ public class App {
     }
 
     protected Controller getController() { return controller; }
+
+    protected int getPageCounter() { return pageCounter; }
 }
 
