@@ -23,7 +23,7 @@ public class PrivateChat implements ChatStrategy {
 
     @Override
     public void sendMessage(ChatUser sender, String message) {
-        if (sender.equals(user1) || sender.equals(user2)) {
+        if (isValidUser(sender)) {
             String formattedMessage = sender.getName() + ": " + message;
             messages.add(formattedMessage);
         }
@@ -33,11 +33,18 @@ public class PrivateChat implements ChatStrategy {
 
     @Override
     public void receiveMessage(ChatUser sender, String message) {
-        sendMessage(sender, message);
+        if (isValidUser(sender))
+            System.out.printf("User %s received a message: %s%n", sender.getName(), message);
+        else
+            throw new IllegalArgumentException("Invalid user trying to receive a message.");
     }
 
     @Override
     public List<String> getChatHistory() {
         return messages;
+    }
+
+    private boolean isValidUser(ChatUser user) {
+        return user.equals(user1) || user.equals(user2);
     }
 }
