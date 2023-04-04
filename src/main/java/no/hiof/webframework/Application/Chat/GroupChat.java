@@ -7,12 +7,12 @@ import java.util.List;
 
 public class GroupChat implements ChatStrategy {
     @Override
-    public void sendMessage(User sender, String message) {
+    public void sendMessage(ChatUser sender, String message) {
 
     }
 
     @Override
-    public void receiveMessage(User sender, String message) {
+    public void receiveMessage(ChatUser sender, String message) {
 
     }
 

@@ -1,5 +1,6 @@
 package no.hiof.webframework.Interface;
 
+import no.hiof.webframework.Application.Chat.ChatUser;
 import no.hiof.webframework.Data.User;
 
 import java.util.List;
@@ -16,14 +17,14 @@ public interface ChatStrategy {
      * @param sender the user sending the message
      * @param message the message to be sent
      */
-    void sendMessage(User sender, String message);
+    void sendMessage(ChatUser sender, String message);
     /**
      * Receives a message from a sender in the chat room.
      *
      * @param sender the user who sent the message
      * @param message the message that was received
      */
-    void receiveMessage(User sender, String message);
+    void receiveMessage(ChatUser sender, String message);
     /**
      * Gets the chat history for the chat room.
      *

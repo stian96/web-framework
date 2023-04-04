@@ -19,13 +19,14 @@ public class ChatRoom {
      @throws IllegalArgumentException if the chatMethod is null
      */
     public ChatRoom(ChatMethod chatMethod) throws IllegalArgumentException {
-        if (chatMethod == null) {
+        if (chatMethod == null)
             throw new IllegalArgumentException("Chat method cannot be null.");
-        } else if (chatMethod == ChatMethod.PRIVATE) {
+
+        else if (chatMethod == ChatMethod.PRIVATE)
             this.chatStrategy = new PrivateChat();
-        } else if (chatMethod == ChatMethod.GROUP) {
+
+        else if (chatMethod == ChatMethod.GROUP)
             this.chatStrategy = new GroupChat();
-        }
     }
 
     /**
@@ -35,7 +36,7 @@ public class ChatRoom {
      * @param sender the user sending the message
      * @param message the message to send
      */
-    public void sendMessage(User sender, String message) {
+    public void sendMessage(ChatUser sender, String message) {
         chatStrategy.sendMessage(sender, message);
     }
     /**
@@ -45,7 +46,7 @@ public class ChatRoom {
      * @param sender the user sending the message
      * @param message the message received
      */
-    public void receiveMessage(User sender, String message) {
+    public void receiveMessage(ChatUser sender, String message) {
         chatStrategy.receiveMessage(sender, message);
     }
     /**
