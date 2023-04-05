@@ -51,6 +51,11 @@ public class GroupChat implements ChatStrategy {
         return chatUsers.contains(user);
     }
 
+    @Override
+    public void addUser(ChatUser user) {
+        chatUsers.add(user);
+    }
+
     public List<ChatUser> getChatUsers() {
         return chatUsers;
     }

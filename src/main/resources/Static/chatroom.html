@@ -3,6 +3,7 @@
 <head>
     <title>Chat Room</title>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         #chat-log {
             height: 300px;
@@ -25,8 +26,14 @@
             font-family: Arial, sans-serif;
             font-size: 14px;
         }
-        #chat-input input {
-            margin-left: 5px;
+        label {
+            margin-left: 1rem;
+        }
+        select {
+            margin-left: 20px;
+        }
+        #name, #message {
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -36,32 +43,47 @@
     <!-- Her vil chat-loggen vises -->
 </div>
 <form id="chat-input">
-    <label for="name-id">Name:</label>
-    <input type="text" id="name-id" name="input-name">
+    <select name="chatMethod">
+        <option value="PRIVATE">Private Chat</option>
+        <option value="GROUP">Group Chat</option>
+    </select>
+    <input type="text" id="name" name="name" placeholder="Enter your name">
     <input type='text' id='message' name='message' placeholder='Enter your message'>
-    <input type='hidden' id='sender' name='sender' value='Alice'>
     <input type='submit' value='Send'>
 </form>
+<div id="message-container"></div>
 <script>
-    // Skriptet for å håndtere meldinger som sendes inn
-    const form = document.getElementById("chat-input");
-    const input = document.getElementById("message");
-    const chatLog = document.getElementById("chat-log");
-    const name = document.getElementById("name-id");
+    $(function() {
+        // Finn skjemaet og legg til en hendelse når det blir sendt inn
+        $('#chat-input').on('submit', function(event) {
+            // Hindre skjemaet i å bli sendt inn på vanlig måte
+            event.preventDefault();
 
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
-        const message = input.value;
-        const sender = name.value;
-        if (message.trim() === "" || sender.trim() === "") return;
-        const content = document.createElement("content");
-        const senderText = document.createTextNode(sender + ": ");
-        const messageText = document.createTextNode(message);
-        content.appendChild(senderText);
-        content.appendChild(messageText);
-        chatLog.appendChild(content);
-        chatLog.appendChild(document.createElement("br"));
-        input.value = "";
+            // Hent dataene fra skjemaet og lag et objekt
+            const formData = {
+                name: $('#name').val(),
+                message: $('#message').val(),
+                chatMethod: $('[name="chatMethod"]').val()
+            };
+
+            // Send dataene til backend-koden ved hjelp av AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/chat',
+                data: formData
+            })
+                .done(function(response) {
+                    // Tøm meldingsfeltet etter at meldingen er sendt
+                    $('#message').val('');
+
+                    // Legg til meldingen i chat-loggen
+                    const messageElement = $('<p>').text(response.message);
+                    $('#chat-log').append(messageElement);
+                })
+                .fail(function(error) {
+                    console.log(error);
+                });
+        });
     });
 </script>
 </body>
