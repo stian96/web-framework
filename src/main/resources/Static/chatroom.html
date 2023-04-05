@@ -36,12 +36,8 @@
     <!-- Her vil chat-loggen vises -->
 </div>
 <form id="chat-input">
-    <select id='receiver' name='receiver' >
-        <option disabled selected>Receiver</option>
-        <option value='Charlie'>Charlie</option>
-        <option value='Dave'>Dave</option>
-        <option value='Bob'>Bob</option>
-    </select>
+    <label for="name-id">Name:</label>
+    <input type="text" id="name-id" name="input-name">
     <input type='text' id='message' name='message' placeholder='Enter your message'>
     <input type='hidden' id='sender' name='sender' value='Alice'>
     <input type='submit' value='Send'>
@@ -51,21 +47,21 @@
     const form = document.getElementById("chat-input");
     const input = document.getElementById("message");
     const chatLog = document.getElementById("chat-log");
-    const select = document.getElementById("receiver");
+    const name = document.getElementById("name-id");
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
         const message = input.value;
-        const receiver = select.value;
-        if (message.trim() === "" || receiver.trim() === "") return;
+        const sender = name.value;
+        if (message.trim() === "" || sender.trim() === "") return;
         const content = document.createElement("content");
-        const receiverText = document.createTextNode(receiver + ": ");
+        const senderText = document.createTextNode(sender + ": ");
         const messageText = document.createTextNode(message);
-        content.appendChild(receiverText);
+        content.appendChild(senderText);
         content.appendChild(messageText);
         chatLog.appendChild(content);
+        chatLog.appendChild(document.createElement("br"));
         input.value = "";
-        // Send meldingen til serveren her (AJAX, WebSockets, etc.)
     });
 </script>
 </body>
