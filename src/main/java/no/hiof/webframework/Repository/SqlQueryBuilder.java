@@ -16,8 +16,8 @@ import java.util.Map;
 public class SqlQueryBuilder {
 
     private String tableName;
-    private List<String> columns = new ArrayList<>();
-    private List<String> conditions = new ArrayList<>();
+    private final List<String> columns = new ArrayList<>();
+    private final List<String> conditions = new ArrayList<>();
 
 
     /**
