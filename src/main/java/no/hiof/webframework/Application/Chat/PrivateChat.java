@@ -3,25 +3,57 @@ package no.hiof.webframework.Application.Chat;
 import no.hiof.webframework.Data.User;
 import no.hiof.webframework.Interface.ChatStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * A chat strategy for private chats between two users.
  */
 public class PrivateChat implements ChatStrategy {
+    private ChatUser user1;
+    private ChatUser user2;
+    private List<String> messages;
 
-    @Override
-    public void sendMessage(User sender, String message) {
-        // TODO: Send the message to the other user in the one-on-one chat
+    public PrivateChat() {}
+
+    public PrivateChat(ChatUser ...users) {
+
+        if (users.length > 2)
+            throw new IllegalArgumentException("PrivateChat can only have two users!");
+
+        if (users.length > 0)
+            user1 = users[0];
+
+        if (users.length > 1)
+            user2 = users[1];
+
+        messages = new ArrayList<>();
     }
 
     @Override
-    public void receiveMessage(User sender, String message) {
-        // TODO: Receive a message from the other user in the one-on-one chat
+    public void sendMessage(ChatUser sender, String message) {
+        if (isValidUser(sender)) {
+            String formattedMessage = sender.getName() + ": " + message;
+            messages.add(formattedMessage);
+            sender.setLatestMessage(message);
+        }
+        else
+            throw new IllegalArgumentException("Sender is not part of this private chat.");
+    }
+
+    @Override
+    public void receiveMessage(ChatUser sender, String message) {
+        if (isValidUser(sender))
+            System.out.printf("User %s received a message: %s%n", sender.getName(), message);
+        else
+            throw new IllegalArgumentException("Invalid user trying to receive a message.");
     }
 
     @Override
     public List<String> getChatHistory() {
-        // TODO: Return the chat history for the one-on-one chat
-        return null;
+        return messages;
+    }
+
+    private boolean isValidUser(ChatUser user) {
+        return user.equals(user1) || user.equals(user2);
     }
 }

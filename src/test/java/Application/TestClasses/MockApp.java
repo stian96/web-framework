@@ -1,4 +1,4 @@
-package no.hiof.webframework.Application.Test;
+package Application.TestClasses;
 
 import no.hiof.webframework.Application.App;
 

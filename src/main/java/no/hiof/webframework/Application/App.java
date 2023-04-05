@@ -65,15 +65,14 @@ public class App {
      */
 
     public void addRoute(String endpoint, HttpMethod httpMethod) {
-        Route route = new Route(endpoint, httpMethod);
+        if (endpoint != null && httpMethod != null)
+        {
+            Route route = new Route(endpoint, httpMethod);
+            routeMap.put(endpoint, route);
+        }
+        else
+            throw new NullPointerException("Parameters cannot be null in addRoute method!");
 
-        if (endpoint == null)
-            throw new NullPointerException("Endpoint cannot be null!");
-
-        else if (httpMethod == null)
-            throw new NullPointerException("HttpMethod cannot be null!");
-
-        routeMap.put(endpoint, route);
     }
 
     /**
@@ -162,6 +161,8 @@ public class App {
             return new ServerHandler(applicationTitle, controller);
     }
 
+    protected void incrementPageCounter() { pageCounter++; }
+
     protected void setCustomPage(String content) {
         customPage = content;
     }
@@ -198,7 +199,7 @@ public class App {
      * Getter used to retrieve the content of a 'custom' html page.
      * @return The custom page as a String.
      */
-    public String getCustomPage() {
+    protected String getCustomPage() {
         return customPage;
     }
 
@@ -222,10 +223,12 @@ public class App {
      * Returns the instance of the App object.
      * @return The instance to be returned.
      */
-    public App getInstance() {
+    protected App getInstance() {
         return instance;
     }
 
     protected Controller getController() { return controller; }
+
+    protected int getPageCounter() { return pageCounter; }
 }
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room</title>
+    <meta charset="UTF-8">
+    <style>
+        #chat-log {
+            height: 300px;
+            align-content: center;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 0 auto 10px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            width: 75%;
+        }
+        h1 {
+            margin: 0 auto;
+            text-align: center;
+        }
+        #chat-input {
+            margin-left: 150px;
+            margin-top: 25px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        #chat-input input {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Chat Room</h1>
+<div id="chat-log">
+    <!-- Her vil chat-loggen vises -->
+</div>
+<form id="chat-input">
+    <select id='receiver' name='receiver' >
+        <option disabled selected>Receiver</option>
+        <option value='Charlie'>Charlie</option>
+        <option value='Dave'>Dave</option>
+        <option value='Bob'>Bob</option>
+    </select>
+    <input type='text' id='message' name='message' placeholder='Enter your message'>
+    <input type='hidden' id='sender' name='sender' value='Alice'>
+    <input type='submit' value='Send'>
+</form>
+<script>
+    // Skriptet for å håndtere meldinger som sendes inn
+    const form = document.getElementById("chat-input");
+    const input = document.getElementById("message");
+    const chatLog = document.getElementById("chat-log");
+    const select = document.getElementById("receiver");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const message = input.value;
+        const receiver = select.value;
+        if (message.trim() === "" || receiver.trim() === "") return;
+        const content = document.createElement("content");
+        const receiverText = document.createTextNode(receiver + ": ");
+        const messageText = document.createTextNode(message);
+        content.appendChild(receiverText);
+        content.appendChild(messageText);
+        chatLog.appendChild(content);
+        input.value = "";
+        // Send meldingen til serveren her (AJAX, WebSockets, etc.)
+    });
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package no.hiof.webframework.Application.Test;
+package Application.TestClasses;
 
 import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Application.Routes.Route;
@@ -6,6 +6,9 @@ import no.hiof.webframework.Controllers.Controller;
 
 import java.util.Map;
 
+/**
+ * Class used for testing purposes of the App class.
+ */
 public class TestableApp extends App {
     @Override
     public String getResponse() {
@@ -22,4 +25,14 @@ public class TestableApp extends App {
         return super.getController();
     }
 
+    @Override
+    public String getCustomPage() {
+        return super.getCustomPage();
+    }
+
+    @Override
+    public int getPageCounter() {return super.getPageCounter(); }
+
+    @Override
+    public void incrementPageCounter() { super.incrementPageCounter();}
 }

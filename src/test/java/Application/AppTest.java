@@ -4,9 +4,9 @@ import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Application.Frontend.HtmlFactory;
 import no.hiof.webframework.Application.Frontend.HtmlPageBuilder;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
-import no.hiof.webframework.Application.Test.MockApp;
+import Application.TestClasses.MockApp;
 import no.hiof.webframework.Application.Routes.Route;
-import no.hiof.webframework.Application.Test.TestableApp;
+import Application.TestClasses.TestableApp;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Controllers.MyController;
 import org.eclipse.jetty.http.HttpMethod;
@@ -197,7 +197,7 @@ class AppTest {
     @Test
     void testAddCustomHtmlPage_SetsCustomPage() {
         // setup
-        App app = new TestableApp();
+        TestableApp app = new TestableApp();
         String htmlPage = getBuilderResults();
 
         // action
