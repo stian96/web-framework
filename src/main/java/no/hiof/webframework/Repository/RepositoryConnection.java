@@ -16,6 +16,11 @@ public class RepositoryConnection {
     private String url;
     private String username;
     private String password;
+
+    public Connection getConnection() {
+        return connection;
+    }
+
     private Connection connection;
 
     /**
@@ -36,6 +41,7 @@ public class RepositoryConnection {
 
     public void connect() {
         try {
+
             connection = DriverManager.getConnection(url, username, password);
             System.out.println("Connected to database.");
         } catch (SQLException e) {
