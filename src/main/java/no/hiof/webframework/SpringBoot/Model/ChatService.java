@@ -1,6 +1,6 @@
 package no.hiof.webframework.SpringBoot.Model;
 
-public class ChatMessage {
+public class ChatService {
     private MessageType type;
     private String content;
     private String sender;

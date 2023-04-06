@@ -5,6 +5,7 @@ import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Application.Routes.Route;
 import no.hiof.webframework.Repository.UserDb;
+import no.hiof.webframework.SpringBoot.Chatroom;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 
@@ -33,6 +34,8 @@ public class App {
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
     private String customPage, applicationTitle;
+
+    private Chatroom chatroom;
 
     private Controller controller;
     private UserDb dbUser;
@@ -134,6 +137,10 @@ public class App {
             this.controller = controller;
         else
             throw new NullPointerException("Controller cant be null!");
+    }
+
+    public void addChatRoom(Chatroom room) {
+        this.chatroom = room;
     }
 
     /**

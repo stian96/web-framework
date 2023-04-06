@@ -1,30 +1,34 @@
 package no.hiof.webframework.SpringBoot.Controller;
-
-import no.hiof.webframework.SpringBoot.Model.ChatMessage;
+import no.hiof.webframework.SpringBoot.Model.ChatService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Objects;
 
 @Controller
 public class ChatController {
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+    @GetMapping("/chat")
+    public String chatService() {
+        return "index.html";
+    }
+
+    @MessageMapping("/sendMessage")
+    @SendTo("/subject/public")
+    public ChatService sendMessage(@Payload ChatService chatMessage) {
         return chatMessage;
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage,
-                               SimpMessageHeaderAccessor headerAccessor) {
+    @MessageMapping("/addUser")
+    @SendTo("/subject/public")
+    public ChatService addUser(@Payload ChatService chat,
+                               SimpMessageHeaderAccessor accessor) {
         // Add username in web socket session
-        Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("username", chatMessage.getSender());
-        return chatMessage;
+        Objects.requireNonNull(accessor.getSessionAttributes()).put("username", chat.getSender());
+        return chat;
     }
-
 }

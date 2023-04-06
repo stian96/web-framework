@@ -1,32 +1,13 @@
 package no.hiof.webframework;
-
-import no.hiof.webframework.Application.Chat.ChatRoom;
-import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
-import no.hiof.webframework.Servlet.ChatRoomServlet;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
+import no.hiof.webframework.Application.App;
+import no.hiof.webframework.SpringBoot.Chatroom;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        Server server = new Server(8080);
-
-        ServletContextHandler context = new ServletContextHandler();
-        context.setContextPath("/");
-
-        ServletHandler servletHandler = new ServletHandler();
-        context.setServletHandler(servletHandler);
-
-
-        servletHandler.addServletWithMapping(new ServletHolder(new ChatRoomServlet(new ChatRoom(ChatMethod.PRIVATE))), "/chat");
-        System.out.println("Listen on: http://localhost:8080/chat");
-
-        server.setHandler(context);
-        server.start();
-        server.join();
-
+        App app = App.create();
+        app.addChatRoom(new Chatroom());
+        app.run();
     }
 }

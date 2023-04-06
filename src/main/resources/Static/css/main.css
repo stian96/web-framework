@@ -15,10 +15,9 @@ body {
     font-weight: 400;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 1rem;
-    line-height: 1.58;
+    line-height: 1.7;
     color: #333;
-    background-color: #f4f4f4;
-    height: 100%;
+    background-color: white;
 }
 
 body:before {
@@ -51,7 +50,7 @@ input {
     outline: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -106,7 +105,7 @@ button.submit-username {
     color: #fff;
 }
 
-#username-page {
+#first-page {
     text-align: center;
 }
 
@@ -132,7 +131,7 @@ button.submit-username {
 }
 
 
-#chat-page {
+#second-page {
     position: relative;
     height: 100%;
 }
@@ -149,7 +148,7 @@ button.submit-username {
     position: relative;
 }
 
-#chat-page ul {
+#second-page ul {
     list-style-type: none;
     background-color: #FFF;
     margin: 0;
@@ -159,39 +158,39 @@ button.submit-username {
     height: calc(100% - 150px);
 }
 
-#chat-page #messageForm {
+#second-page #messageForm {
     padding: 20px;
 }
 
-#chat-page ul li {
+#second-page ul li {
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
     border-bottom: 1px solid #f4f4f4;
 }
 
-#chat-page ul li p {
+#second-page ul li p {
     margin: 0;
 }
 
-#chat-page .event-message {
+#second-page .event-message {
     width: 100%;
     text-align: center;
     clear: both;
 }
 
-#chat-page .event-message p {
+#second-page .event-message p {
     color: #777;
     font-size: 14px;
     word-wrap: break-word;
 }
 
-#chat-page .chat-message {
+#second-page .chat-message {
     padding-left: 68px;
     position: relative;
 }
 
-#chat-page .chat-message i {
+#second-page .chat-message i {
     position: absolute;
     width: 42px;
     height: 42px;
@@ -208,7 +207,7 @@ button.submit-username {
     text-transform: uppercase;
 }
 
-#chat-page .chat-message span {
+#second-page .chat-message span {
     color: #333;
     font-weight: 600;
 }
