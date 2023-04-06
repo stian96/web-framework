@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         App app = App.create();
-        app.addChatRoom(new Chatroom());
+        app.addChatRoom(Chatroom.create());
         app.run();
     }
 }
