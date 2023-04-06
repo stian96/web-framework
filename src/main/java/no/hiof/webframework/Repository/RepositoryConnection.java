@@ -49,6 +49,17 @@ public class RepositoryConnection {
 
     }
 
+    public void connect(String schemaName) {
+        try {
+            String urlWithSchema = url  + schemaName;
+            this.schemaName = schemaName;
+            connection = DriverManager.getConnection(urlWithSchema, username, password);
+            System.out.println("Connected to database with schema name: " + schemaName);
+        } catch (SQLException e) {
+            System.err.println("Error connecting to the database with schema name: " + schemaName + " - " + e.getMessage());
+        }
+    }
+
     /**
      * Disconnects from the database
      */
@@ -119,14 +130,4 @@ public class RepositoryConnection {
         this.schemaName = schemaName;
     }
 
-    public void connectWithSchemaName(String schemaName) {
-        try {
-            String urlWithSchema = url  + schemaName;
-            this.schemaName = schemaName;
-            connection = DriverManager.getConnection(urlWithSchema, username, password);
-            System.out.println("Connected to database with schema name: " + schemaName);
-        } catch (SQLException e) {
-            System.err.println("Error connecting to the database with schema name: " + schemaName + " - " + e.getMessage());
-        }
-    }
 }
