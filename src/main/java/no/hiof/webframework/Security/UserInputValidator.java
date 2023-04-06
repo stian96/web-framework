@@ -5,7 +5,7 @@ package no.hiof.webframework.Security;
 public class UserInputValidator {
     /**Validates username by checking the length of the field
      * @param username The username that needs to be validated*/
-    protected static boolean validateUsername(String username) {
+    protected boolean validateUsername(String username) {
         int usernameLength = username.length();
         return (usernameLength >= 5 && usernameLength <= 20);
     }
@@ -14,7 +14,7 @@ public class UserInputValidator {
 
     /**Validates password by checking the length of the field and whether it contains only alphanumeric characters
      *@param password The password that needs to be validated*/
-    protected static boolean validatePassword(String password) {
+    protected boolean validatePassword(String password) {
         int passwordLength = password.length();
         boolean containsAlphabets = password.matches(".*[a-zA-Z].*");
         boolean containsNumbers = password.matches(".*\\d.*");
