@@ -15,80 +15,61 @@ import java.util.Map;
  */
 public class SqlQueryBuilder {
 
-    private String tableName;
-    private List<String> columns = new ArrayList<>();
-    private List<String> conditions = new ArrayList<>();
+    public boolean insert(RepositoryConnection repo,String tableName, String[] columnNames, Object[] values) {
+        try {
+            Connection connection = repo.getConnection();
+            String sql = generateInsertStatement(tableName, columnNames);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 
-    /**
-     * Method for adding a specified column to the list of columns
-     * @param columns to be selected
-     * @return instance of SqlQueryBuilder
-     */
-    public SqlQueryBuilder select(String columns) {
-        this.columns.addAll(Arrays.asList(columns));
-        return this;
+            for (int i = 0; i < columnNames.length; i++) {
+                preparedStatement.setObject(i + 1, values[i]);
+            }
+
+
+            int result = preparedStatement.executeUpdate();
+
+
+            if (result > 0) {
+                System.out.println("Row inserted successfully!");
+                return true;
+            } else {
+                System.out.println("Failed to insert row.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error inserting row: " + e.getMessage());
+            return false;
+        }
     }
 
-    /**
-     * Method for setting the table name in an SQL query
-     * @param tableName the table where the selected columns are from
-     * @return instance of SqlQueryBuilder
-     */
-
-    public SqlQueryBuilder from(String tableName) {
-        this.tableName = tableName;
-        return this;
-    }
-
-    /**
-     * Method that adds condition to the SQL query
-     *
-     * @param condition the conditions by which to sort the query
-     * @return SqlQueryBuilder instance
-     */
-
-    public SqlQueryBuilder where(String condition) {
-        this.conditions.add(condition);
-        return this;
-    }
-
-    /**
-     * Builds an SQL query as a PreparedStatement object and returns it
-     * @param conn a Connection object representing the database connection
-     * @return PreparedStatement object
-     * @throws SQLException if problem creating the object
-     */
-    public ResultSet build(Connection conn) throws SQLException {
+    private String generateInsertStatement(String tableName, String[] columnNames) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT");
-        if (columns.isEmpty()) {
-            sb.append("*");
-        } else {
-            sb.append(String.join(", ", columns));
-        }
-        sb.append(" FROM ").append(tableName);
-        if (!conditions.isEmpty()) {
-            sb.append(" WHERE ").append(String.join(" AND ", conditions));
-        }
-        PreparedStatement stmt = conn.prepareStatement(sb.toString());
-        return stmt.executeQuery();
+        sb.append("INSERT INTO ").append(tableName).append(" (");
 
+        for (int i = 0; i < columnNames.length; i++) {
+            sb.append(columnNames[i]);
+            if (i < columnNames.length - 1) {
+                sb.append(", ");
+            }
+        }
+
+        sb.append(") VALUES (");
+
+
+        for (int i = 0; i < columnNames.length; i++) {
+            sb.append("?");
+            if (i < columnNames.length - 1) {
+                sb.append(", ");
+            }
+        }
+
+        sb.append(")");
+
+        return sb.toString();
     }
 
-    /**
-     * Inserts data into a table in the database specified by the given table name and data.
-     * The data is passed as a Map where the keys represent the column names and the values
-     * represent the corresponding
-     * values to be inserted in those columns.
-     * @param tableName the name of the table where the data is to be inserted
-     * @param data data a Map where the keys represent the column names and the values
-     * represent the corresponding values to be inserted in those columns
-     * @throws SQLException
-     */
-    public void insert(String tableName, Map<String, Object> data) throws SQLException {
-        //TODO:implementation of this
-    }
+
 
 
 }

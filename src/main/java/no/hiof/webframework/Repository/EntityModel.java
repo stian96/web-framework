@@ -94,7 +94,9 @@ public class EntityModel implements EntityModelBuilder {
         sb.deleteCharAt(sb.length() - 1);
         sb.append(");");
         return sb.toString();
+
     }
+
     public static class Field {
 
 
@@ -117,11 +119,11 @@ public class EntityModel implements EntityModelBuilder {
             return name;
         }
 
-        public String getType() {
+        protected String getType() {
             return type;
         }
 
-        public boolean isNullable() {
+        protected boolean isNullable() {
             return nullable;
         }
 
