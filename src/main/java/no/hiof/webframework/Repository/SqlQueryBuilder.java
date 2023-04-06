@@ -68,7 +68,53 @@ public class SqlQueryBuilder {
 
         return sb.toString();
     }
+    public boolean delete(RepositoryConnection repo, String tableName, String columnName, Object value) {
+        try {
+            Connection connection = repo.getConnection();
+            String sql = generateDeleteStatement(tableName, columnName);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
+            preparedStatement.setObject(1, value);
+
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Row deleted successfully!");
+                return true;
+            } else {
+                System.out.println("Failed to delete row.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error deleting row: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private String generateDeleteStatement(String tableName, String columnName) {
+        return "DELETE FROM " + tableName + " WHERE " + columnName + " = ?";
+    }
+    public void getAllRowsFromTable(RepositoryConnection repo, String tableName) {
+        try {
+            Connection connection = repo.getConnection();
+            String sql = "SELECT * FROM " + tableName;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Print the result
+            System.out.println("Table: " + tableName + " - All Rows:");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String username = resultSet.getString("user_name");
+                String password = resultSet.getString("password");
+                // ... get other columns as needed
+                System.out.println("ID: " + id + ", Username: " + username + ", Email: " + password);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving rows from table: " + e.getMessage());
+        }
+    }
 
 
 
