@@ -67,6 +67,10 @@ h1 {
     font-size: 1.7em;
 }
 
+#private-warning {
+    display: none;
+}
+
 a {
     color: #128ff2;
 }

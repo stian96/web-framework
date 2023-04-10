@@ -6,46 +6,63 @@ const nameForm = document.querySelector('#usernameForm');
 const messageForm = document.querySelector('#messageForm');
 const input = document.querySelector('#message');
 const chatField = document.querySelector('#messageArea');
-const connecting = document.querySelector('.connecting');
+const sendBtn = document.querySelector('.submit-username');
 
-let client = null;
+const maxUsers = 2;
+
+
+let stompClient = null;
 let username = null;
-let connectedUsers = 0;
+let connectedUsers = parseInt(localStorage.getItem('connectedUsers')) || 0;
+
+(function() {
+    if (connectedUsers >= maxUsers) {
+        alert("Only two users in private chat!");
+        sendBtn.style.display = "none";
+    }
+    connectedUsers++;
+})();
 
 function connect(event) {
+
+    localStorage.setItem('connectedUsers', connectedUsers.toString());
     username = document.querySelector('#name').value.trim();
 
     if(username)
     {
-        if (connectedUsers < 1)
-        {
-            connectedUsers += 1;
-            firstPage.classList.add('hidden');
-            secondPage.classList.remove('hidden');
+        firstPage.classList.add('hidden');
+        secondPage.classList.remove('hidden');
 
-            client = Stomp.over(new SockJS('/ws'));
-            client.connect({}, whenConnected);
-        }
-        else
-        {
-            alert("This is a private chat, only two people are allowed!");
-            event.preventDefault();
-            client.disconnect();
-        }
-
+        stompClient = Stomp.over(new SockJS('/ws'));
+        stompClient.connect({}, whenConnected);
     }
     event.preventDefault();
 }
 
-function whenConnected() {
-    client.subscribe('/subject/public', whenReceived);
-    client.send("/chat/addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}))
-    connecting.classList.add('hidden');
+function handleUnload() {
+    if (connectedUsers <= 0)
+    {
+        localStorage.removeItem('connectedUsers');
+    }
+    else
+    {
+        connectedUsers--;
+        localStorage.setItem('connectedUsers', connectedUsers.toString());
+    }
 }
+
+window.addEventListener('unload', handleUnload);
+
+function whenConnected() {
+    stompClient.subscribe('/subject/public', whenReceived);
+    stompClient.send("/chat/addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}))
+}
+
+
 
 function send(event) {
     const content = input.value.trim();
-    if(content && client)
+    if(content && stompClient)
     {
         const message =
             {
@@ -54,7 +71,7 @@ function send(event) {
                 type: 'CHAT'
             };
 
-        client.send("/chat/sendMessage", {}, JSON.stringify(message));
+        stompClient.send("/chat/sendMessage", {}, JSON.stringify(message));
         input.value = '';
     }
     event.preventDefault();
@@ -85,8 +102,6 @@ function whenReceived(information) {
     const textElement = document.createElement('p');
     const messageText = document.createTextNode(userMessage.content);
     textElement.appendChild(messageText);
-
-
     messageElement.appendChild(textElement);
 
     chatField.appendChild(messageElement);
