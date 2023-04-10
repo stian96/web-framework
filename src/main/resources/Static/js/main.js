@@ -10,17 +10,29 @@ const connecting = document.querySelector('.connecting');
 
 let client = null;
 let username = null;
+let connectedUsers = 0;
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
 
     if(username)
     {
-        firstPage.classList.add('hidden');
-        secondPage.classList.remove('hidden');
+        if (connectedUsers < 1)
+        {
+            connectedUsers += 1;
+            firstPage.classList.add('hidden');
+            secondPage.classList.remove('hidden');
 
-        client = Stomp.over(new SockJS('/ws'));
-        client.connect({}, whenConnected);
+            client = Stomp.over(new SockJS('/ws'));
+            client.connect({}, whenConnected);
+        }
+        else
+        {
+            alert("This is a private chat, only two people are allowed!");
+            event.preventDefault();
+            client.disconnect();
+        }
+
     }
     event.preventDefault();
 }
@@ -41,6 +53,7 @@ function send(event) {
                 content: input.value,
                 type: 'CHAT'
             };
+
         client.send("/chat/sendMessage", {}, JSON.stringify(message));
         input.value = '';
     }
@@ -49,46 +62,52 @@ function send(event) {
 
 
 function whenReceived(information) {
-    const message = JSON.parse(information.body);
+    const userMessage = JSON.parse(information.body);
 
     const messageElement = document.createElement('li');
 
-    if(message.type === 'JOIN')
+    if (userMessage.type === 'JOIN')
     {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        userMessage.content = userMessage.sender + ' joined!';
     }
-    else if (message.type === 'LEAVE')
+    else if (userMessage.type === 'LEAVE')
     {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
+        userMessage.content = userMessage.sender + ' left!';
     }
     else
     {
         messageElement.classList.add('chat-message');
-
-        const avatarElement = document.createElement('i');
-        const avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = randomColor(message.sender);
-
-        messageElement.appendChild(avatarElement);
-
-        const usernameElement = document.createElement('span');
-        const usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
+        handleAvatarAndUserName(userMessage, messageElement);
     }
 
     const textElement = document.createElement('p');
-    const messageText = document.createTextNode(message.content);
+    const messageText = document.createTextNode(userMessage.content);
     textElement.appendChild(messageText);
+
 
     messageElement.appendChild(textElement);
 
     chatField.appendChild(messageElement);
     chatField.scrollTop = chatField.scrollHeight;
 }
+
+function handleAvatarAndUserName(message, messageElement) {
+    const element = document.createElement('i');
+    const text = document.createTextNode(message.sender[0]);
+
+    element.appendChild(text);
+    element.style['background-color'] = randomColor(message.sender);
+    messageElement.appendChild(element);
+
+    const usernameElement = document.createElement('span');
+    const usernameText = document.createTextNode(message.sender);
+
+    usernameElement.appendChild(usernameText);
+    messageElement.appendChild(usernameElement);
+}
+
 
 const iconColors = [ '#F39C12', '#27AE60', '#00BCD4', '#34495E', '#1ABC9C', '#F4D03F', '#9B59B6', '#FF5733'];
 

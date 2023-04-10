@@ -1,9 +1,12 @@
 package no.hiof.webframework.SpringBoot.Controller;
 import no.hiof.webframework.SpringBoot.Model.ChatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,6 +14,9 @@ import java.util.Objects;
 
 @Controller
 public class ChatController {
+
+    @Autowired
+    private SimpMessageSendingOperations template;
 
     @GetMapping("/chat")
     public String chatService() {
@@ -22,6 +28,7 @@ public class ChatController {
     public ChatService sendMessage(@Payload ChatService chatMessage) {
         return chatMessage;
     }
+
 
     @MessageMapping("/addUser")
     @SendTo("/subject/public")

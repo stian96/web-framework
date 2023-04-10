@@ -4,9 +4,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.*;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry register) {
@@ -16,6 +19,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry register) {
         register.setApplicationDestinationPrefixes("/chat");
-        register.enableSimpleBroker("/subject");
+        register.enableSimpleBroker("/subject/public");
     }
 }
