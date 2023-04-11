@@ -1,7 +1,6 @@
 package no.hiof.webframework.SpringBoot.Controller;
 import no.hiof.webframework.SpringBoot.Model.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;

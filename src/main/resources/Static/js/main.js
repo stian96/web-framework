@@ -6,58 +6,70 @@ const nameForm = document.querySelector('#usernameForm');
 const messageForm = document.querySelector('#messageForm');
 const input = document.querySelector('#message');
 const chatField = document.querySelector('#messageArea');
-const sendBtn = document.querySelector('.submit-username');
 
-const maxUsers = 2;
-
-
+// Object list over users
+let connectedUsers = JSON.parse(localStorage.getItem('connectedUsers')) || [];
 let stompClient = null;
 let username = null;
-let connectedUsers = parseInt(localStorage.getItem('connectedUsers')) || 0;
-
-(function() {
-    if (connectedUsers >= maxUsers) {
-        alert("Only two users in private chat!");
-        sendBtn.style.display = "none";
-    }
-    connectedUsers++;
-})();
 
 function connect(event) {
 
-    localStorage.setItem('connectedUsers', connectedUsers.toString());
     username = document.querySelector('#name').value.trim();
 
-    if(username)
-    {
+
+    if (connectedUsers.some(user => user.username === username)) {
+        alert("You are already connected to the chat!");
+        return;
+    }
+
+    if (connectedUsers.length >= 2) {
+        alert("Only two users in private chat!");
+        return;
+    }
+
+    if (username && username.trim().length > 0) {
+
         firstPage.classList.add('hidden');
         secondPage.classList.remove('hidden');
 
         stompClient = Stomp.over(new SockJS('/ws'));
         stompClient.connect({}, whenConnected);
+
+        connectedUsers.push({
+            username,
+            clientId: stompClient.clientId
+        });
+        localStorage.setItem('connectedUsers', JSON.stringify(connectedUsers));
+        event.preventDefault();
     }
-    event.preventDefault();
 }
 
 function handleUnload() {
-    if (connectedUsers <= 0)
-    {
-        localStorage.removeItem('connectedUsers');
+    const username = getUsernameByClientId(stompClient.clientId);
+
+    if (!username) {
+        return;
     }
-    else
-    {
-        connectedUsers--;
-        localStorage.setItem('connectedUsers', connectedUsers.toString());
+
+    connectedUsers = connectedUsers.filter(user => user.username !== username);
+    localStorage.setItem('connectedUsers', JSON.stringify(connectedUsers));
+
+    if (connectedUsers.length === 0) {
+        localStorage.removeItem('connectedUsers');
     }
 }
 
 window.addEventListener('unload', handleUnload);
 
+function getUsernameByClientId(clientId) {
+    const user = connectedUsers.find(user => user.clientId === clientId);
+    return user ? user.username : null;
+}
+
 function whenConnected() {
     stompClient.subscribe('/subject/public', whenReceived);
     stompClient.send("/chat/addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}))
 }
-
 
 
 function send(event) {
