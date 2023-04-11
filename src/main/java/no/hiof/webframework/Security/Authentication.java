@@ -21,15 +21,17 @@ public class Authentication implements Authenticator {
 
     @Override
     public boolean authenticateLogIn(String username, String password) {
+        String connectionS = "jdbc:mysql://localhost:3001/appDB";
+        UserDatabase db = new UserDatabase(connectionS, "exampleName", "examplePW");
+
         boolean UserAuthenticated = false;
-        if (UserDatabase.userExists(username)) {
+
+        if (db.userExists(username)) {
             Connection DBconnection = null;
             PreparedStatement SQLstmt = null;
             ResultSet rsQry = null;
 
             try {
-                DBconnection = DriverManager.getConnection("jdbc:mysql://localhost:3001/appDB",
-                        "exampleName", "examplePW");
 
                 SQLstmt = DBconnection.prepareStatement("SELECT password FROM users WHERE username = ?");
 
