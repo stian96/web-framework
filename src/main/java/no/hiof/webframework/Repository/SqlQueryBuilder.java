@@ -1,10 +1,7 @@
 package no.hiof.webframework.Repository;
 
 //Scenarios 4.4 and 4.6 can be made using this
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,9 +98,34 @@ public class SqlQueryBuilder {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
 
             // Print the result
             System.out.println("Table: " + tableName + " - All Rows:");
+            while (resultSet.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    String columnValue = resultSet.getString(i);
+                    System.out.println(columnName + ": " + columnValue);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving rows from table: " + e.getMessage());
+        }
+    }
+
+
+    public void getRowsFromTableWithConditions(RepositoryConnection repo, String tableName, String condition) {
+        try {
+            Connection connection = repo.getConnection();
+            String sql = "SELECT * FROM " + tableName + " WHERE " + condition;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            System.out.println("Table: " + tableName + " - Rows with Condition: " + condition);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String username = resultSet.getString("user_name");
@@ -115,6 +137,28 @@ public class SqlQueryBuilder {
             System.err.println("Error retrieving rows from table: " + e.getMessage());
         }
     }
+
+    public void executeSqlQuery(RepositoryConnection repo, String sqlQuery, String[] columnNames) {
+        try {
+            Connection connection = repo.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Print the result
+            System.out.println("SQL Query: " + sqlQuery);
+            while (resultSet.next()) {
+                // Retrieve and print the data from the result set based on column names
+                for (String columnName : columnNames) {
+                    String columnValue = resultSet.getString(columnName);
+                    System.out.println(columnName + ": " + columnValue);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error executing SQL query: " + e.getMessage());
+        }
+    }
+
 
 
 
