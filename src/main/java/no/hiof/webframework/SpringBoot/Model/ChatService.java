@@ -5,13 +5,11 @@ public class ChatService {
     private String content;
     private String sender;
 
-    private String recipient;
 
     public enum MessageType {
         CHAT,
         JOIN,
         LEAVE,
-        PRIVATE
     }
 
     public MessageType getType() {
@@ -36,12 +34,5 @@ public class ChatService {
 
     public void setSender(String sender) {
         this.sender = sender;
-    }
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
     }
 }

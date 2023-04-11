@@ -1,11 +1,11 @@
 package no.hiof.webframework.Application;
+import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
 import no.hiof.webframework.Application.Parser.HtmlParser;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Application.Routes.Route;
 import no.hiof.webframework.Repository.UserDb;
-import no.hiof.webframework.SpringBoot.Chatroom;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 
@@ -139,7 +139,7 @@ public class App {
             throw new NullPointerException("Controller cant be null!");
     }
 
-    public void addChatRoom(Chatroom room) {
+    public void addChatRoom(Chatroom room, ChatMethod method) {
         this.chatroom = room;
     }
 
@@ -151,7 +151,14 @@ public class App {
         Logger.turnLoggerOFF();
 
         ServerHandler server = constructorHandler();
-        server.initializeHandler(new Server(8080), this);
+        if (chatroom != null) {
+            chatroom = Chatroom.create();
+            new Thread(chatroom::startChatRoom).start();
+            server.initializeHandler(new Server(8080), this);
+        }
+        else {
+            server.initializeHandler(new Server(8080), this);
+        }
     }
 
     private ServerHandler constructorHandler() {

@@ -1,4 +1,9 @@
 'use strict';
+window.chatMethod = null;
+
+let wsEndpoint;
+let brokerPrefix;
+let appDestinationPrefix;
 
 const firstPage = document.querySelector('#first-page');
 const secondPage = document.querySelector('#second-page');
@@ -12,7 +17,25 @@ let connectedUsers = JSON.parse(localStorage.getItem('connectedUsers')) || [];
 let stompClient = null;
 let username = null;
 
+// Fetch configuration data from the ChatConfigController
+function fetchChatConfig() {
+    fetch('/api/chat-config')
+        .then(response => response.json())
+        .then(config => {
+            wsEndpoint = config.wsEndpoint;
+            brokerPrefix = config.brokerPrefix;
+            appDestinationPrefix = config.appDestinationPrefix;
+
+        })
+        .catch(error => {
+            console.error("Error fetching chat config:", error);
+        });
+}
+
+fetchChatConfig();
+
 function connect(event) {
+    console.log("Chat method: " + chatMethod);
 
     username = document.querySelector('#name').value.trim();
 
@@ -32,7 +55,7 @@ function connect(event) {
         firstPage.classList.add('hidden');
         secondPage.classList.remove('hidden');
 
-        stompClient = Stomp.over(new SockJS('/ws'));
+        stompClient = Stomp.over(new SockJS(wsEndpoint));
         stompClient.connect({}, whenConnected);
 
         connectedUsers.push({
@@ -67,8 +90,8 @@ function getUsernameByClientId(clientId) {
 }
 
 function whenConnected() {
-    stompClient.subscribe('/subject/public', whenReceived);
-    stompClient.send("/chat/addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}))
+    stompClient.subscribe(brokerPrefix, whenReceived);
+    stompClient.send(appDestinationPrefix + "/addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}))
 }
 
 
@@ -82,8 +105,7 @@ function send(event) {
                 content: input.value,
                 type: 'CHAT'
             };
-
-        stompClient.send("/chat/sendMessage", {}, JSON.stringify(message));
+        stompClient.send(appDestinationPrefix + "/sendMessage", {}, JSON.stringify(message));
         input.value = '';
     }
     event.preventDefault();
