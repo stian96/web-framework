@@ -2,17 +2,18 @@ package no.hiof.webframework.Repository;
 
 //Scenarios 4.4 and 4.6 can be made using this
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Class for creating sql queries easily.
  */
-public class SqlQueryBuilder {
+public class RepositoryManager {
+    private RepositoryConnection repo;
 
-    public boolean insert(RepositoryConnection repo,String tableName, String[] columnNames, Object[] values) {
+    public RepositoryManager(){
+        repo = RepositoryConnection.create();
+    }
+
+    public boolean insert(String tableName, String[] columnNames, Object[] values) {
         try {
             Connection connection = repo.getConnection();
             String sql = generateInsertStatement(tableName, columnNames);
@@ -65,7 +66,7 @@ public class SqlQueryBuilder {
 
         return sb.toString();
     }
-    public boolean delete(RepositoryConnection repo, String tableName, String columnName, Object value) {
+    public boolean delete( String tableName, String columnName, Object value) {
         try {
             Connection connection = repo.getConnection();
             String sql = generateDeleteStatement(tableName, columnName);
@@ -91,7 +92,7 @@ public class SqlQueryBuilder {
     private String generateDeleteStatement(String tableName, String columnName) {
         return "DELETE FROM " + tableName + " WHERE " + columnName + " = ?";
     }
-    public void getAllRowsFromTable(RepositoryConnection repo, String tableName) {
+    public void getAllRowsFromTable(String tableName) {
         try {
             Connection connection = repo.getConnection();
             String sql = "SELECT * FROM " + tableName;
@@ -116,29 +117,53 @@ public class SqlQueryBuilder {
     }
 
 
-    public void getRowsFromTableWithConditions(RepositoryConnection repo, String tableName, String condition) {
+    public void getRowsFromTableWithConditions(String tableName, String columnName, String condition) {
         try {
             Connection connection = repo.getConnection();
-            String sql = "SELECT * FROM " + tableName + " WHERE " + condition;
+            String sql = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, condition);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-
-            System.out.println("Table: " + tableName + " - Rows with Condition: " + condition);
+            System.out.println("Table: " + tableName + " - Rows with Condition: " + columnName + " = " + condition);
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String username = resultSet.getString("user_name");
-                String password = resultSet.getString("password");
-                // ... get other columns as needed
-                System.out.println("ID: " + id + ", Username: " + username + ", Email: " + password);
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnNameResult = resultSetMetaData.getColumnName(i);
+                    String columnValue = resultSet.getString(i);
+                    System.out.println(columnNameResult + ": " + columnValue);
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving rows from table: " + e.getMessage());
         }
     }
 
-    public void executeSqlQuery(RepositoryConnection repo, String sqlQuery, String[] columnNames) {
+    public int getCountOfItemInDatabase(String tableName, String columnName, String item) {
+        int count = 0;
+        try {
+            Connection connection = repo.getConnection();
+            String sql = "SELECT COUNT(*) AS count FROM " + tableName + " WHERE " + columnName + " = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, item);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+
+            System.out.println("Item: " + item + " is in the Table: " + tableName + " "  + count + " time(s)");
+        } catch (SQLException e) {
+            System.err.println("Error retrieving count from database: " + e.getMessage());
+        }
+        return count;
+    }
+
+
+    public void executeSqlQuery(String sqlQuery, String[] columnNames) {
         try {
             Connection connection = repo.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
