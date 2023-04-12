@@ -8,8 +8,8 @@ public class ChatService {
 
     public enum MessageType {
         CHAT,
-        JOIN,
-        LEAVE,
+        CONNECT,
+        DISCONNECT,
     }
 
     public MessageType getType() {

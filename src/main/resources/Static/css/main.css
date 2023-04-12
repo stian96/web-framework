@@ -194,21 +194,22 @@ button.submit-username {
     position: relative;
 }
 
-#second-page .chat-message i {
+#second-page .chat-message div {
     position: absolute;
     width: 42px;
     height: 42px;
     overflow: hidden;
     left: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 18px;
-    line-height: 42px;
-    color: #fff;
-    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
-    font-style: normal;
-    text-transform: uppercase;
+}
+
+#second-page .chat-message div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #second-page .chat-message span {

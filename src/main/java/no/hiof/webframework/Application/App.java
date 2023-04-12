@@ -140,6 +140,8 @@ public class App {
     }
 
     public void addChatRoom(Chatroom room, ChatMethod method) {
+        SpringServlet servlet = SpringServlet.getServlet();
+        servlet.setChatMethod(method);
         this.chatroom = room;
     }
 

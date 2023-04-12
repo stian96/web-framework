@@ -1,5 +1,4 @@
 'use strict';
-window.chatMethod = null;
 
 let wsEndpoint;
 let brokerPrefix;
@@ -11,11 +10,25 @@ const nameForm = document.querySelector('#usernameForm');
 const messageForm = document.querySelector('#messageForm');
 const input = document.querySelector('#message');
 const chatField = document.querySelector('#messageArea');
+const chatRoomTitle = document.querySelector('#chat-room-title');
+
+const iconImages = [ 'images/image.jpg'];
 
 // Object list over users
 let connectedUsers = JSON.parse(localStorage.getItem('connectedUsers')) || [];
 let stompClient = null;
 let username = null;
+let chatMethod = null;
+
+
+// Fetch private value from spring servlet
+fetch('/springServlet').then(function(response) {
+    return response.text();
+}).then(function(value) {
+    chatMethod = value;
+    console.log("Chat method: " + value);
+});
+
 
 // Fetch configuration data from the ChatConfigController
 function fetchChatConfig() {
@@ -45,9 +58,16 @@ function connect(event) {
         return;
     }
 
-    if (connectedUsers.length >= 2) {
+    if (connectedUsers.length >= 2 && parseInt(chatMethod) === 0) {
         alert("Only two users in private chat!");
         return;
+    }
+
+    if (parseInt(chatMethod) === 0) {
+        chatRoomTitle.textContent = "Private Chat";
+    }
+    else {
+        chatRoomTitle.textContent = "Group Chat";
     }
 
     if (username && username.trim().length > 0) {
@@ -60,7 +80,7 @@ function connect(event) {
 
         connectedUsers.push({
             username,
-            clientId: stompClient.clientId
+            clientId: stompClient.clientId,
         });
         localStorage.setItem('connectedUsers', JSON.stringify(connectedUsers));
         event.preventDefault();
@@ -91,7 +111,7 @@ function getUsernameByClientId(clientId) {
 
 function whenConnected() {
     stompClient.subscribe(brokerPrefix, whenReceived);
-    stompClient.send(appDestinationPrefix + "/addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}))
+    stompClient.send(appDestinationPrefix + "/addUser", {}, JSON.stringify({sender: username, type: 'CONNECT'}))
 }
 
 
@@ -117,15 +137,15 @@ function whenReceived(information) {
 
     const messageElement = document.createElement('li');
 
-    if (userMessage.type === 'JOIN')
+    if (userMessage.type === 'CONNECT')
     {
         messageElement.classList.add('event-message');
-        userMessage.content = userMessage.sender + ' joined!';
+        userMessage.content = userMessage.sender + ' connected!';
     }
-    else if (userMessage.type === 'LEAVE')
+    else if (userMessage.type === 'DISCONNECT')
     {
         messageElement.classList.add('event-message');
-        userMessage.content = userMessage.sender + ' left!';
+        userMessage.content = userMessage.sender + ' disconnected!';
     }
     else
     {
@@ -143,11 +163,12 @@ function whenReceived(information) {
 }
 
 function handleAvatarAndUserName(message, messageElement) {
-    const element = document.createElement('i');
-    const text = document.createTextNode(message.sender[0]);
+    const element = document.createElement('div');
+    const img = document.createElement('img');
 
-    element.appendChild(text);
-    element.style['background-color'] = randomColor(message.sender);
+    img.src = getRandomImage(message.sender);
+    element.appendChild(img);
+
     messageElement.appendChild(element);
 
     const usernameElement = document.createElement('span');
@@ -158,16 +179,18 @@ function handleAvatarAndUserName(message, messageElement) {
 }
 
 
-const iconColors = [ '#F39C12', '#27AE60', '#00BCD4', '#34495E', '#1ABC9C', '#F4D03F', '#9B59B6', '#FF5733'];
-
-function randomColor(message) {
-    let value = 1;
-    for (let i = 0; i < message.length; i++)
-    {
-        value = 2 * (value + message.charCodeAt(i));
+function getRandomImage(str) {
+    let hash = 0;
+    if (str.length === 0) {
+        return hash;
     }
-    const index = Math.abs(value % iconColors.length);
-    return iconColors[index];
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    const index = Math.abs(hash % iconImages.length);
+    return iconImages[index];
 }
 
 nameForm.addEventListener('submit', connect, true)

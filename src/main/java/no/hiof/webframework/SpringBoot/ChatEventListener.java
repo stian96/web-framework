@@ -24,7 +24,7 @@ public class ChatEventListener {
             username = accessor.getSessionAttributes().get("username");
 
             ChatService chatMessage = new ChatService();
-            chatMessage.setType(ChatService.MessageType.LEAVE);
+            chatMessage.setType(ChatService.MessageType.DISCONNECT);
             chatMessage.setSender((String) username);
 
             template.convertAndSend("/subject/public", chatMessage);
