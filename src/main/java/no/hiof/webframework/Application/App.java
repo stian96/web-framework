@@ -1,4 +1,5 @@
 package no.hiof.webframework.Application;
+import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
 import no.hiof.webframework.Application.Parser.HtmlParser;
@@ -33,6 +34,8 @@ public class App {
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
     private String customPage, applicationTitle;
+
+    private Chatroom chatroom;
 
     private Controller controller;
     private UserDb dbUser;
@@ -136,6 +139,10 @@ public class App {
             throw new NullPointerException("Controller cant be null!");
     }
 
+    public void addChatRoom(Chatroom room, ChatMethod method) {
+        this.chatroom = room;
+    }
+
     /**
      * Starts and run the application. Program can be
      * run after this method is called.
@@ -144,7 +151,14 @@ public class App {
         Logger.turnLoggerOFF();
 
         ServerHandler server = constructorHandler();
-        server.initializeHandler(new Server(8080), this);
+        if (chatroom != null) {
+            chatroom = Chatroom.create();
+            new Thread(chatroom::startChatRoom).start();
+            server.initializeHandler(new Server(8080), this);
+        }
+        else {
+            server.initializeHandler(new Server(8080), this);
+        }
     }
 
     private ServerHandler constructorHandler() {
