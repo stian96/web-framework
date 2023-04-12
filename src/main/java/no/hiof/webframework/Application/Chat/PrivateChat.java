@@ -11,21 +11,10 @@ import java.util.List;
 public class PrivateChat implements ChatStrategy {
     private ChatUser user1;
     private ChatUser user2;
-    private List<String> messages;
+    private final List<String> messages;
 
-    public PrivateChat() {}
 
-    public PrivateChat(ChatUser ...users) {
-
-        if (users.length > 2)
-            throw new IllegalArgumentException("PrivateChat can only have two users!");
-
-        if (users.length > 0)
-            user1 = users[0];
-
-        if (users.length > 1)
-            user2 = users[1];
-
+    public PrivateChat() {
         messages = new ArrayList<>();
     }
 
@@ -51,6 +40,11 @@ public class PrivateChat implements ChatStrategy {
     @Override
     public List<String> getChatHistory() {
         return messages;
+    }
+
+    @Override
+    public void addUser(ChatUser user) {
+        this.user1 = user;
     }
 
     private boolean isValidUser(ChatUser user) {

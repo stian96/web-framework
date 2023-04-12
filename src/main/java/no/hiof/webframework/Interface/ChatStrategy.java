@@ -31,4 +31,6 @@ public interface ChatStrategy {
      * @return a list of strings representing the chat history
      */
     List<String> getChatHistory();
+
+    void addUser(ChatUser user);
 }

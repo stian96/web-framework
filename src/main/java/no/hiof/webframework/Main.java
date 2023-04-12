@@ -1,5 +1,7 @@
 package no.hiof.webframework;
 
+import no.hiof.webframework.Application.Chat.ChatRoom;
+import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
 import no.hiof.webframework.Servlet.ChatRoomServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -18,7 +20,8 @@ public class Main {
         ServletHandler servletHandler = new ServletHandler();
         context.setServletHandler(servletHandler);
 
-        servletHandler.addServletWithMapping(new ServletHolder(new ChatRoomServlet()), "/chat");
+
+        servletHandler.addServletWithMapping(new ServletHolder(new ChatRoomServlet(new ChatRoom(ChatMethod.PRIVATE))), "/chat");
         System.out.println("Listen on: http://localhost:8080/chat");
 
         server.setHandler(context);

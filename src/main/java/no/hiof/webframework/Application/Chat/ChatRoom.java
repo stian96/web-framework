@@ -18,15 +18,15 @@ public class ChatRoom {
      @param chatMethod the type of chat method, either PRIVATE or GROUP
      @throws IllegalArgumentException if the chatMethod is null
      */
-    public ChatRoom(ChatMethod chatMethod, ChatUser ...args) throws IllegalArgumentException {
+    public ChatRoom(ChatMethod chatMethod) throws IllegalArgumentException {
         if (chatMethod == null)
             throw new IllegalArgumentException("Chat method cannot be null.");
 
         else if (chatMethod == ChatMethod.PRIVATE)
-            this.chatStrategy = new PrivateChat(args);
+            this.chatStrategy = new PrivateChat();
 
         else if (chatMethod == ChatMethod.GROUP)
-            this.chatStrategy = new GroupChat(args);
+            this.chatStrategy = new GroupChat();
     }
 
     /**
@@ -56,5 +56,9 @@ public class ChatRoom {
      */
     public List<String> getChatHistory() {
         return chatStrategy.getChatHistory();
+    }
+
+    public void addUser(ChatUser user) {
+        chatStrategy.addUser(user);
     }
 }
