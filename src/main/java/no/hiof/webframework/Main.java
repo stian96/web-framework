@@ -18,6 +18,7 @@ public class Main {
         app.addHtmlPage(factory.createHomePage(), "Home");
         app.addChatRoom(Chatroom.create(), ChatMethod.PRIVATE);
 
+
         app.run();
 
     }
