@@ -12,7 +12,7 @@ const input = document.querySelector('#message');
 const chatField = document.querySelector('#messageArea');
 const chatRoomTitle = document.querySelector('#chat-room-title');
 
-const iconImages = [ 'images/image.jpg'];
+const iconImages = [ 'images/default1.jpg', 'images/default2.jpg', 'images/image1.jpg', 'images/image2.jpg'];
 
 // Object list over users
 let connectedUsers = JSON.parse(localStorage.getItem('connectedUsers')) || [];
@@ -167,6 +167,11 @@ function handleAvatarAndUserName(message, messageElement) {
     const img = document.createElement('img');
 
     img.src = getRandomImage(message.sender);
+
+    img.onerror = function() {
+        img.src = iconImages[Math.floor(Math.random() * 2) + 1]
+    };
+
     element.appendChild(img);
 
     messageElement.appendChild(element);

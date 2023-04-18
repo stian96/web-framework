@@ -2,7 +2,7 @@ package no.hiof.webframework.Application;
 import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
-import no.hiof.webframework.Application.Parser.HtmlParser;
+import no.hiof.webframework.Application.Tools.HtmlParser;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Application.Routes.Route;
 import no.hiof.webframework.Repository.UserDb;

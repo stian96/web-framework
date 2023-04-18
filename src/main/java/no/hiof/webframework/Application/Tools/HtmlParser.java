@@ -1,4 +1,4 @@
-package no.hiof.webframework.Application.Parser;
+package no.hiof.webframework.Application.Tools;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

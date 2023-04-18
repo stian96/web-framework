@@ -4,7 +4,7 @@ no.hiof.webframework.Application.Chat
 no.hiof.webframework.Application.Chat.Enum
 no.hiof.webframework.Application.Frontend
 no.hiof.webframework.Application.Logging
-no.hiof.webframework.Application.Parser
+no.hiof.webframework.Application.Tools
 no.hiof.webframework.Application.Routes
 no.hiof.webframework.Controllers
 no.hiof.webframework.Data
