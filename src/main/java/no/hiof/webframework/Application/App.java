@@ -139,6 +139,7 @@ public class App {
             throw new NullPointerException("Controller cant be null!");
     }
 
+    // TODO: Write javadoc comments.
     public void addChatRoom(Chatroom room) throws ChatMethodException {
         if (room.getMethod() != null) {
             SpringServlet servlet = SpringServlet.getServlet();
