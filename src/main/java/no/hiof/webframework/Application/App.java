@@ -4,6 +4,7 @@ import no.hiof.webframework.Application.Logging.Logger;
 import no.hiof.webframework.Application.Tools.HtmlParser;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Application.Routes.Route;
+import no.hiof.webframework.Exceptions.ChatMethodException;
 import no.hiof.webframework.Repository.UserDb;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
@@ -138,10 +139,15 @@ public class App {
             throw new NullPointerException("Controller cant be null!");
     }
 
-    public void addChatRoom(Chatroom room) {
-        SpringServlet servlet = SpringServlet.getServlet();
-        servlet.setChatMethod(room.getMethod());
-        this.chatroom = room;
+    public void addChatRoom(Chatroom room) throws ChatMethodException {
+        if (room.getMethod() != null) {
+            SpringServlet servlet = SpringServlet.getServlet();
+            servlet.setChatMethod(room.getMethod());
+            this.chatroom = room;
+        }
+        else {
+            throw new ChatMethodException("Set chat method before passing Chatroom to App class.");
+        }
     }
 
     /**
