@@ -23,7 +23,7 @@ public class ImageUtility {
         }
     }
 
-    public static void copyImageFile(String sourcePath) throws ImageOverloadException {
+    protected static void copyImageFile(String sourcePath) throws ImageOverloadException {
         Path source = Paths.get(sourcePath);
         String destination = "";
 
@@ -41,7 +41,7 @@ public class ImageUtility {
         imageCounter++;
     }
 
-    public static void copyImageFile(String sourcePath, ImageType overrideImage) throws IOException {
+    protected static void copyImageFile(String sourcePath, ImageType overrideImage) throws IOException {
         Path source = Paths.get(sourcePath);
         String dest = "";
 

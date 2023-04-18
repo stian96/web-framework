@@ -1,5 +1,4 @@
 package no.hiof.webframework.Application;
-import no.hiof.webframework.Application.Enums.ChatMethod;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
 import no.hiof.webframework.Application.Tools.HtmlParser;

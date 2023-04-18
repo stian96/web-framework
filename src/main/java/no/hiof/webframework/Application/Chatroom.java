@@ -9,7 +9,7 @@ import no.hiof.webframework.SpringBoot.SpringApp;
 
 import java.io.IOException;
 
-public class Chatroom {
+public class Chatroom extends ImageUtility {
 
     private static Chatroom instance = null;
 
