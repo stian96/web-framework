@@ -76,6 +76,5 @@ public class CustomServlet extends HttpServlet {
         catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         }
-
     }
 }
