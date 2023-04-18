@@ -3,7 +3,7 @@ package no.hiof.webframework.Application;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
+import no.hiof.webframework.Application.Enums.ChatMethod;
 
 import java.io.IOException;
 

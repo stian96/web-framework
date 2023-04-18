@@ -1,5 +1,5 @@
 package no.hiof.webframework.Application;
-import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
+import no.hiof.webframework.Application.Enums.ChatMethod;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
 import no.hiof.webframework.Application.Tools.HtmlParser;
@@ -139,9 +139,9 @@ public class App {
             throw new NullPointerException("Controller cant be null!");
     }
 
-    public void addChatRoom(Chatroom room, ChatMethod method) {
+    public void addChatRoom(Chatroom room) {
         SpringServlet servlet = SpringServlet.getServlet();
-        servlet.setChatMethod(method);
+        servlet.setChatMethod(room.getMethod());
         this.chatroom = room;
     }
 

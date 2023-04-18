@@ -1,7 +1,7 @@
 package no.hiof.webframework;
 import no.hiof.webframework.Application.App;
-import no.hiof.webframework.Application.Chat.Enum.ChatMethod;
 import no.hiof.webframework.Application.Chatroom;
+import no.hiof.webframework.Application.Enums.ChatMethod;
 import no.hiof.webframework.Application.Frontend.HtmlFactory;
 import org.eclipse.jetty.http.HttpMethod;
 
@@ -16,8 +16,9 @@ public class Main {
 
         HtmlFactory factory = new HtmlFactory();
         app.addHtmlPage(factory.createHomePage(), "Home");
-        app.addChatRoom(Chatroom.create(), ChatMethod.GROUP);
 
+        Chatroom.setChatMethod(ChatMethod.GROUP);
+        app.addChatRoom(Chatroom.create());
 
         app.run();
 

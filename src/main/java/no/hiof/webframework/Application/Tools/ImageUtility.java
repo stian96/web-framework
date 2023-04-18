@@ -1,5 +1,6 @@
 package no.hiof.webframework.Application.Tools;
 
+import no.hiof.webframework.Application.Enums.ImageType;
 import no.hiof.webframework.Exceptions.ImageOverloadException;
 
 import java.io.IOException;
@@ -10,13 +11,6 @@ public class ImageUtility {
     private static int imageCounter = 0;
 
     private static final Properties config;
-
-    public enum ImageType {
-        DEFAULT_1,
-        DEFAULT_2,
-        IMAGE_1,
-        IMAGE_2
-    }
 
     static  {
         config = new Properties();
@@ -29,7 +23,7 @@ public class ImageUtility {
         }
     }
 
-    public static void copyImageFile(String sourcePath) throws IOException, ImageOverloadException {
+    public static void copyImageFile(String sourcePath) throws ImageOverloadException {
         Path source = Paths.get(sourcePath);
         String destination = "";
 
@@ -37,14 +31,13 @@ public class ImageUtility {
             destination = config.getProperty("image1.path");
         else if (imageCounter == 1)
             destination = config.getProperty("image2.path");
-        else
-        {
+        else {
             String msg = "Can only add max two images, use overrideImage parameter to add more.";
             throw new ImageOverloadException(msg);
         }
 
         Path destinationPath = Paths.get(destination);
-        Files.copy(source, destinationPath);
+        copyFile(source, destinationPath);
         imageCounter++;
     }
 
@@ -76,5 +69,15 @@ public class ImageUtility {
         catch (FileAlreadyExistsException ex) {
             System.err.println("FileAlreadyExistsException: Set overrideImage parameter to override it.");
         }
+    }
+
+    private static void copyFile(Path source, Path destination) {
+        try {
+            Files.copy(source, destination);
+        }
+        catch (IOException ex) {
+            System.err.println("Image file is already added, remove the addUserImageToChat call.");
+        }
+
     }
 }
