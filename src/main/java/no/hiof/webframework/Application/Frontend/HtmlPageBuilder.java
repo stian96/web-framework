@@ -133,6 +133,7 @@ public class HtmlPageBuilder implements IHtmlBuilder {
         }
     }
 
+    // TODO: Need to fix this method.
     // The image wont show in the html page (think its because of some server errors).
     @Override
     public void addImage(String imageUrl, String altText) {
