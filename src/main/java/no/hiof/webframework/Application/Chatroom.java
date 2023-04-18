@@ -1,8 +1,7 @@
 package no.hiof.webframework.Application;
-
-
 import no.hiof.webframework.Application.Enums.ChatMethod;
 import no.hiof.webframework.Application.Enums.ImageType;
+import no.hiof.webframework.Application.Enums.Options;
 import no.hiof.webframework.Application.Tools.ImageUtility;
 import no.hiof.webframework.Exceptions.ImageOverloadException;
 import no.hiof.webframework.SpringBoot.SpringApp;
@@ -14,6 +13,10 @@ public class Chatroom extends ImageUtility {
     private static Chatroom instance = null;
 
     private static ChatMethod method;
+
+    private static boolean timeStamp;
+
+    private static Options deleteMessage;
 
     private Chatroom() {}
 
@@ -50,8 +53,25 @@ public class Chatroom extends ImageUtility {
         method = type;
     }
 
-    public ChatMethod getMethod() {
+    public static void addMessageTimeStamp(boolean decision) {
+        timeStamp = decision;
+    }
+
+    public static void deleteMessages(Options option) {
+        deleteMessage = option;
+
+    }
+
+    protected Options getDeleteMessage() {
+        return deleteMessage;
+    }
+
+    protected ChatMethod getMethod() {
         return method;
+    }
+
+    protected boolean getTimeStamp() {
+        return timeStamp;
     }
 }
 
