@@ -10,6 +10,8 @@ public class Main {
         App app = App.create();
 
         Chatroom.setChatMethod(ChatMethod.PRIVATE);
+        Chatroom.addMessageTimeStamp(true);
+
         app.addChatRoom(Chatroom.create());
         app.run();
 

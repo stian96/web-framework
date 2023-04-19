@@ -16,6 +16,8 @@ public class Chatroom extends ImageUtility {
 
     private static boolean timeStamp;
 
+    private static String title;
+
     private static Options deleteMessage;
 
     private Chatroom() {}
@@ -62,6 +64,10 @@ public class Chatroom extends ImageUtility {
 
     }
 
+    public static void setTitle(String chatRoomTitle) {
+        title = chatRoomTitle;
+    }
+
     protected Options getDeleteMessage() {
         return deleteMessage;
     }
@@ -73,5 +79,7 @@ public class Chatroom extends ImageUtility {
     protected boolean getTimeStamp() {
         return timeStamp;
     }
+
+    protected String getTitle() { return title; }
 }
 

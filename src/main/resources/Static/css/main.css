@@ -206,6 +206,14 @@ button.submit-username:hover {
     font-weight: 600;
 }
 
+#second-page .chat-message .timestamp {
+    color: #888484;
+    float: right;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+
 #messageForm .input-group input {
     float: left;
     width: calc(100% - 85px);

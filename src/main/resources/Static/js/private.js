@@ -10,7 +10,6 @@ const nameForm = document.querySelector('#usernameForm');
 const messageForm = document.querySelector('#messageForm');
 const input = document.querySelector('#message');
 const chatField = document.querySelector('#messageArea');
-const chatRoomTitle = document.querySelector('#chat-room-title');
 
 const iconImages = [ 'images/default1.jpg', 'images/default2.jpg', 'images/image1.jpg', 'images/image2.jpg'];
 
@@ -19,14 +18,20 @@ let connectedUsers = JSON.parse(localStorage.getItem('connectedUsers')) || [];
 let stompClient = null;
 let username = null;
 let chatMethod = null;
+let timeStamp = false;
+let chatRoomTitle = document.querySelector('#chat-room-title');
 
 
-// Fetch private value from spring servlet
 fetch('/springServlet').then(function(response) {
-    return response.text();
-}).then(function(value) {
-    chatMethod = value;
-    console.log("Chat method: " + value);
+    return response.json();
+}).then(function(data) {
+    chatMethod = parseInt(data.chatMethod);
+    timeStamp = Boolean(data.timeStamp);
+    chatRoomTitle.textContent = data.title;
+
+    console.log("Chat method: " + chatMethod);
+    console.log("Time stamp: " + timeStamp);
+    console.log("Title: " + chatRoomTitle.textContent);
 });
 
 
@@ -63,10 +68,10 @@ function connect(event) {
         return;
     }
 
-    if (parseInt(chatMethod) === 0) {
+    if (parseInt(chatMethod) === 0 && chatRoomTitle.textContent === "") {
         chatRoomTitle.textContent = "Private Chat";
     }
-    else {
+    else if (parseInt(chatMethod) === 1 && chatRoomTitle.textContent === ""){
         chatRoomTitle.textContent = "Group Chat";
     }
 
@@ -125,6 +130,7 @@ function send(event) {
                 content: input.value,
                 type: 'CHAT'
             };
+
         stompClient.send(appDestinationPrefix + "/sendMessage", {}, JSON.stringify(message));
         input.value = '';
     }
@@ -133,7 +139,10 @@ function send(event) {
 
 
 function whenReceived(information) {
+
     const userMessage = JSON.parse(information.body);
+    const messageTimestamp = new Date().toLocaleTimeString();
+    const timestampSpan = document.createElement('p');
 
     const messageElement = document.createElement('li');
 
@@ -150,19 +159,27 @@ function whenReceived(information) {
     else
     {
         messageElement.classList.add('chat-message');
-        handleAvatarAndUserName(userMessage, messageElement);
+        handleImageAndUserName(userMessage, messageElement);
+        if (timeStamp  === true) {
+
+            const time = document.createTextNode(`${messageTimestamp}`);
+            timestampSpan.classList.add('timestamp');
+            timestampSpan.appendChild(time);
+        }
     }
 
     const textElement = document.createElement('p');
     const messageText = document.createTextNode(userMessage.content);
     textElement.appendChild(messageText);
+
+    textElement.appendChild(timestampSpan);
     messageElement.appendChild(textElement);
 
     chatField.appendChild(messageElement);
     chatField.scrollTop = chatField.scrollHeight;
 }
 
-function handleAvatarAndUserName(message, messageElement) {
+function handleImageAndUserName(message, messageElement) {
     const element = document.createElement('div');
     const img = document.createElement('img');
 

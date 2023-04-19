@@ -145,6 +145,13 @@ public class App {
             SpringServlet servlet = SpringServlet.getServlet();
             servlet.setChatMethod(room.getMethod());
             this.chatroom = room;
+
+            if (room.getTimeStamp()) {
+                servlet.setTimeStamp(room.getTimeStamp());
+            }
+            if (room.getTitle() != null) {
+                servlet.setTitle(room.getTitle());
+            }
         }
         else {
             throw new ChatMethodException("Set chat method before passing Chatroom to App class.");
