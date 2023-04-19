@@ -11,15 +11,14 @@ const messageForm = document.querySelector('#messageForm');
 const input = document.querySelector('#message');
 const chatField = document.querySelector('#messageArea');
 
-const iconImages = [ 'images/default1.jpg', 'images/default2.jpg', 'images/image1.jpg', 'images/image2.jpg'];
-
-// Object list over users
 let connectedUsers = JSON.parse(localStorage.getItem('connectedUsers')) || [];
 let stompClient = null;
 let username = null;
 let chatMethod = null;
 let timeStamp = false;
+let deleteBtn = null;
 let chatRoomTitle = document.querySelector('#chat-room-title');
+const iconImages = [ 'images/default1.jpg', 'images/default2.jpg', 'images/image1.jpg', 'images/image2.jpg'];
 
 
 fetch('/springServlet').then(function(response) {
@@ -28,14 +27,14 @@ fetch('/springServlet').then(function(response) {
     chatMethod = parseInt(data.chatMethod);
     timeStamp = Boolean(data.timeStamp);
     chatRoomTitle.textContent = data.title;
+    deleteBtn = parseInt(data.deleteButton);
 
     console.log("Chat method: " + chatMethod);
     console.log("Time stamp: " + timeStamp);
     console.log("Title: " + chatRoomTitle.textContent);
+    console.log("Button: " + deleteBtn);
 });
 
-
-// Fetch configuration data from the ChatConfigController
 function fetchChatConfig() {
     fetch('/api/chat-config')
         .then(response => response.json())
@@ -49,47 +48,69 @@ function fetchChatConfig() {
             console.error("Error fetching chat config:", error);
         });
 }
-
 fetchChatConfig();
 
 function connect(event) {
-    console.log("Chat method: " + chatMethod);
 
+    console.log("Chat method: " + chatMethod);
     username = document.querySelector('#name').value.trim();
 
-
-    if (connectedUsers.some(user => user.username === username)) {
-        alert("You are already connected to the chat!");
+    if (!privateChatAlerts(connectedUsers, chatMethod))
         return;
-    }
 
-    if (connectedUsers.length >= 2 && parseInt(chatMethod) === 0) {
-        alert("Only two users in private chat!");
-        return;
-    }
+    checkTitle(chatMethod, chatRoomTitle);
+    addClients(username);
+    event.preventDefault();
+}
 
-    if (parseInt(chatMethod) === 0 && chatRoomTitle.textContent === "") {
+function addClients(name) {
+
+    if (name && name.trim().length > 0) {
+
+        addAndRemovePage(firstPage, secondPage);
+        createNewStompClient(name);
+    }
+}
+
+function createNewStompClient(username) {
+
+    stompClient = Stomp.over(new SockJS(wsEndpoint));
+    stompClient.connect({}, whenConnected);
+
+    connectedUsers.push({
+        username,
+        clientId: stompClient.clientId,
+    });
+    localStorage.setItem('connectedUsers', JSON.stringify(connectedUsers));
+}
+
+function addAndRemovePage(first, last) {
+    first.classList.add('hidden');
+    last.classList.remove('hidden');
+}
+
+function checkTitle(method, title) {
+
+    if (parseInt(method) === 0 && title.textContent === "") {
         chatRoomTitle.textContent = "Private Chat";
     }
-    else if (parseInt(chatMethod) === 1 && chatRoomTitle.textContent === ""){
+    else if (parseInt(method) === 1 && title.textContent === ""){
         chatRoomTitle.textContent = "Group Chat";
     }
+}
 
-    if (username && username.trim().length > 0) {
+function privateChatAlerts(users, method) {
 
-        firstPage.classList.add('hidden');
-        secondPage.classList.remove('hidden');
-
-        stompClient = Stomp.over(new SockJS(wsEndpoint));
-        stompClient.connect({}, whenConnected);
-
-        connectedUsers.push({
-            username,
-            clientId: stompClient.clientId,
-        });
-        localStorage.setItem('connectedUsers', JSON.stringify(connectedUsers));
-        event.preventDefault();
+    if (users.some(user => user.username === username)) {
+        alert("You are already connected to the chat!");
+        return false;
     }
+
+    if (users.length >= 2 && parseInt(method) === 0) {
+        alert("Only two users in private chat!");
+        return false;
+    }
+    return true;
 }
 
 function handleUnload() {
@@ -106,7 +127,6 @@ function handleUnload() {
         localStorage.removeItem('connectedUsers');
     }
 }
-
 window.addEventListener('unload', handleUnload);
 
 function getUsernameByClientId(clientId) {
@@ -137,13 +157,13 @@ function send(event) {
     event.preventDefault();
 }
 
-
 function whenReceived(information) {
 
     const userMessage = JSON.parse(information.body);
     const messageTimestamp = new Date().toLocaleTimeString();
-    const timestampSpan = document.createElement('p');
 
+    const timestampSpan = document.createElement('p');
+    const deleteIcon = document.createElement('p');
     const messageElement = document.createElement('li');
 
     if (userMessage.type === 'CONNECT')
@@ -160,11 +180,14 @@ function whenReceived(information) {
     {
         messageElement.classList.add('chat-message');
         handleImageAndUserName(userMessage, messageElement);
-        if (timeStamp  === true) {
 
+        if (timeStamp === true) {
             const time = document.createTextNode(`${messageTimestamp}`);
             timestampSpan.classList.add('timestamp');
             timestampSpan.appendChild(time);
+        }
+        if (deleteBtn === 0) {
+            createDeleteButton(deleteIcon, messageElement);
         }
     }
 
@@ -178,6 +201,18 @@ function whenReceived(information) {
     chatField.appendChild(messageElement);
     chatField.scrollTop = chatField.scrollHeight;
 }
+
+function createDeleteButton(deleteIcon, messageElement) {
+
+    deleteIcon.innerHTML = '&times;';
+    deleteIcon.classList.add('delete-icon');
+
+    deleteIcon.addEventListener('click', () => {
+        messageElement.remove();
+    });
+    messageElement.appendChild(deleteIcon);
+}
+
 
 function handleImageAndUserName(message, messageElement) {
     const element = document.createElement('div');

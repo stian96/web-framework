@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import no.hiof.webframework.Application.Enums.ChatMethod;
+import no.hiof.webframework.Application.Enums.Options;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
@@ -18,6 +19,8 @@ public class SpringServlet extends HttpServlet {
     protected boolean timeStamp = false;
 
     protected String title;
+
+    protected Options deleteButton;
 
     protected SpringServlet() {}
 
@@ -39,6 +42,7 @@ public class SpringServlet extends HttpServlet {
             jsonObject.put("chatMethod", this.chatMethod.ordinal());
             jsonObject.put("timeStamp", this.timeStamp);
             jsonObject.put("title", this.title);
+            jsonObject.put("deleteButton", this.deleteButton.ordinal());
         }
         catch (JSONException e) {
             throw new RuntimeException(e);
@@ -56,4 +60,8 @@ public class SpringServlet extends HttpServlet {
     protected void setTimeStamp(boolean stamp) {this.timeStamp = stamp; }
 
     protected void setTitle(String title) { this.title = title; }
+
+    protected void setDeleteButton(Options answer) {
+        this.deleteButton = answer;
+    }
 }

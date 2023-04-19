@@ -213,6 +213,17 @@ button.submit-username:hover {
     font-weight: normal;
 }
 
+#second-page .chat-message .delete-icon {
+    color: #888484;
+    cursor: pointer;
+    float: right;
+    font-weight: normal;
+}
+
+#second-page .chat-message .delete-icon:hover {
+    color: #333;
+}
+
 
 #messageForm .input-group input {
     float: left;

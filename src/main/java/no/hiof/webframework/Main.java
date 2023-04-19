@@ -2,6 +2,7 @@ package no.hiof.webframework;
 import no.hiof.webframework.Application.App;
 import no.hiof.webframework.Application.Chatroom;
 import no.hiof.webframework.Application.Enums.ChatMethod;
+import no.hiof.webframework.Application.Enums.Options;
 
 
 public class Main {
@@ -11,6 +12,7 @@ public class Main {
 
         Chatroom.setChatMethod(ChatMethod.PRIVATE);
         Chatroom.addMessageTimeStamp(true);
+        Chatroom.addDeleteMessagesButton(Options.NO);
 
         app.addChatRoom(Chatroom.create());
         app.run();

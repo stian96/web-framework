@@ -59,9 +59,8 @@ public class Chatroom extends ImageUtility {
         timeStamp = decision;
     }
 
-    public static void deleteMessages(Options option) {
+    public static void addDeleteMessagesButton(Options option) {
         deleteMessage = option;
-
     }
 
     public static void setTitle(String chatRoomTitle) {

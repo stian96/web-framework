@@ -1,4 +1,5 @@
 package no.hiof.webframework.Application;
+import no.hiof.webframework.Application.Enums.Options;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
 import no.hiof.webframework.Application.Tools.HtmlParser;
@@ -141,20 +142,27 @@ public class App {
 
     // TODO: Write javadoc comments.
     public void addChatRoom(Chatroom room) throws ChatMethodException {
+        SpringServlet servlet = SpringServlet.getServlet();
         if (room.getMethod() != null) {
-            SpringServlet servlet = SpringServlet.getServlet();
             servlet.setChatMethod(room.getMethod());
             this.chatroom = room;
-
-            if (room.getTimeStamp()) {
-                servlet.setTimeStamp(room.getTimeStamp());
-            }
-            if (room.getTitle() != null) {
-                servlet.setTitle(room.getTitle());
-            }
+            checkAndSetChatroomFields(servlet, room);
         }
         else {
             throw new ChatMethodException("Set chat method before passing Chatroom to App class.");
+        }
+    }
+
+    private void checkAndSetChatroomFields(SpringServlet servlet, Chatroom room) {
+
+        if (room.getTimeStamp()) {
+            servlet.setTimeStamp(room.getTimeStamp());
+        }
+        if (room.getTitle() != null) {
+            servlet.setTitle(room.getTitle());
+        }
+        if (room.getDeleteMessage() != null) {
+            servlet.setDeleteButton(room.getDeleteMessage());
         }
     }
 
