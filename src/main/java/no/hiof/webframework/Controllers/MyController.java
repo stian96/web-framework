@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Just an example class to demonstrate a scenario, (not a part of the API).
+ */
 public class MyController extends Controller {
 
     public MyController(String endpoint) {

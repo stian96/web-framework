@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import java.util.Objects;
 
 @Controller
-public class ChatController {
+class ChatController {
 
     @Autowired
     private ChatProperties chatProperties;

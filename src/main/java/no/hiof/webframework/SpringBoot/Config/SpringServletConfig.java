@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class SpringServletConfig extends SpringServlet {
+class SpringServletConfig extends SpringServlet {
 
 
     @Bean

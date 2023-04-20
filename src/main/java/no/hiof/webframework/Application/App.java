@@ -1,5 +1,4 @@
 package no.hiof.webframework.Application;
-import no.hiof.webframework.Application.Enums.Options;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
 import no.hiof.webframework.Application.Tools.HtmlParser;
@@ -61,14 +60,13 @@ public class App {
         return instance;
     }
 
-    // TODO: Need to update this documentation to include the exceptions.
     /**
      * Adds a new route to the application.
      * @param endpoint URI value of the URL.
      * @param httpMethod Method to be used (e.g. GET, POST, PUT etc.)
+     * @throws NullPointerException If one of the parameters is null.
      */
-
-    public void addRoute(String endpoint, HttpMethod httpMethod) {
+    public void addRoute(String endpoint, HttpMethod httpMethod) throws NullPointerException {
         if (endpoint != null && httpMethod != null)
         {
             Route route = new Route(endpoint, httpMethod);
@@ -76,7 +74,6 @@ public class App {
         }
         else
             throw new NullPointerException("Parameters cannot be null in addRoute method!");
-
     }
 
     /**
@@ -140,7 +137,12 @@ public class App {
             throw new NullPointerException("Controller cant be null!");
     }
 
-    // TODO: Write javadoc comments.
+    /**
+     * Adds a chatroom to the application instance. If the chat method
+     * is not set in the chatroom object, a ChatMethod exception is thrown.
+     * @param room The chatroom object to be added to the application.
+     * @throws ChatMethodException If the chat method is not set in the chatroom.
+     */
     public void addChatRoom(Chatroom room) throws ChatMethodException {
         SpringServlet servlet = SpringServlet.getServlet();
         if (room.getMethod() != null) {
@@ -167,8 +169,9 @@ public class App {
     }
 
     /**
-     * Starts and run the application. Program can be
-     * run after this method is called.
+     * Starts and run the application by initializing a server and a chatroom
+     * (if one is provided) on a separate thread. The method also turns off the logger
+     * before initializing the server.
      */
     public void run() {
         Logger.turnLoggerOFF();
@@ -198,8 +201,15 @@ public class App {
             return new ServerHandler(applicationTitle, controller);
     }
 
+    /**
+     * Increments the pageCounter by 1 when called.
+     */
     protected void incrementPageCounter() { pageCounter++; }
 
+    /**
+     * Sets the custom page variable in the App class.
+     * @param content The content to be set (a string value).
+     */
     protected void setCustomPage(String content) {
         customPage = content;
     }

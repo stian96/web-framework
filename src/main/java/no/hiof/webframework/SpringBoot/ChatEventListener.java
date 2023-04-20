@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Component
-public class ChatEventListener {
+class ChatEventListener {
 
 
     @Autowired

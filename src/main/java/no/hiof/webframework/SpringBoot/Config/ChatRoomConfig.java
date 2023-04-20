@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 @Configuration
-public abstract class ChatRoomConfig {
+abstract class ChatRoomConfig {
 
     /**
      * Method used to set the chat properties.

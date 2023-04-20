@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Autowired
     private ChatProperties chatProperties;

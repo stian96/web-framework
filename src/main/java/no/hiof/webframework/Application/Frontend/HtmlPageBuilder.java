@@ -135,6 +135,10 @@ public class HtmlPageBuilder implements IHtmlBuilder {
 
     // TODO: Need to fix this method.
     // The image wont show in the html page (think its because of some server errors).
+
+    /**
+     * This method is not working at the moment.
+     */
     @Override
     public void addImage(String imageUrl, String altText) {
         String image = "<img src='" + imageUrl + "' alt='" + altText + "'>";
@@ -154,7 +158,6 @@ public class HtmlPageBuilder implements IHtmlBuilder {
     @Override
     public void addTable(List<List<String>> rows) {
         // Will be implemented later
-
     }
 
     /**

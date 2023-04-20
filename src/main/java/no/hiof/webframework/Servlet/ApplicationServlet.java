@@ -20,7 +20,7 @@ public class ApplicationServlet extends HttpServlet {
      * @param response the HttpServletResponse object that contains the servlet's response
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             response.setContentType("text/html");
             response.getWriter().println("<html><body><h1>" + applicationTitle + "</h1></body></html>");
