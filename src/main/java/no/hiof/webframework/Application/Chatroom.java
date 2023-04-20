@@ -30,7 +30,7 @@ public class Chatroom extends ImageUtility {
 
     private static Options deleteMessage;
 
-    private Chatroom() {}
+    protected Chatroom() {}
 
     /**
      * Constructor to get the singleton instance of the class.

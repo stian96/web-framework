@@ -95,6 +95,9 @@ public class ImageUtility {
         catch (FileAlreadyExistsException ex) {
             System.err.println("FileAlreadyExistsException: Set overrideImage parameter to override it.");
         }
+        catch (NullPointerException ex) {
+            System.err.println("Override image parameter cannot be null!");
+        }
     }
 
     private static void copyFile(Path source, Path destination) {
@@ -102,7 +105,7 @@ public class ImageUtility {
             Files.copy(source, destination);
         }
         catch (IOException ex) {
-            System.err.println("Image file is already added, remove the addUserImageToChat call.");
+            System.err.println("Image file is already added, remove the addIconImageToChat call.");
         }
 
     }
