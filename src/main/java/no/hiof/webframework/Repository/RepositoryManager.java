@@ -9,12 +9,13 @@ import java.sql.*;
 public class RepositoryManager {
     private RepositoryConnection repo;
 
-    public RepositoryManager(){
-        repo = RepositoryConnection.create();
+    public RepositoryManager(RepositoryConnection repo){
+        this.repo = repo;
     }
 
     public boolean insert(String tableName, String[] columnNames, Object[] values) {
         try {
+
             Connection connection = repo.getConnection();
             String sql = generateInsertStatement(tableName, columnNames);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -141,7 +142,7 @@ public class RepositoryManager {
         }
     }
 
-    public int getCountOfItemInDatabase(String tableName, String columnName, String item) {
+    public int itemCount(String tableName, String columnName, String item) {
         int count = 0;
         try {
             Connection connection = repo.getConnection();
@@ -170,10 +171,10 @@ public class RepositoryManager {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Print the result
+
             System.out.println("SQL Query: " + sqlQuery);
             while (resultSet.next()) {
-                // Retrieve and print the data from the result set based on column names
+
                 for (String columnName : columnNames) {
                     String columnValue = resultSet.getString(columnName);
                     System.out.println(columnName + ": " + columnValue);
