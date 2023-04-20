@@ -31,6 +31,14 @@ public class ImageUtility {
         }
     }
 
+    /**
+     * Copies an image file from the given source path to a designated destination path,
+     * based on the current imageCounter. The imageCounter is incremented by 1 after a
+     * successful copy.
+     * @param sourcePath The path of the source image file to be copied.
+     * @throws ImageOverloadException Throws an ImageOverloadException if the imageCounter
+     * is 2 or greater, indicating that only two images are allowed to be added.
+     */
     protected static void copyImageFile(String sourcePath) throws ImageOverloadException {
         Path source = Paths.get(sourcePath);
         String destination = "";
@@ -49,6 +57,16 @@ public class ImageUtility {
         imageCounter++;
     }
 
+    /**
+     * Copies an image file from the given source path to a designated destination path,
+     * based on the ImageType enum parameter The destination path is read from the
+     * config.properties file based on the ImageType enum parameter. The file is copied
+     * with the REPLACE_EXISTING option, which overwrites any existing file with the same name.
+     * @param sourcePath The path of the source image file to be copied
+     * @param overrideImage The ImageType enum indicating which image to override with the copied file
+     * @throws IllegalArgumentException If the ImageType enum parameter is not one of the defined enums in the ImageType class
+     * @throws IOException If an I/O error occurs while copying the file
+     */
     protected static void copyImageFile(String sourcePath, ImageType overrideImage) throws IOException {
         Path source = Paths.get(sourcePath);
         String dest = "";
