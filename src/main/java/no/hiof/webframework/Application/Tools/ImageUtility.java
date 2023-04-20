@@ -7,6 +7,14 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.Properties;
 
+/**
+ * The ImageUtility class provides utility methods for handling image files in a web application.
+ * It contains methods for copying image files to designated paths, with support
+ * for max two images and overriding default images with new ones.
+ * It also reads from a config.properties to get the image paths
+ * fot the designated locations.
+ */
+
 public class ImageUtility {
     private static int imageCounter = 0;
 
