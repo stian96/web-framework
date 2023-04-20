@@ -1,9 +1,11 @@
 package no.hiof.webframework.Application;
+import no.hiof.webframework.Application.Enums.Options;
 import no.hiof.webframework.Application.Frontend.HtmlPages;
 import no.hiof.webframework.Application.Logging.Logger;
-import no.hiof.webframework.Application.Parser.HtmlParser;
+import no.hiof.webframework.Application.Tools.HtmlParser;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Application.Routes.Route;
+import no.hiof.webframework.Exceptions.ChatMethodException;
 import no.hiof.webframework.Repository.UserDb;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
@@ -33,6 +35,8 @@ public class App {
     private final Map<String, Route> routeMap = new LinkedHashMap<>();
     private final Map<String, HtmlPages> htmlPageMap = new LinkedHashMap<>();
     private String customPage, applicationTitle;
+
+    private Chatroom chatroom;
 
     private Controller controller;
     private UserDb dbUser;
@@ -136,6 +140,32 @@ public class App {
             throw new NullPointerException("Controller cant be null!");
     }
 
+    // TODO: Write javadoc comments.
+    public void addChatRoom(Chatroom room) throws ChatMethodException {
+        SpringServlet servlet = SpringServlet.getServlet();
+        if (room.getMethod() != null) {
+            servlet.setChatMethod(room.getMethod());
+            this.chatroom = room;
+            checkAndSetChatroomFields(servlet, room);
+        }
+        else {
+            throw new ChatMethodException("Set chat method before passing Chatroom to App class.");
+        }
+    }
+
+    private void checkAndSetChatroomFields(SpringServlet servlet, Chatroom room) {
+
+        if (room.getTimeStamp()) {
+            servlet.setTimeStamp(room.getTimeStamp());
+        }
+        if (room.getTitle() != null) {
+            servlet.setTitle(room.getTitle());
+        }
+        if (room.getDeleteMessage() != null) {
+            servlet.setDeleteButton(room.getDeleteMessage());
+        }
+    }
+
     /**
      * Starts and run the application. Program can be
      * run after this method is called.
@@ -144,7 +174,14 @@ public class App {
         Logger.turnLoggerOFF();
 
         ServerHandler server = constructorHandler();
-        server.initializeHandler(new Server(8080), this);
+        if (chatroom != null) {
+            chatroom = Chatroom.create();
+            new Thread(chatroom::startChatRoom).start();
+            server.initializeHandler(new Server(8080), this);
+        }
+        else {
+            server.initializeHandler(new Server(8080), this);
+        }
     }
 
     private ServerHandler constructorHandler() {

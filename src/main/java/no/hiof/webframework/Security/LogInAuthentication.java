@@ -14,12 +14,12 @@ public class LogInAuthentication {
      * @param auth an object implementing the Authenticator interface.
      * @param codeGenerator an object implementing the SMSCodeGenerator interface.
      */
-    public LogInAuthentication(Authenticator auth, SMSCodeGenerator codeGenerator){
+    protected LogInAuthentication(Authenticator auth, SMSCodeGenerator codeGenerator){
         this.auth=auth;
         this.codeGenerator=codeGenerator;
     }
 
-    public LogInAuthentication(){
+    protected LogInAuthentication(){
         this.auth=FactoryAuth.createAuthenticator();
         this.codeGenerator=FactoryAuth.createSMSCodeGenerator();
     }

@@ -35,7 +35,7 @@ public class HtmlPageBuilder implements IHtmlBuilder {
 
     private void defaultCode() {
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/Text/defaultHtml.txt");
+            InputStream inputStream = getClass().getResourceAsStream("/Static/default.html");
             assert inputStream != null;
             String fileContent = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
             content.append(fileContent);
@@ -133,9 +133,16 @@ public class HtmlPageBuilder implements IHtmlBuilder {
         }
     }
 
+    // TODO: Need to fix this method.
+    // The image wont show in the html page (think its because of some server errors).
     @Override
     public void addImage(String imageUrl, String altText) {
-        // Will be implemented later
+        String image = "<img src='" + imageUrl + "' alt='" + altText + "'>";
+        content.replace(
+                content.indexOf("<!--IMAGE_PLACEHOLDER-->"),
+                content.indexOf("<!--IMAGE_PLACEHOLDER-->") + "<!--IMAGE_PLACEHOLDER-->".length(),
+                image
+        );
     }
 
     @Override

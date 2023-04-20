@@ -16,9 +16,14 @@ public class UserController {
      * @param username the username for the new user
      * @param password the password for the new user*/
     protected void registerNewUser(String username, String password) {
+
         byte[] salt = generateSalt();
         byte[] encryptedPassword = encryptPassword(password, salt);
-        UserDatabase.addUser(username,salt,encryptedPassword);
+
+        String connectionS = "jdbc:mysql://localhost:3001/appDB";
+        UserDatabase db = new UserDatabase(connectionS, "exampleName", "examplePW");
+
+        db.addUser(username,salt,encryptedPassword);
     }
 
     /**

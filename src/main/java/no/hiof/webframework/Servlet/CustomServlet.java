@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 
 /**
  * CustomServlet is a class that extends HttpServlet and is used to handle GET and POST requests.
@@ -76,6 +81,5 @@ public class CustomServlet extends HttpServlet {
         catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         }
-
     }
 }

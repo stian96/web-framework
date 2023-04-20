@@ -3,10 +3,19 @@ package no.hiof.webframework.Security;
 import java.sql.*;
 import java.sql.SQLException;
 public class UserDatabase {
+
+    private Connection DbConnection;
     /**
      * Constructor for the UserDatabase class.
      */
-    protected void UserDatabase() {
+    public UserDatabase(String myConnection, String user, String password) {
+        try {
+            DbConnection = DriverManager.getConnection(myConnection, user, password);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -16,28 +25,25 @@ public class UserDatabase {
      * @return true if the user exists in the database, false otherwise
      */
 
-    protected static boolean userExists(String username) {
-        Connection DBconnection = null;
+    protected boolean userExists(String username) {
+
         PreparedStatement SQLstmt = null;
         ResultSet rsQry = null;
         boolean exists = false;
 
         try {
-            DBconnection = DriverManager.getConnection("jdbc:mysql://localhost:3001/appDB",
-                    "exampleName", "examplePW");
 
-            SQLstmt = DBconnection.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
-
+            SQLstmt = DbConnection.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
             SQLstmt.setString(1, username);
-
             rsQry= SQLstmt.executeQuery();
+
             if(rsQry.next() && rsQry.getInt(1)>0){
                 exists = true;
             }
 
             if (rsQry!=null) rsQry.close();
             if (SQLstmt!=null) SQLstmt.close();
-            if (DBconnection!=null) DBconnection.close();
+            if (DbConnection!=null) DbConnection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,14 +59,10 @@ public class UserDatabase {
      */
 
 
-    protected static void addUser(String username, byte[] salt, byte[] encryptedPassword) {
+    protected void addUser(String username, byte[] salt, byte[] encryptedPassword) {
         try {
-            // Opprett en JDBC-tilkobling til databasen
-            Connection DBconnection = DriverManager.getConnection("jdbc:mysql://localhost:3001/appDB",
-                    "exampleName", "examplePW");
-
             // Lag en PreparedStatement for å utfoere INSERT-spoerring
-            PreparedStatement SQLstmt = DBconnection.prepareStatement("INSERT INTO users (username, salt, password) " +
+            PreparedStatement SQLstmt = DbConnection.prepareStatement("INSERT INTO users (username, salt, password) " +
                     "VALUES (?, ?, ?)");
 
             SQLstmt.setString(1, username);
@@ -70,7 +72,7 @@ public class UserDatabase {
             SQLstmt.executeUpdate();
 
             SQLstmt.close();
-            DBconnection.close();
+            DbConnection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
