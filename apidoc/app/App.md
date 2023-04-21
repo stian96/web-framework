@@ -1,35 +1,46 @@
 <h1 style="color: white">API Documentation for "App" Class</h1>
 
 '**App**' class is a part of the '**no.hiof.webframework.Application**' package and represents 
-the core application. It creates and initializes an embedded Jetty server and sets up a 
-context handler with a map of routes and HTML pages.
+the core of the application. It is responsible for managing the web server, handling HTTP requests
+and integrationg a Spring Boot chatroom application. It utilizes the Singleton pattern to ensure that 
+only one instance of the class exists at any given time. The class maintains a collection of routes 
+and associated HTTP methods and providing methods for adding pre-built or custom HTML pages and responses 
+to specific routes. It also allows for adding a custom controller for handling dynamic content and provides 
+access to a user database if needed. To use the '**App**' class, call create() method to obtain an instance, 
+then use the various add methods to define routes and content, and finally call the run() method to start 
+the server and listen for incoming requests. The chatroom functionality is facilitated through the Spring Boot 
+framework, ensuring seamless integration and efficient real-time communication between users.
 
 <br>
 
 ## Table of contents
 * [Fields](#field_section)
 * [Methods](#method_section) 
+    * [public static App create()](#create)  
     * [public void addRoute(String endpoint, HttpMethod httpMethod)](#addRoute)
     * [public void addHtmlPage(InputStream htmlPage)](#addHtmlPage)
     * [public void addCustomHtmlPage(String page)](#addCustomHtmlPage)
+    * [public void addCustomHtmlPage(String page, UserDb userDb)](addCustomHtmlPage2)
     * [public void addResponseToPage(String response)](#addResponse)
     * [public void addController(Controller controller)](#addController)
+    * [public void addChatroom(Chatroom room)](#addChatroom)
     * [public void run()](#run)
-* [Getting started](#getting_started)
+* [Tutorial introduction](#getting_started)
     * [creating a simple application with a title](#simple_application)
     * [creating default pages](#default_pages)
     * [creating custom pages](#custom_pages)
     * [creating a controller](#controller)
     * [adding response to page](#response)
+    * [creating a chatroom application](#chatroomt)
 
 <br>
 
 <a id="field_section"></a>
 ## Fields
 
-#### 'private static final int PORT = 8080'
+#### 'private static App instance = null'
 
-The port number that the embedded Jetty server listens on.
+The use of the Singleton pattern, ensuring that only one instance of the 'App' class exists at any given time.
 
 #### 'private final Map<String, Route> routeMap = new LinkedHashMap<>()'
 
@@ -47,6 +58,14 @@ The title of the application, this is found at route "/".
 
 A string that holds the custom HTML page.
 
+### 'private Chatroom chatroom'
+
+Reference variable to a 'Chatroom' application instance.
+
+### 'private Controller controller'
+
+Reference variable to a 'Servlet' controller instance.
+
 #### 'private UserDb userDb'
 
 A user database object that can be used to get, save and delete users.
@@ -55,7 +74,7 @@ A user database object that can be used to get, save and delete users.
 
 String that is used to deliver a response to an empty page.
    
-#### 'private int titleCounter = 0'
+#### 'private int pageCounter = 0'
 
 A counter used to keep track of the number of HTML pages that have been added to the **htmlPageMap**.
 
@@ -63,6 +82,13 @@ A counter used to keep track of the number of HTML pages that have been added to
 
 <a id="method_section"></a>
 ## Methods
+
+<a id="create"></a>
+#### 'public static App create()'
+
+Returns one instace of the application using Singleton pattern.
+
+<br>
    
 <a id="addRoute"></a>
 #### 'public void addRoute(String endpoint, HttpMethod httpMethod)'
@@ -99,6 +125,18 @@ Adds a custom made HTML page to the application.
 
 <br>
 
+<a id="addCustomHtmlPage2"></a>
+#### 'public void addCustomHtmlPage(String page, UserDb userDb)'
+
+Override previous method to also add a user database.
+   
+| Parameter   | Type          | Description                                                |
+|:----------- |:--------------|:-----------------------------------------------------------|
+| 'page'      | 'String'      | The HTML page as a string. Can be obtained from the build() <br> method in the **HtmlPageBuilder** class.| 
+| 'userDb'    | 'UserDb'      | A user database instance. Can get this from the 'UserDb' class                                           |
+
+<br>
+
 <a id="addResponse"></a>
 #### 'public void addResponseToPage(String response)'
 
@@ -120,16 +158,28 @@ Adds a user-created controller to the server.
 | 'controller' | 'Controller'  | Adds a user-defined controller to the server. |
 
 <br>
+
+<a id="addChatroom"></a>
+#### 'public void addChatroom(Chatroom room)'
+
+Adds a Spring Boot based chatroom application to the **'App'** application.
+
+| Parameter    | Type          | Description                                              |
+|:-----------  |:--------------|:---------------------------------------------------------|
+| 'room'       | 'Chatroom'    | Adds a Spring Boot chatroom application to the App class |
+
+<br>
    
 <a id="run"></a>
 #### 'public void run()'
 
-Starts and runs the application. The program can be run after this method is called.
+Starts and runs the application. If an chatroom instance is provided it will also start and
+run this on a separate **'Thread'**.
 
 <br>
 
 <a id="getting_started"></a>
-## Getting Started
+## Tutorial introduction
 
 <a id="simple_application"></a>
 ### A simple web application
@@ -311,10 +361,39 @@ public class Main {
 ```
 Navigate to 'http://localhost:8080/response' to see the response.
 
+<br>
 
-                                                    
+<a id="chatroomt"></a>
+### Creating a chatroom application
+
+To create a chatroom application you can specify some of the
+chatroom properties, but all of them are optional, therefore the
+default values will be used if none of them are provided.
+
+```java
+public class Main {
+   public static void main(String[] args) {
+      
+      App app = App.create();
+
+      Chatroom.setChatMethod(ChatMethod.PRIVATE);
+      Chatroom.addMessageTimeStamp(true);
+
+      Chatroom.addDeleteMessagesButton(Options.YES);
+      Chatroom.setTitle("Welcome to private chat!");
+
+      app.addChatRoom(Chatroom.create());
+      app.run();
+   }
+}
+
+```
+
+Navigate to 'http://localhost:8081/' to start chatting.
    
-   
+
+
+                                                   
    
    
    
