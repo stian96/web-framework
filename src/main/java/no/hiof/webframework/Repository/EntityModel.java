@@ -60,9 +60,13 @@ public class EntityModel implements EntityModelBuilder {
     public EntityModel build() {
         return this;
     }
-
     /**
-     * Method for generating schema
+
+     * This method generates a new database schema with the specified name, creates a table in the schema using the
+     * generateCreateTableStatement() method, and outputs a message to the console indicating that the table has been
+     * successfully created in the schema.
+     * @param schemaName the name of the new database schema to be created
+     * @throws SQLException if an error occurs while executing SQL statements
      */
     public void generateSchema(String schemaName) {
         try {
@@ -80,11 +84,11 @@ public class EntityModel implements EntityModelBuilder {
     }
 
     /**
-     * The Field class represents a field in an entity model, consisting of a name, data type, and nullability.
-     */
-    /**
-     * Method for generating SQL statement to create table
-     * @return SQL statement to create table
+
+     * This method generates a SQL statement for creating a new database table with the fields and properties defined in
+     * the fields list. The generated SQL statement includes the table name, field names, field types, and nullability
+     * constraints.
+     * @return a string containing the SQL statement for creating the table
      */
     private String generateCreateTableStatement() {
         StringBuilder sb = new StringBuilder();

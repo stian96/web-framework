@@ -20,7 +20,13 @@ public class RepositoryConnection {
     private String schemaName;
     private Connection connection;
 
+    /**
 
+     * Sets the URL, username, and password for connecting to the database.
+     * @param url the URL of the database
+     * @param username the username for accessing the database
+     * @param password the password for accessing the database
+     */
 
     public void addRepositoryDetails(String url, String username, String password){
         this.url = url;
@@ -28,8 +34,11 @@ public class RepositoryConnection {
         this.password = password;
 
     }
+
     /**
-     * Connects to a database
+
+    * Creates a new instance of RepositoryConnection if none exists, and returns the instance.
+    * @return the singleton instance of RepositoryConnection
      */
     public static RepositoryConnection create(){
         if(instance == null){
@@ -37,7 +46,12 @@ public class RepositoryConnection {
         }
         return instance;
     }
+    /**
 
+     * This method connects to the database using the specified URL, username, and password.
+     * If the connection is successful, a message is printed to the console indicating that the connection was successful.
+     * If an error occurs while connecting to the database, an error message is printed to the console with details of the error.
+     */
     public void connect() {
         try {
 
@@ -49,6 +63,11 @@ public class RepositoryConnection {
 
     }
 
+    /**
+     * This method establishes a connection to a database with a specified schema name using the URL,
+     * username, and password provided by the addRepositoryDetails() method.
+     * @param schemaName the name of the schema to connect to
+     */
     public void connect(String schemaName) {
         try {
             String urlWithSchema = url  + schemaName;
@@ -74,6 +93,21 @@ public class RepositoryConnection {
             System.err.println("Error disconnecting from database: " + e.getMessage());
         }
     }
+
+    /**
+
+     * This method returns the established database connection.
+     * If the connection has not been established, an IllegalStateException is thrown.
+     * @return the established database connection
+     * @throws IllegalStateException if the connection has not been established
+     */
+    public Connection getConnection() {
+        if (connection == null) {
+            throw new IllegalStateException("Database connection not established.");
+        }
+        return connection;
+
+    }
     public RepositoryConnection getInstance() {
         return instance;
     }
@@ -89,13 +123,7 @@ public class RepositoryConnection {
     protected String getPassword() {
         return password;
     }
-    public Connection getConnection() {
-        if (connection == null) {
-            throw new IllegalStateException("Database connection not established.");
-        }
-        return connection;
 
-    }
 
 
     private static void setInstance(RepositoryConnection instance) {

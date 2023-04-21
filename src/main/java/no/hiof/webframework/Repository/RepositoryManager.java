@@ -4,7 +4,8 @@ package no.hiof.webframework.Repository;
 import java.sql.*;
 
 /**
- * Class for creating sql queries easily.
+ * Class used to manage repositories. It allows access and manipulation of
+ * data in a database.
  */
 public class RepositoryManager {
     private RepositoryConnection repo;
@@ -13,6 +14,15 @@ public class RepositoryManager {
         this.repo = repo;
     }
 
+    /**
+
+     * Inserts a new row into the specified table with the given column names and values.
+     * @param tableName the name of the table to insert the row into
+     * @param columnNames an array of strings containing the column names of the table
+     * @param values an array of objects containing the values to insert into the row
+     * @return true if the row was inserted successfully, false otherwise
+     * @throws SQLException if an error occurs while inserting the row
+     */
     public boolean insert(String tableName, String[] columnNames, Object[] values) {
         try {
 
@@ -41,7 +51,13 @@ public class RepositoryManager {
             return false;
         }
     }
+    /**
 
+     * Generates an SQL INSERT statement for a given table name and array of column names.
+     * @param tableName the name of the table to insert the values into
+     * @param columnNames the names of the columns to insert values into
+     * @return a string containing the generated INSERT statement
+     */
     private String generateInsertStatement(String tableName, String[] columnNames) {
         StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO ").append(tableName).append(" (");
@@ -67,6 +83,15 @@ public class RepositoryManager {
 
         return sb.toString();
     }
+    /**
+
+    * Deletes a row from a table with a given table name, column name and value.
+    *
+    * @param tableName the name of the table
+    * @param columnName the name of the column to be used as a condition in the WHERE clause of the DELETE statement
+    * @param value the value of the column to be used as a condition in the WHERE clause of the DELETE statement
+    * @return true if the row was successfully deleted, false otherwise
+    */
     public boolean delete( String tableName, String columnName, Object value) {
         try {
             Connection connection = repo.getConnection();
@@ -89,10 +114,21 @@ public class RepositoryManager {
             return false;
         }
     }
+    /**
 
+    * Generates a SQL delete statement for the specified table and column.
+    * @param tableName the name of the table to delete from
+    * @param columnName the name of the column to use in the WHERE clause
+    * @return a String containing the SQL delete statement
+     */
     private String generateDeleteStatement(String tableName, String columnName) {
         return "DELETE FROM " + tableName + " WHERE " + columnName + " = ?";
     }
+    /**
+
+     * This method retrieves all rows from the specified table and prints them to the console.
+     * @param tableName The name of the table to retrieve rows from.
+     */
     public void getAllRowsFromTable(String tableName) {
         try {
             Connection connection = repo.getConnection();
@@ -116,7 +152,13 @@ public class RepositoryManager {
             System.err.println("Error retrieving rows from table: " + e.getMessage());
         }
     }
-
+    /**
+     * Retrieves rows from a specified table with a specified condition on a specified column
+     *
+     * @param tableName The name of the table to retrieve rows from
+     * @param columnName The name of the column to use as condition
+     * @param condition The condition to filter the rows by
+     */
 
     public void getRowsFromTableWithConditions(String tableName, String columnName, String condition) {
         try {
@@ -142,6 +184,15 @@ public class RepositoryManager {
         }
     }
 
+    /**
+     * Counts the number of occurrences of a specific item in a column of a table in the database.
+     *
+     * @param tableName the name of the table to search
+     * @param columnName the name of the column to search
+     * @param item the item to count
+     * @return the number of occurrences of the item in the column
+     */
+
     public int itemCount(String tableName, String columnName, String item) {
         int count = 0;
         try {
@@ -163,7 +214,12 @@ public class RepositoryManager {
         return count;
     }
 
-
+    /**
+     * Executes an SQL query and prints the results to the console.
+     *
+     * @param sqlQuery the SQL query to execute
+     * @param columnNames an array of column names to print in the results
+     */
     public void executeSqlQuery(String sqlQuery, String[] columnNames) {
         try {
             Connection connection = repo.getConnection();
