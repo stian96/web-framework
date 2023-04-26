@@ -1,6 +1,6 @@
 package no.hiof.webframework.Security;
-//Example class of an EncryptionAlgorithm
-//Scenario 3.3-eksempelklasse.
+//class of an EncryptionAlgorithm
+//Scenario 3.3
 
 import no.hiof.webframework.Interface.PasswordEncryptionAlgorithm;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +20,7 @@ public class SHAPasswordEncryptionAlgorithm implements PasswordEncryptionAlgorit
      */
 
     private  static final String SHA_ALGR= "SHA-256";
-    public byte[] encryptPw(String password, byte[] salt) {
+    public byte[] encryptPasswordAlgorithm(String password, byte[] salt) {
         try {
             MessageDigest md = MessageDigest.getInstance(SHA_ALGR);
             return md.digest((password + new String(salt)).getBytes());

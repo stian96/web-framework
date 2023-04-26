@@ -1,7 +1,7 @@
 package no.hiof.webframework.Security;
 //Scenario 3.1
 
-public class HTMLFormGenerator {
+public class HtmlFormGenerator {
     /**
      * Method to generate a login-form using HTML.
      * */
@@ -19,7 +19,7 @@ public class HTMLFormGenerator {
     /**
      * Method to generate HTML-page for the login-form.
      * */
-    protected String HtmlPageWithLoginForm(){
+    protected String generateHtmlPageWithLoginForm(){
         String htmlPage = "<html>";
         htmlPage += "<head>";
         htmlPage += "<title>Login Page</title>";
@@ -32,4 +32,5 @@ public class HTMLFormGenerator {
         return htmlPage;
 
     }
+
 }

@@ -39,7 +39,7 @@ public class UserController {
      * @param password the password to be encrypted
      * @param salt used to add an extra layer of security to the password encryption process*/
     protected byte[] encryptPassword(String password, byte[] salt) {
-        return encryptionAlgorithm.encryptPw(password, salt);
+        return encryptionAlgorithm.encryptPasswordAlgorithm(password, salt);
     }
 
 }
