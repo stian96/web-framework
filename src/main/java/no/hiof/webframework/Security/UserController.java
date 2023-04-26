@@ -42,5 +42,4 @@ public class UserController {
         return encryptionAlgorithm.encryptPw(password, salt);
     }
 
-
 }

@@ -4,7 +4,7 @@ import no.hiof.webframework.Interface.Authenticator;
 import java.sql.*;
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 
 /**
  * The Authentication class handles user authentication.

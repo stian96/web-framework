@@ -1,4 +1,4 @@
-package Application.TestClasses;
+package Security.TestClasses;
 
 import no.hiof.webframework.Interface.Authenticator;
 import no.hiof.webframework.Interface.SMSCodeGenerator;
