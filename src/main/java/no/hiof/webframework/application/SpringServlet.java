@@ -1,10 +1,10 @@
-package no.hiof.webframework.Application;
+package no.hiof.webframework.application;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import no.hiof.webframework.Application.Enums.ChatMethod;
-import no.hiof.webframework.Application.Enums.Options;
+import no.hiof.webframework.application.Enums.ChatMethod;
+import no.hiof.webframework.application.Enums.Options;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 

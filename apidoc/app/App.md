@@ -1,6 +1,6 @@
 <h1 style="color: white">API Documentation for "App" Class</h1>
 
-'**App**' class is a part of the '**no.hiof.webframework.Application**' package and represents 
+'**App**' class is a part of the '**no.hiof.webframework.application**' package and represents 
 the core of the application. It is responsible for managing the web server, handling HTTP requests
 and integrationg a Spring Boot chatroom application. It utilizes the Singleton pattern to ensure that 
 only one instance of the class exists at any given time. The class maintains a collection of routes 

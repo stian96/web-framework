@@ -1,8 +1,8 @@
 package Application.TestClasses;
 
-import no.hiof.webframework.Application.Chatroom;
-import no.hiof.webframework.Application.Enums.ChatMethod;
-import no.hiof.webframework.Application.Enums.Options;
+import no.hiof.webframework.application.Chatroom;
+import no.hiof.webframework.application.Enums.ChatMethod;
+import no.hiof.webframework.application.Enums.Options;
 
 public class TestableChatroom extends Chatroom {
 

@@ -1,11 +1,11 @@
 package Application;
 
-import no.hiof.webframework.Application.App;
-import no.hiof.webframework.Application.Frontend.HtmlFactory;
-import no.hiof.webframework.Application.Frontend.HtmlPageBuilder;
-import no.hiof.webframework.Application.Frontend.HtmlPages;
+import no.hiof.webframework.application.App;
+import no.hiof.webframework.application.Frontend.HtmlFactory;
+import no.hiof.webframework.application.Frontend.HtmlPageBuilder;
+import no.hiof.webframework.application.Frontend.HtmlPages;
 import Application.TestClasses.MockApp;
-import no.hiof.webframework.Application.Routes.Route;
+import no.hiof.webframework.application.Routes.Route;
 import Application.TestClasses.TestableApp;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Controllers.MyController;

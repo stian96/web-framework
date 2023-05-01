@@ -1,8 +1,8 @@
-package no.hiof.webframework.Application;
-import no.hiof.webframework.Application.Enums.ChatMethod;
-import no.hiof.webframework.Application.Enums.ImageType;
-import no.hiof.webframework.Application.Enums.Options;
-import no.hiof.webframework.Application.Tools.ImageUtility;
+package no.hiof.webframework.application;
+import no.hiof.webframework.application.Enums.ChatMethod;
+import no.hiof.webframework.application.Enums.ImageType;
+import no.hiof.webframework.application.Enums.Options;
+import no.hiof.webframework.application.Tools.ImageUtility;
 import no.hiof.webframework.Exceptions.ImageOverloadException;
 import no.hiof.webframework.SpringBoot.SpringApp;
 

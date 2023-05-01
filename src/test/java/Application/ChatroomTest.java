@@ -1,8 +1,8 @@
 package Application;
 import Application.TestClasses.TestableChatroom;
-import no.hiof.webframework.Application.Chatroom;
-import no.hiof.webframework.Application.Enums.ChatMethod;
-import no.hiof.webframework.Application.Enums.Options;
+import no.hiof.webframework.application.Chatroom;
+import no.hiof.webframework.application.Enums.ChatMethod;
+import no.hiof.webframework.application.Enums.Options;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

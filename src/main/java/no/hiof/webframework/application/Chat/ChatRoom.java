@@ -1,5 +1,5 @@
-package no.hiof.webframework.Application.Chat;
-import no.hiof.webframework.Application.Enums.ChatMethod;
+package no.hiof.webframework.application.Chat;
+import no.hiof.webframework.application.Enums.ChatMethod;
 import no.hiof.webframework.Interface.ChatStrategy;
 
 import java.util.List;

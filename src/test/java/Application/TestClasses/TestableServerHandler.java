@@ -1,12 +1,10 @@
 package Application.TestClasses;
 
-import no.hiof.webframework.Application.App;
-import no.hiof.webframework.Application.Frontend.HtmlPages;
-import no.hiof.webframework.Application.ServerHandler;
+import no.hiof.webframework.application.App;
+import no.hiof.webframework.application.ServerHandler;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 
 public class TestableServerHandler extends ServerHandler {
 

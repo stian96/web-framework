@@ -1,6 +1,6 @@
 package Application.TestClasses;
 
-import no.hiof.webframework.Application.App;
+import no.hiof.webframework.application.App;
 
 public class MockApp extends App {
     private boolean isRunMethodCalled = false;

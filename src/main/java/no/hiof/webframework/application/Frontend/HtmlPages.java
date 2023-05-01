@@ -1,4 +1,4 @@
-package no.hiof.webframework.Application.Frontend;
+package no.hiof.webframework.application.Frontend;
 
 import no.hiof.webframework.Interface.IHtmlPage;
 

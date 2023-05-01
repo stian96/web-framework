@@ -1,10 +1,10 @@
 package Application;
 import Application.TestClasses.TestableApp;
 import Application.TestClasses.TestableServerHandler;
-import no.hiof.webframework.Application.App;
-import no.hiof.webframework.Application.Frontend.HtmlFactory;
-import no.hiof.webframework.Application.Frontend.HtmlPages;
-import no.hiof.webframework.Application.Routes.Route;
+import no.hiof.webframework.application.App;
+import no.hiof.webframework.application.Frontend.HtmlFactory;
+import no.hiof.webframework.application.Frontend.HtmlPages;
+import no.hiof.webframework.application.Routes.Route;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;

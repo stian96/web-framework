@@ -1,4 +1,4 @@
-package no.hiof.webframework.Application.Enums;
+package no.hiof.webframework.application.Enums;
 
 public enum ChatMethod {
     PRIVATE,

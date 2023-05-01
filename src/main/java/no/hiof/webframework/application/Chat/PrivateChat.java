@@ -1,6 +1,5 @@
-package no.hiof.webframework.Application.Chat;
+package no.hiof.webframework.application.Chat;
 
-import no.hiof.webframework.Data.User;
 import no.hiof.webframework.Interface.ChatStrategy;
 
 import java.util.ArrayList;

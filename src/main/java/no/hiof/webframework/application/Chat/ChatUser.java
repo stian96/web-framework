@@ -1,4 +1,4 @@
-package no.hiof.webframework.Application.Chat;
+package no.hiof.webframework.application.Chat;
 
 public class ChatUser {
     private String name;
