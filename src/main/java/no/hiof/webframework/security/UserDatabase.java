@@ -89,7 +89,7 @@ public class UserDatabase {
      * @param hashedPassword the hashed password to check
      * @return true if the hashed password exists in the database for the given username, otherwise false.
      */
-    protected boolean checkEncryptedPasswordValueInDatabase(String username, byte[] hashedPassword) {
+    protected boolean checkHashedPasswordValueInDatabase(String username, byte[] hashedPassword) {
         ResultSet rsQry = null;
         boolean match = false;
         try {
