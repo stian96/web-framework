@@ -1,4 +1,4 @@
-package Application;
+package application;
 
 import no.hiof.webframework.application.frontend.HtmlPageBuilder;
 import org.eclipse.jetty.http.HttpMethod;

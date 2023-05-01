@@ -1,4 +1,4 @@
-package Repository.TestClasses;
+package repository.TestClasses;
 
 import no.hiof.webframework.repository.RepositoryConnection;
 

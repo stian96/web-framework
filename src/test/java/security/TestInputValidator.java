@@ -1,7 +1,7 @@
-package Security;
+package security;
 
 
-import Security.TestClasses.InputValidatorTest;
+import security.TestClasses.InputValidatorTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -64,7 +64,7 @@ Reference variable to a 'Chatroom' application instance.
 
 ### 'private Controller controller'
 
-Reference variable to a 'Servlet' controller instance.
+Reference variable to a 'servlet' controller instance.
 
 #### 'private UserDb userDb'
 

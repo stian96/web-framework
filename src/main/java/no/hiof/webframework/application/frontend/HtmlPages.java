@@ -26,7 +26,7 @@ public class HtmlPages implements IHtmlPage {
      */
     @Override
     public InputStream getLoginPage() {
-        return getClass().getResourceAsStream("/Static/login.html");
+        return getClass().getResourceAsStream("/static/login.html");
     }
 
     /**
@@ -35,7 +35,7 @@ public class HtmlPages implements IHtmlPage {
      */
     @Override
     public InputStream getHomePage() {
-        return getClass().getResourceAsStream("/Static/home.html");
+        return getClass().getResourceAsStream("/static/home.html");
     }
 
     /**
@@ -44,7 +44,7 @@ public class HtmlPages implements IHtmlPage {
      */
     @Override
     public InputStream getLogoutPage() {
-        return getClass().getResourceAsStream("/Static/logout.html");
+        return getClass().getResourceAsStream("/static/logout.html");
     }
 
     /**

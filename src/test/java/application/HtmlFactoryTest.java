@@ -1,4 +1,4 @@
-package Application;
+package application;
 
 import no.hiof.webframework.application.frontend.HtmlFactory;
 import org.junit.jupiter.api.Assertions;

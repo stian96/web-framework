@@ -1,6 +1,6 @@
-package Application;
-import Application.TestClasses.TestableApp;
-import Application.TestClasses.TestableServerHandler;
+package application;
+import application.TestClasses.TestableApp;
+import application.TestClasses.TestableServerHandler;
 import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.frontend.HtmlFactory;
 import no.hiof.webframework.application.frontend.HtmlPages;

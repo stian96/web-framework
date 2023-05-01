@@ -1,7 +1,7 @@
-package Repository;
+package repository;
 
-import Repository.TestClasses.MockRepositoryConnection;
-import Repository.TestClasses.TestRepository;
+import repository.TestClasses.MockRepositoryConnection;
+import repository.TestClasses.TestRepository;
 import no.hiof.webframework.repository.RepositoryConnection;
 
 import org.junit.Test;

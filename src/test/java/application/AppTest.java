@@ -1,12 +1,12 @@
-package Application;
+package application;
 
 import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.frontend.HtmlFactory;
 import no.hiof.webframework.application.frontend.HtmlPageBuilder;
 import no.hiof.webframework.application.frontend.HtmlPages;
-import Application.TestClasses.MockApp;
+import application.TestClasses.MockApp;
 import no.hiof.webframework.application.routes.Route;
-import Application.TestClasses.TestableApp;
+import application.TestClasses.TestableApp;
 import no.hiof.webframework.controllers.Controller;
 import no.hiof.webframework.controllers.MyController;
 import org.eclipse.jetty.http.HttpMethod;

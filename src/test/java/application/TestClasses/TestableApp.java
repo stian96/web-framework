@@ -1,4 +1,4 @@
-package Application.TestClasses;
+package application.TestClasses;
 
 import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.routes.Route;

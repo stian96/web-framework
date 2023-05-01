@@ -1,4 +1,4 @@
-package Servlet;
+package servlet;
 
 import no.hiof.webframework.servlet.ApplicationServlet;
 import org.junit.jupiter.api.Test;

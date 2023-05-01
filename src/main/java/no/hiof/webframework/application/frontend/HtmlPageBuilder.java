@@ -35,7 +35,7 @@ public class HtmlPageBuilder implements IHtmlBuilder {
 
     private void defaultCode() {
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/Static/default.html");
+            InputStream inputStream = getClass().getResourceAsStream("/static/default.html");
             assert inputStream != null;
             String fileContent = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
             content.append(fileContent);
