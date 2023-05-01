@@ -1,6 +1,6 @@
 package Servlet;
 
-import no.hiof.webframework.Servlet.ApplicationServlet;
+import no.hiof.webframework.servlet.ApplicationServlet;
 import org.junit.jupiter.api.Test;
 
 import javax.servlet.http.HttpServletRequest;

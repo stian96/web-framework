@@ -1,4 +1,4 @@
-package no.hiof.webframework.Security;
+package no.hiof.webframework.security;
 //Scenario 3.1
 
 public class HtmlFormGenerator {

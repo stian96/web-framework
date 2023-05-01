@@ -5,7 +5,7 @@ import no.hiof.webframework.application.tools.HtmlParser;
 import no.hiof.webframework.controllers.Controller;
 import no.hiof.webframework.application.routes.Route;
 import no.hiof.webframework.exceptions.ChatMethodException;
-import no.hiof.webframework.Repository.UserDb;
+import no.hiof.webframework.repository.UserDb;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 

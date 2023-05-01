@@ -1,4 +1,4 @@
-package no.hiof.webframework.Servlet.Default;
+package no.hiof.webframework.servlet.Default;
 
 import no.hiof.webframework.application.frontend.HtmlPages;
 

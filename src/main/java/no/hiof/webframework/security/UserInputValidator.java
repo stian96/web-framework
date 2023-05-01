@@ -1,4 +1,4 @@
-package no.hiof.webframework.Security;
+package no.hiof.webframework.security;
 //Scenario 3.2
 
 /**The UserInputValidator class that contains methods for validating usernames and passwords*/

@@ -1,4 +1,4 @@
-package no.hiof.webframework.Repository;
+package no.hiof.webframework.repository;
 
 //Scenarios 4.4 and 4.6 can be made using this
 import java.sql.*;

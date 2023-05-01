@@ -1,4 +1,4 @@
-package no.hiof.webframework.Security;
+package no.hiof.webframework.security;
 //Scenario 3.5
 import no.hiof.webframework.interfaces.Authenticator;
 import java.sql.*;

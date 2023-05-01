@@ -1,4 +1,4 @@
-package no.hiof.webframework.Servlet;
+package no.hiof.webframework.servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -2,7 +2,7 @@ package Repository;
 
 import Repository.TestClasses.MockRepositoryConnection;
 import Repository.TestClasses.TestRepository;
-import no.hiof.webframework.Repository.RepositoryConnection;
+import no.hiof.webframework.repository.RepositoryConnection;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

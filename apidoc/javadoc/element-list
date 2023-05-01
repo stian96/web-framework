@@ -11,7 +11,7 @@ no.hiof.webframework.data
 no.hiof.webframework.exceptions
 no.hiof.webframework.interfaces
 no.hiof.webframework.interfaces.builders
-no.hiof.webframework.Repository
-no.hiof.webframework.Security
-no.hiof.webframework.Servlet
-no.hiof.webframework.Servlet.Default
+no.hiof.webframework.repository
+no.hiof.webframework.security
+no.hiof.webframework.servlet
+no.hiof.webframework.servlet.Default

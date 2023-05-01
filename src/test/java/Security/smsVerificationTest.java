@@ -1,6 +1,6 @@
 package Security;
 
-import no.hiof.webframework.Security.SMSVerification;
+import no.hiof.webframework.security.SMSVerification;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

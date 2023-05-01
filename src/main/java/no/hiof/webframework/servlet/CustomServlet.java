@@ -1,7 +1,7 @@
-package no.hiof.webframework.Servlet;
+package no.hiof.webframework.servlet;
 
 import no.hiof.webframework.data.User;
-import no.hiof.webframework.Repository.UserDb;
+import no.hiof.webframework.repository.UserDb;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

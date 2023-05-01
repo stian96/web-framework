@@ -1,4 +1,4 @@
-package no.hiof.webframework.Security;
+package no.hiof.webframework.security;
 //class of an EncryptionAlgorithm
 //Scenario 3.3
 

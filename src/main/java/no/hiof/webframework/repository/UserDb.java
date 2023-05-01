@@ -1,4 +1,4 @@
-package no.hiof.webframework.Repository;
+package no.hiof.webframework.repository;
 
 import no.hiof.webframework.data.User;
 import no.hiof.webframework.interfaces.UserDAO;

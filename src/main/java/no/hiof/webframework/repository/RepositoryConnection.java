@@ -1,4 +1,4 @@
-package no.hiof.webframework.Repository;
+package no.hiof.webframework.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

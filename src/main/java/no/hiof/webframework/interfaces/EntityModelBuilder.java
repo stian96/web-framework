@@ -1,6 +1,6 @@
 package no.hiof.webframework.interfaces;
 
-import no.hiof.webframework.Repository.EntityModel;
+import no.hiof.webframework.repository.EntityModel;
 
 /**
 

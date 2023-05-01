@@ -1,6 +1,6 @@
 package Security.TestClasses;
 
-import no.hiof.webframework.Security.UserInputValidator;
+import no.hiof.webframework.security.UserInputValidator;
 
 public class InputValidatorTest extends UserInputValidator {
 

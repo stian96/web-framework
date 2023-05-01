@@ -1,4 +1,4 @@
-package no.hiof.webframework.Security;
+package no.hiof.webframework.security;
 //Scenario 3.3 og 3.4
 public class User {
     private String username;

@@ -1,6 +1,6 @@
 package Repository.TestClasses;
 
-import no.hiof.webframework.Repository.RepositoryConnection;
+import no.hiof.webframework.repository.RepositoryConnection;
 
 public class MockRepositoryConnection extends RepositoryConnection {
 

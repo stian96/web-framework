@@ -1,4 +1,4 @@
-package no.hiof.webframework.Security;
+package no.hiof.webframework.security;
 import no.hiof.webframework.interfaces.PasswordEncryptionAlgorithm;
 
 import java.security.SecureRandom;
