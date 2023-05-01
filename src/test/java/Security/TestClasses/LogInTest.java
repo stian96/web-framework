@@ -1,8 +1,8 @@
 package Security.TestClasses;
 
-import no.hiof.webframework.Exceptions.LogInException;
-import no.hiof.webframework.Interface.Authenticator;
-import no.hiof.webframework.Interface.SMSCodeGenerator;
+import no.hiof.webframework.exceptions.LogInException;
+import no.hiof.webframework.interfaces.Authenticator;
+import no.hiof.webframework.interfaces.SMSCodeGenerator;
 import no.hiof.webframework.Security.LogInAuthentication;
 
 public class LogInTest extends LogInAuthentication {

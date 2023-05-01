@@ -1,6 +1,6 @@
 package no.hiof.webframework.Security;
 //Scenario 3.5
-import no.hiof.webframework.Interface.Authenticator;
+import no.hiof.webframework.interfaces.Authenticator;
 import java.sql.*;
 import java.sql.SQLException;
 import java.sql.Connection;

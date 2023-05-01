@@ -5,7 +5,7 @@ import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.frontend.HtmlFactory;
 import no.hiof.webframework.application.frontend.HtmlPages;
 import no.hiof.webframework.application.routes.Route;
-import no.hiof.webframework.Exceptions.NoHtmlContentException;
+import no.hiof.webframework.exceptions.NoHtmlContentException;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;

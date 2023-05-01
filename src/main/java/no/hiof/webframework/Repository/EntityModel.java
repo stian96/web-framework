@@ -1,6 +1,6 @@
 package no.hiof.webframework.Repository;
 
-import no.hiof.webframework.Interface.EntityModelBuilder;
+import no.hiof.webframework.interfaces.EntityModelBuilder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

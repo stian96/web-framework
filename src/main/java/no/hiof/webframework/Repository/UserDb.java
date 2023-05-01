@@ -1,7 +1,7 @@
 package no.hiof.webframework.Repository;
 
 import no.hiof.webframework.data.User;
-import no.hiof.webframework.Interface.UserDAO;
+import no.hiof.webframework.interfaces.UserDAO;
 
 import java.util.ArrayList;
 

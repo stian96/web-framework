@@ -1,6 +1,6 @@
-package no.hiof.webframework.Interface.Builders;
+package no.hiof.webframework.interfaces.builders;
 
-import no.hiof.webframework.Exceptions.HttpMethodException;
+import no.hiof.webframework.exceptions.HttpMethodException;
 import org.eclipse.jetty.http.HttpMethod;
 
 import java.util.List;

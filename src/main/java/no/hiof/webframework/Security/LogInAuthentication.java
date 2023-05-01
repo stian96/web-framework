@@ -1,8 +1,8 @@
 package no.hiof.webframework.Security;
 //Scenario 3.5
-import no.hiof.webframework.Interface.Authenticator;
-import no.hiof.webframework.Interface.SMSCodeGenerator;
-import no.hiof.webframework.Exceptions.LogInException;
+import no.hiof.webframework.interfaces.Authenticator;
+import no.hiof.webframework.interfaces.SMSCodeGenerator;
+import no.hiof.webframework.exceptions.LogInException;
 /**
  * The LogInAuthentication class handles user login using authentication and SMS verification.
  */

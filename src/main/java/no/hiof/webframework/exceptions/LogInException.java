@@ -1,4 +1,4 @@
-package no.hiof.webframework.Exceptions;
+package no.hiof.webframework.exceptions;
 
 /**
  * Exception class thrown when login-method fails.

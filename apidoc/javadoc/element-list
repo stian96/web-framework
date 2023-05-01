@@ -8,9 +8,9 @@ no.hiof.webframework.application.tools
 no.hiof.webframework.application.routes
 no.hiof.webframework.controllers
 no.hiof.webframework.data
-no.hiof.webframework.Exceptions
-no.hiof.webframework.Interface
-no.hiof.webframework.Interface.Builders
+no.hiof.webframework.exceptions
+no.hiof.webframework.interfaces
+no.hiof.webframework.interfaces.builders
 no.hiof.webframework.Repository
 no.hiof.webframework.Security
 no.hiof.webframework.Servlet

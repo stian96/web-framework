@@ -1,6 +1,6 @@
 package no.hiof.webframework.controllers;
 
-import no.hiof.webframework.Exceptions.HttpMethodException;
+import no.hiof.webframework.exceptions.HttpMethodException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,6 +1,6 @@
 package no.hiof.webframework.Security;
 //Scenario 3.5
-import no.hiof.webframework.Interface.SMSCodeGenerator;
+import no.hiof.webframework.interfaces.SMSCodeGenerator;
 
 import java.util.Random;
 

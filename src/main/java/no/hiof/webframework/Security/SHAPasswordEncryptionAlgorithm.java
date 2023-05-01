@@ -2,7 +2,7 @@ package no.hiof.webframework.Security;
 //class of an EncryptionAlgorithm
 //Scenario 3.3
 
-import no.hiof.webframework.Interface.PasswordEncryptionAlgorithm;
+import no.hiof.webframework.interfaces.PasswordEncryptionAlgorithm;
 import java.security.NoSuchAlgorithmException;
 import java.security.MessageDigest;
 

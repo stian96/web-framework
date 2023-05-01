@@ -1,8 +1,8 @@
 package Security;
 
 import Security.TestClasses.LogInTest;
-import no.hiof.webframework.Exceptions.LogInException;
-import no.hiof.webframework.Interface.SMSCodeGenerator;
+import no.hiof.webframework.exceptions.LogInException;
+import no.hiof.webframework.interfaces.SMSCodeGenerator;
 import no.hiof.webframework.Security.Authentication;
 import org.junit.jupiter.api.Test;
 

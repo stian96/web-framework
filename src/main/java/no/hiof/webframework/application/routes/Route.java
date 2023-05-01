@@ -1,6 +1,6 @@
 package no.hiof.webframework.application.routes;
 
-import no.hiof.webframework.Interface.IRoute;
+import no.hiof.webframework.interfaces.IRoute;
 import org.eclipse.jetty.http.HttpMethod;
 
 /**

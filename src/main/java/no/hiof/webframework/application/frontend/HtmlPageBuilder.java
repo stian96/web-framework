@@ -1,7 +1,7 @@
 package no.hiof.webframework.application.frontend;
 
-import no.hiof.webframework.Exceptions.HttpMethodException;
-import no.hiof.webframework.Interface.Builders.IHtmlBuilder;
+import no.hiof.webframework.exceptions.HttpMethodException;
+import no.hiof.webframework.interfaces.builders.IHtmlBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
 import java.io.IOException;

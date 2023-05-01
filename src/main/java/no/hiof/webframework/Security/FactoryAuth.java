@@ -1,7 +1,7 @@
 package no.hiof.webframework.Security;
 //Scenario 3.5
-import no.hiof.webframework.Interface.Authenticator;
-import no.hiof.webframework.Interface.SMSCodeGenerator;
+import no.hiof.webframework.interfaces.Authenticator;
+import no.hiof.webframework.interfaces.SMSCodeGenerator;
 
 /**
  * The FactoryAuth class provides a factory method for creating Authenticator and SMSCodeGenerator objects

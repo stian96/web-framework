@@ -2,7 +2,7 @@ package Application.TestClasses;
 
 import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.ServerHandler;
-import no.hiof.webframework.Exceptions.NoHtmlContentException;
+import no.hiof.webframework.exceptions.NoHtmlContentException;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 

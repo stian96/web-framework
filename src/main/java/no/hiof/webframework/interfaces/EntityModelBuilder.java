@@ -1,4 +1,4 @@
-package no.hiof.webframework.Interface;
+package no.hiof.webframework.interfaces;
 
 import no.hiof.webframework.Repository.EntityModel;
 

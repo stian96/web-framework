@@ -1,4 +1,4 @@
-package no.hiof.webframework.Interface.Builders;
+package no.hiof.webframework.interfaces.builders;
 
 /**
  * This is an abstract interface for an HTML factory which creates pre-built standard web application pages.

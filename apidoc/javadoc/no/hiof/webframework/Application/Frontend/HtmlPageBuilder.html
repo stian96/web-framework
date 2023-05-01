@@ -77,12 +77,12 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">HtmlPageBuilder</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></span></div>
+implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></span></div>
 <div class="block">This class implements the IHtmlBuilder interface
  and can be used to build a custom HTML page.</div>
 </section>
@@ -206,7 +206,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds a header to the top of the page.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addHeader(java.lang.String)">addHeader</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addHeader(java.lang.String)">addHeader</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>header</code> - The header as a string.</dd>
 </dl>
@@ -219,7 +219,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds a navigation menubar to the page.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addNavElements(java.lang.String...)">addNavElements</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addNavElements(java.lang.String...)">addNavElements</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>navElements</code> - The elements to be displayed in the menubar.</dd>
 </dl>
@@ -233,7 +233,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds a main-section to the page that contains a header and a paragraph.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addMainSection(java.lang.String,java.lang.String)">addMainSection</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addMainSection(java.lang.String,java.lang.String)">addMainSection</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>header</code> - The header to be displayed in the main-section.</dd>
 <dd><code>paragraph</code> - The paragraph in the main-section.</dd>
@@ -248,7 +248,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds a html form in the main-section of the html-page.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addForm(org.eclipse.jetty.http.HttpMethod,java.lang.String...)">addForm</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addForm(org.eclipse.jetty.http.HttpMethod,java.lang.String...)">addForm</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>method</code> - Type of Http-method (e.g. GET, POST, PUT).</dd>
 <dd><code>formFields</code> - Fields to be displayed in the form.</dd>
@@ -264,7 +264,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds an image to the HTML page.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addImage(java.lang.String,java.lang.String)">addImage</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addImage(java.lang.String,java.lang.String)">addImage</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>imageUrl</code> - The URL of the image.</dd>
 <dd><code>altText</code> - The alternative text for the image.</dd>
@@ -280,7 +280,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds a link to the HTML page.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addLink(java.lang.String,java.lang.String)">addLink</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addLink(java.lang.String,java.lang.String)">addLink</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>url</code> - The URL of the link.</dd>
 <dd><code>text</code> - The text to display for the link.</dd>
@@ -295,7 +295,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds a table to the HTML page.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addTable(java.util.List)">addTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addTable(java.util.List)">addTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>rows</code> - The rows of the table.</dd>
 </dl>
@@ -310,7 +310,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">Adds a footer-section in the bottom of the page that contains contact information.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addFooterSection(java.lang.String,java.lang.String,java.lang.String)">addFooterSection</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#addFooterSection(java.lang.String,java.lang.String,java.lang.String)">addFooterSection</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>address</code> - Address of the user/company.</dd>
 <dd><code>phoneNumber</code> - Phone number of the user/company.</dd>
@@ -325,7 +325,7 @@ implements <a href="../../Interface/Builders/IHtmlBuilder.html" title="interface
 <div class="block">When the page is finished, this method can be used to build the page.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#build()">build</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.Interface.Builders">IHtmlBuilder</a></code></dd>
+<dd><code><a href="../../Interface/Builders/IHtmlBuilder.html#build()">build</a></code>&nbsp;in interface&nbsp;<code><a href="../../Interface/Builders/IHtmlBuilder.html" title="interface in no.hiof.webframework.interfaces.builders">IHtmlBuilder</a></code></dd>
 <dt>Returns:</dt>
 <dd>The page as a String, which then should be passed as an argument
  to the app.addCustomHtmlPage() method.</dd>
