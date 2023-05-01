@@ -1,6 +1,6 @@
 package Application;
 
-import no.hiof.webframework.application.Frontend.HtmlFactory;
+import no.hiof.webframework.application.frontend.HtmlFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

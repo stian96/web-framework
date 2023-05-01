@@ -1,5 +1,5 @@
 package no.hiof.webframework.application;
-import no.hiof.webframework.application.Frontend.HtmlPages;
+import no.hiof.webframework.application.frontend.HtmlPages;
 import no.hiof.webframework.application.Routes.Route;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;

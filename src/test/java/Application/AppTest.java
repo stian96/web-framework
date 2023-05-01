@@ -1,9 +1,9 @@
 package Application;
 
 import no.hiof.webframework.application.App;
-import no.hiof.webframework.application.Frontend.HtmlFactory;
-import no.hiof.webframework.application.Frontend.HtmlPageBuilder;
-import no.hiof.webframework.application.Frontend.HtmlPages;
+import no.hiof.webframework.application.frontend.HtmlFactory;
+import no.hiof.webframework.application.frontend.HtmlPageBuilder;
+import no.hiof.webframework.application.frontend.HtmlPages;
 import Application.TestClasses.MockApp;
 import no.hiof.webframework.application.Routes.Route;
 import Application.TestClasses.TestableApp;

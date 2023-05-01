@@ -1,7 +1,7 @@
 package no.hiof.webframework.Controllers;
 
 import no.hiof.webframework.Exceptions.HttpMethodException;
-import no.hiof.webframework.application.Frontend.HtmlPageBuilder;
+import no.hiof.webframework.application.frontend.HtmlPageBuilder;
 import org.eclipse.jetty.http.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;

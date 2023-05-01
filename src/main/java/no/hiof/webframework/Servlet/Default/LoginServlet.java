@@ -1,5 +1,5 @@
 package no.hiof.webframework.Servlet.Default;
-import no.hiof.webframework.application.Frontend.HtmlPages;
+import no.hiof.webframework.application.frontend.HtmlPages;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
