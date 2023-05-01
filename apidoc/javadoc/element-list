@@ -14,4 +14,4 @@ no.hiof.webframework.interfaces.builders
 no.hiof.webframework.repository
 no.hiof.webframework.security
 no.hiof.webframework.servlet
-no.hiof.webframework.servlet.Default
+no.hiof.webframework.servlet.defaultServlets

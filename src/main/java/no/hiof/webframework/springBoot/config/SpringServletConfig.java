@@ -1,4 +1,4 @@
-package no.hiof.webframework.SpringBoot.Config;
+package no.hiof.webframework.springBoot.config;
 
 import no.hiof.webframework.application.SpringServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;

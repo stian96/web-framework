@@ -1,5 +1,5 @@
-package no.hiof.webframework.SpringBoot;
-import no.hiof.webframework.SpringBoot.Config.ChatProperties;
+package no.hiof.webframework.springBoot;
+import no.hiof.webframework.springBoot.config.ChatProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

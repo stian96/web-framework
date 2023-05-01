@@ -4,7 +4,7 @@ import no.hiof.webframework.application.enums.ImageType;
 import no.hiof.webframework.application.enums.Options;
 import no.hiof.webframework.application.tools.ImageUtility;
 import no.hiof.webframework.exceptions.ImageOverloadException;
-import no.hiof.webframework.SpringBoot.SpringApp;
+import no.hiof.webframework.springBoot.SpringApp;
 
 import java.io.IOException;
 

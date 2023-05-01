@@ -1,6 +1,6 @@
-package no.hiof.webframework.SpringBoot.Controller;
-import no.hiof.webframework.SpringBoot.Config.ChatProperties;
-import no.hiof.webframework.SpringBoot.Model.ChatService;
+package no.hiof.webframework.springBoot.controller;
+import no.hiof.webframework.springBoot.config.ChatProperties;
+import no.hiof.webframework.springBoot.model.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;

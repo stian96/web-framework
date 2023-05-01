@@ -1,6 +1,6 @@
-package no.hiof.webframework.SpringBoot.Controller;
+package no.hiof.webframework.springBoot.controller;
 
-import no.hiof.webframework.SpringBoot.Config.ChatProperties;
+import no.hiof.webframework.springBoot.config.ChatProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

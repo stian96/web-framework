@@ -1,4 +1,4 @@
-package no.hiof.webframework.servlet.Default;
+package no.hiof.webframework.servlet.defaultServlets;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;

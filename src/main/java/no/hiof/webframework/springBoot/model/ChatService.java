@@ -1,4 +1,4 @@
-package no.hiof.webframework.SpringBoot.Model;
+package no.hiof.webframework.springBoot.model;
 
 public class ChatService {
     private MessageType type;

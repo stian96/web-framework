@@ -1,5 +1,5 @@
-package no.hiof.webframework.SpringBoot;
-import no.hiof.webframework.SpringBoot.Model.ChatService;
+package no.hiof.webframework.springBoot;
+import no.hiof.webframework.springBoot.model.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
