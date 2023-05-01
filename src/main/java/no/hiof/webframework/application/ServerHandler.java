@@ -1,7 +1,7 @@
 package no.hiof.webframework.application;
 import no.hiof.webframework.application.frontend.HtmlPages;
 import no.hiof.webframework.application.routes.Route;
-import no.hiof.webframework.Controllers.Controller;
+import no.hiof.webframework.controllers.Controller;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import no.hiof.webframework.Servlet.ApplicationServlet;
 import no.hiof.webframework.Servlet.CustomServlet;

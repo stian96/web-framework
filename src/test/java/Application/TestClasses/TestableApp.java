@@ -2,7 +2,7 @@ package Application.TestClasses;
 
 import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.routes.Route;
-import no.hiof.webframework.Controllers.Controller;
+import no.hiof.webframework.controllers.Controller;
 
 import java.util.Map;
 

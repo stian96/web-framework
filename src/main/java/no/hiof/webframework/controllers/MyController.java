@@ -1,4 +1,4 @@
-package no.hiof.webframework.Controllers;
+package no.hiof.webframework.controllers;
 
 import no.hiof.webframework.Exceptions.HttpMethodException;
 import no.hiof.webframework.application.frontend.HtmlPageBuilder;
