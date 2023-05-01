@@ -1,5 +1,5 @@
 package application;
-import application.TestClasses.TestableChatroom;
+import application.testClasses.TestableChatroom;
 import no.hiof.webframework.application.Chatroom;
 import no.hiof.webframework.application.enums.ChatMethod;
 import no.hiof.webframework.application.enums.Options;

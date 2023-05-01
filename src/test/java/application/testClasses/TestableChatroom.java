@@ -1,4 +1,4 @@
-package application.TestClasses;
+package application.testClasses;
 
 import no.hiof.webframework.application.Chatroom;
 import no.hiof.webframework.application.enums.ChatMethod;

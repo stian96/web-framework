@@ -1,6 +1,6 @@
 package security;
 
-import security.TestClasses.LogInTest;
+import security.testClasses.LogInTest;
 import no.hiof.webframework.exceptions.LogInException;
 import no.hiof.webframework.interfaces.SMSCodeGenerator;
 import no.hiof.webframework.security.Authentication;

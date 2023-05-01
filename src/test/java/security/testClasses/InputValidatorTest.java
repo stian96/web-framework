@@ -1,4 +1,4 @@
-package security.TestClasses;
+package security.testClasses;
 
 import no.hiof.webframework.security.UserInputValidator;
 
