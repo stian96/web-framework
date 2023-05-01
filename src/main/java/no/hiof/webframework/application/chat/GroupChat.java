@@ -1,4 +1,4 @@
-package no.hiof.webframework.application.Chat;
+package no.hiof.webframework.application.chat;
 
 import no.hiof.webframework.Interface.ChatStrategy;
 

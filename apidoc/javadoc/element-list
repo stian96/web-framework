@@ -1,7 +1,7 @@
 no.hiof.webframework
 no.hiof.webframework.application
-no.hiof.webframework.application.Chat
-no.hiof.webframework.application.Chat.Enum
+no.hiof.webframework.application.chat
+no.hiof.webframework.application.chat.Enum
 no.hiof.webframework.application.Frontend
 no.hiof.webframework.application.Logging
 no.hiof.webframework.application.Tools

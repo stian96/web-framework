@@ -1,6 +1,6 @@
 package no.hiof.webframework.Interface;
 
-import no.hiof.webframework.application.Chat.ChatUser;
+import no.hiof.webframework.application.chat.ChatUser;
 
 import java.util.List;
 
