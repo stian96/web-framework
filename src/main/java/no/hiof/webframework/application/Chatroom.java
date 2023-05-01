@@ -48,6 +48,7 @@ public class Chatroom extends ImageUtility {
      * Methods used to start the chatroom as a Spring Boot application.
      */
     protected void startChatRoom() {
+        System.out.println("Listening on port: http://localhost:8081/");
         SpringApp.run();
     }
 
