@@ -1,4 +1,4 @@
-package no.hiof.webframework.application.Tools;
+package no.hiof.webframework.application.tools;
 
 import no.hiof.webframework.application.enums.ImageType;
 import no.hiof.webframework.Exceptions.ImageOverloadException;

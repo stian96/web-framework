@@ -1,4 +1,4 @@
-package no.hiof.webframework.application.Logging;
+package no.hiof.webframework.application.logging;
 
 import org.eclipse.jetty.util.log.StdErrLog;
 

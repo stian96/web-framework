@@ -4,7 +4,7 @@ import Application.TestClasses.TestableServerHandler;
 import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.frontend.HtmlFactory;
 import no.hiof.webframework.application.frontend.HtmlPages;
-import no.hiof.webframework.application.Routes.Route;
+import no.hiof.webframework.application.routes.Route;
 import no.hiof.webframework.Exceptions.NoHtmlContentException;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.server.Server;

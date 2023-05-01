@@ -1,9 +1,9 @@
 package no.hiof.webframework.application;
 import no.hiof.webframework.application.frontend.HtmlPages;
-import no.hiof.webframework.application.Logging.Logger;
-import no.hiof.webframework.application.Tools.HtmlParser;
+import no.hiof.webframework.application.logging.Logger;
+import no.hiof.webframework.application.tools.HtmlParser;
 import no.hiof.webframework.Controllers.Controller;
-import no.hiof.webframework.application.Routes.Route;
+import no.hiof.webframework.application.routes.Route;
 import no.hiof.webframework.Exceptions.ChatMethodException;
 import no.hiof.webframework.Repository.UserDb;
 import org.eclipse.jetty.http.HttpMethod;

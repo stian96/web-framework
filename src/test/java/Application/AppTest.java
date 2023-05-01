@@ -5,7 +5,7 @@ import no.hiof.webframework.application.frontend.HtmlFactory;
 import no.hiof.webframework.application.frontend.HtmlPageBuilder;
 import no.hiof.webframework.application.frontend.HtmlPages;
 import Application.TestClasses.MockApp;
-import no.hiof.webframework.application.Routes.Route;
+import no.hiof.webframework.application.routes.Route;
 import Application.TestClasses.TestableApp;
 import no.hiof.webframework.Controllers.Controller;
 import no.hiof.webframework.Controllers.MyController;
