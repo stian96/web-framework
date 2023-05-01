@@ -1,4 +1,4 @@
-package no.hiof.webframework.Data;
+package no.hiof.webframework.data;
 
 /**
  * This is a record class for representing a user in a web application.

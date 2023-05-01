@@ -1,6 +1,6 @@
 package no.hiof.webframework.Repository;
 
-import no.hiof.webframework.Data.User;
+import no.hiof.webframework.data.User;
 import no.hiof.webframework.Interface.UserDAO;
 
 import java.util.ArrayList;

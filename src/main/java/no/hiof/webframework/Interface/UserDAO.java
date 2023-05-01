@@ -1,6 +1,6 @@
 package no.hiof.webframework.Interface;
 
-import no.hiof.webframework.Data.User;
+import no.hiof.webframework.data.User;
 
 /**
  * This is an interface for a data access object (DAO) that provides

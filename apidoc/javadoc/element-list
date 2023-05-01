@@ -7,7 +7,7 @@ no.hiof.webframework.application.logging
 no.hiof.webframework.application.tools
 no.hiof.webframework.application.routes
 no.hiof.webframework.controllers
-no.hiof.webframework.Data
+no.hiof.webframework.data
 no.hiof.webframework.Exceptions
 no.hiof.webframework.Interface
 no.hiof.webframework.Interface.Builders
