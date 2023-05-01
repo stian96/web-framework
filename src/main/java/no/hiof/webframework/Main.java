@@ -1,8 +1,8 @@
 package no.hiof.webframework;
 import no.hiof.webframework.application.App;
 import no.hiof.webframework.application.Chatroom;
-import no.hiof.webframework.application.Enums.ChatMethod;
-import no.hiof.webframework.application.Enums.Options;
+import no.hiof.webframework.application.enums.ChatMethod;
+import no.hiof.webframework.application.enums.Options;
 
 
 public class Main {

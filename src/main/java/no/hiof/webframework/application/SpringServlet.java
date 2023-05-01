@@ -3,8 +3,8 @@ package no.hiof.webframework.application;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import no.hiof.webframework.application.Enums.ChatMethod;
-import no.hiof.webframework.application.Enums.Options;
+import no.hiof.webframework.application.enums.ChatMethod;
+import no.hiof.webframework.application.enums.Options;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 

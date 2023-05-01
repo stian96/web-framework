@@ -1,6 +1,6 @@
 package no.hiof.webframework.application.Tools;
 
-import no.hiof.webframework.application.Enums.ImageType;
+import no.hiof.webframework.application.enums.ImageType;
 import no.hiof.webframework.Exceptions.ImageOverloadException;
 
 import java.io.IOException;
