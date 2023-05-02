@@ -12,35 +12,87 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import javax.servlet.http.HttpServlet;
 
 public class ConfigureServer {
-    private static ConfigureServer instance = null;
     private ServletContextHandler contextHandler = null;
     private ResourceHandler resourceHandler = null;
     private HandlerList handlerList = null;
     private Server server = null;
 
+    // Constructor made private to prevent direct instantiation.
+    private ConfigureServer() {}
 
-    public static ConfigureServer getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new ConfigureServer();
+    // Inner class used to build the configurations.
+    public static class Builder {
+        private int portNumber = 0;
+        private String serverEndpoint;
+        private HttpServlet controller;
+        private String controllerEndpoint;
+        private String staticResourceFilename;
+        private String staticResourceFolder;
+
+        public Builder setPortNumber(int portNumber) {
+            this.portNumber = portNumber;
+            return this;
         }
-        return instance;
+
+        public Builder setServerEndpoint(String serverEndpoint) {
+            this.serverEndpoint = serverEndpoint;
+            return this;
+        }
+
+        public Builder addController(HttpServlet controller, String controllerEndpoint) {
+            this.controller = controller;
+            this.controllerEndpoint = controllerEndpoint;
+            return this;
+        }
+
+        public Builder addStaticResources(String filename, String absPathToFolder) {
+            this.staticResourceFilename = filename;
+            this.staticResourceFolder = absPathToFolder;
+            return this;
+        }
+
+        public ConfigureServer build() {
+            ConfigureServer configureServer = new ConfigureServer();
+            configureServer.setPortNumber(this.portNumber);
+            configureServer.setServerEndpoint(this.serverEndpoint);
+            configureServer.addControllerToServer(this.controller, this.controllerEndpoint);
+            configureServer.addStaticResources(this.staticResourceFilename, this.staticResourceFolder);
+
+            return configureServer;
+        }
     }
 
-
-    public void setPortNumber(int number)
+    private void setPortNumber(int number)
     {
-        server = new Server(number);
+        try
+        {
+            if (number == 0)
+                throw new Exception();
+            else
+                server = new Server(number);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Exception: Set port number before calling build method.");
+            stop();
+        }
     }
 
-    public void setServerEndpoint(String endpoint)
+    private void setServerEndpoint(String endpoint)
     {
-        contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        contextHandler.setContextPath(endpoint);
+        try
+        {
+            contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+            contextHandler.setContextPath(endpoint);
+        }
+        catch (IllegalArgumentException i)
+        {
+            System.err.println("EndpointException: Set server endpoint before calling build method.");
+            stop();
+        }
     }
 
-    public void addControllerToServer(HttpServlet controller, String controllerEndpoint)
+    private void addControllerToServer(HttpServlet controller, String controllerEndpoint)
     {
         try
         {
@@ -56,7 +108,7 @@ public class ConfigureServer {
         }
     }
 
-    public void addStaticResources(String filename, String absPathToFolder)
+    private void addStaticResources(String filename, String absPathToFolder)
     {
         resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(true);

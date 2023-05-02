@@ -7,11 +7,13 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        ConfigureServer server = ConfigureServer.getInstance();
-        server.setPortNumber(8080);
-        server.setServerEndpoint("/");
-        server.addControllerToServer(new TestController(), "/test");
-        server.addStaticResources("test.html", "./src/main/webapp");
+        ConfigureServer server = new ConfigureServer.Builder()
+                .setPortNumber(8080)
+                .setServerEndpoint("/")
+                .addController(new TestController(), "/test")
+                .addStaticResources("test.html", "./src/main/webapp")
+                .build();
+
         server.startServer();
 
     }
