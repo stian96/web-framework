@@ -1,5 +1,6 @@
 package no.hiof.webframework.servers;
 
+import no.hiof.webframework.exceptions.EndpointException;
 import no.hiof.webframework.exceptions.PortNumberException;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -10,19 +11,19 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.http.HttpServlet;
 
-public class ServerConfig {
-    private static ServerConfig instance = null;
-    private ServletContextHandler contextHandler;
-    private ResourceHandler resourceHandler;
-    private HandlerList handlerList;
+public class ConfigureServer {
+    private static ConfigureServer instance = null;
+    private ServletContextHandler contextHandler = null;
+    private ResourceHandler resourceHandler = null;
+    private HandlerList handlerList = null;
     private Server server = null;
 
 
-    public static ServerConfig getInstance()
+    public static ConfigureServer getInstance()
     {
         if (instance == null)
         {
-            instance = new ServerConfig();
+            instance = new ConfigureServer();
         }
         return instance;
     }
@@ -41,7 +42,18 @@ public class ServerConfig {
 
     public void addControllerToServer(HttpServlet controller, String controllerEndpoint)
     {
-        contextHandler.addServlet(new ServletHolder(controller), controllerEndpoint);
+        try
+        {
+            if (contextHandler == null)
+                throw new EndpointException();
+            else
+                contextHandler.addServlet(new ServletHolder(controller), controllerEndpoint);
+        }
+        catch (EndpointException e)
+        {
+            System.err.println("EndpointException: " + e.getMessage());
+            stop();
+        }
     }
 
     public void addStaticResource(String filename, String absPathToFolder)
@@ -50,7 +62,6 @@ public class ServerConfig {
         resourceHandler.setDirectoriesListed(true);
         resourceHandler.setWelcomeFiles(new String[] {filename});
         resourceHandler.setResourceBase(absPathToFolder);
-        activateHandler();
     }
 
     private void activateHandler()
@@ -66,8 +77,13 @@ public class ServerConfig {
             {
                 throw new PortNumberException();
             }
+            else if (contextHandler == null)
+            {
+                throw new EndpointException();
+            }
             else
             {
+                activateHandler();
                 server.setHandler(handlerList);
                 server.join();
                 server.start();
@@ -75,15 +91,27 @@ public class ServerConfig {
         }
         catch (InterruptedException i)
         {
-            System.out.println("InterruptedException: " + i.getMessage());
+            System.err.println("InterruptedException: " + i.getMessage());
+            stop();
         }
         catch (PortNumberException p)
         {
             System.err.println("PortNumberException: " + p.getMessage());
+            stop();
+        }
+        catch (EndpointException end)
+        {
+            System.err.println("EndpointException: " + end.getMessage());
+            stop();
         }
         catch (Exception e)
         {
-            System.out.println("Exception: " + e.getMessage());
+            System.err.println("Exception: Add 'static resources' before calling start server method.");
+            stop();
         }
+    }
+
+    private void stop() {
+        System.exit(1);
     }
 }
