@@ -1,4 +1,5 @@
 package no.hiof.webframework;
+import no.hiof.webframework.application.logging.Logger;
 import no.hiof.webframework.controllers.TestController;
 import no.hiof.webframework.servers.ConfigureServer;
 

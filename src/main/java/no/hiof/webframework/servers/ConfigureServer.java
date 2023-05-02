@@ -1,5 +1,6 @@
 package no.hiof.webframework.servers;
 
+import no.hiof.webframework.application.logging.Logger;
 import no.hiof.webframework.exceptions.EndpointException;
 import no.hiof.webframework.exceptions.PortNumberException;
 import org.eclipse.jetty.server.Handler;
@@ -64,12 +65,17 @@ public class ConfigureServer {
 
     private void setPortNumber(int number)
     {
+        Logger.turnLoggerOFF();
         try
         {
             if (number == 0)
                 throw new Exception();
             else
+            {
+                System.out.println("Listening on port: http://localhost:" + number);
                 server = new Server(number);
+            }
+
         }
         catch (Exception e)
         {
