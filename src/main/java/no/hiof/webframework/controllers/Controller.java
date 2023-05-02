@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public abstract class Controller extends HttpServlet {
 
-    private final String endpoint;
+    private String endpoint = null;
 
     /**
      * Constructor for the Controller class.
@@ -24,6 +24,10 @@ public abstract class Controller extends HttpServlet {
      */
     public Controller(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    public Controller() {
+
     }
 
     /**

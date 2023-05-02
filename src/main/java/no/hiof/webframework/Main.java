@@ -11,7 +11,7 @@ public class Main {
         server.setPortNumber(8080);
         server.setServerEndpoint("/");
         server.addControllerToServer(new TestController(), "/test");
-        server.addStaticResource("test.html", "./src/main/webapp");
+        server.addStaticResources("test.html", "./src/main/webapp");
         server.startServer();
 
     }

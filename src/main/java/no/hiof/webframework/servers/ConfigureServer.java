@@ -56,7 +56,7 @@ public class ConfigureServer {
         }
     }
 
-    public void addStaticResource(String filename, String absPathToFolder)
+    public void addStaticResources(String filename, String absPathToFolder)
     {
         resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(true);
