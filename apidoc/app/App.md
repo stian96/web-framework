@@ -58,11 +58,11 @@ The title of the application, this is found at route "/".
 
 A string that holds the custom HTML page.
 
-### 'private Chatroom chatroom'
+#### 'private Chatroom chatroom'
 
 Reference variable to a 'Chatroom' application instance.
 
-### 'private Controller controller'
+#### 'private Controller controller'
 
 Reference variable to a 'servlet' controller instance.
 
