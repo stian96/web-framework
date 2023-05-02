@@ -1,5 +1,6 @@
 package no.hiof.webframework.servers;
 
+import no.hiof.webframework.exceptions.PortNumberException;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -13,9 +14,8 @@ public class ServerConfig {
     private static ServerConfig instance = null;
     private ServletContextHandler contextHandler;
     private ResourceHandler resourceHandler;
-
     private HandlerList handlerList;
-    private Server server;
+    private Server server = null;
 
 
     public static ServerConfig getInstance()
@@ -62,13 +62,24 @@ public class ServerConfig {
     public void startServer() {
         try
         {
-            server.setHandler(handlerList);
-            server.join();
-            server.start();
+            if (this.server == null)
+            {
+                throw new PortNumberException();
+            }
+            else
+            {
+                server.setHandler(handlerList);
+                server.join();
+                server.start();
+            }
         }
         catch (InterruptedException i)
         {
             System.out.println("InterruptedException: " + i.getMessage());
+        }
+        catch (PortNumberException p)
+        {
+            System.err.println("PortNumberException: " + p.getMessage());
         }
         catch (Exception e)
         {
