@@ -11,7 +11,7 @@ public class Main {
         App app = App.create();
         Chatroom.setChatMethod(ChatMethod.PRIVATE);
         Chatroom.addDeleteMessagesButton(Options.YES);
-        Chatroom.setTitle("Hell and back!");
+        Chatroom.setTitle("chat club!");
         Chatroom.addMessageTimeStamp(true);
 
         app.addChatRoom(Chatroom.create());
