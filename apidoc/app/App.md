@@ -190,7 +190,7 @@ Create an instance of the **'App'** object and make a call to the method **'setT
 public class Main {
   public static void main(String[] args) {
 
-    App myApp = new App();
+    App myApp = App.create();
     myApp.setTitle("Title of the application!");
     myApp.run();
     
@@ -211,7 +211,7 @@ Before running the application, you must have called the **'addRoute()'** and **
 public class Main {
   public static void main(String[] args) {
 
-    App myApp = new App();
+    App myApp = App.create();
     
     // Add routes and Http method.
     myApp.addRoute("home", HttpMethod.GET);
@@ -246,7 +246,7 @@ pass it the **'builder.build()'** argument.
 public class Main {
     public static void main(String[] args) {
 
-        App myApp = new App();
+        App myApp = App.create();
         myApp.addRoute("custom", HttpMethod.GET);
 
         // Builder to create custom html pages.
@@ -330,7 +330,7 @@ Then we can add the following code in the Main.java file.
 public class Main {
     public static void main(String[] args) {
 
-        App app = new App();
+        App app = App.create();
         MyController myController = new MyController("myController");
         app.addController(myController);
         app.run();
@@ -352,7 +352,7 @@ the following.
 public class Main {
     public static void main(String[] args) {
 
-        App app = new App();
+        App app = App.create();
         app.addRoute("response", HttpMethod.GET);
         app.addResponseToPage("Hello word!");
         app.run();
