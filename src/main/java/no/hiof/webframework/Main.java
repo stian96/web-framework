@@ -1,20 +1,21 @@
 package no.hiof.webframework;
-import no.hiof.webframework.controllers.TestController;
-import no.hiof.webframework.servers.ConfigureServer;
+import no.hiof.webframework.application.App;
+import no.hiof.webframework.application.Chatroom;
+import no.hiof.webframework.application.enums.ChatMethod;
+import no.hiof.webframework.application.enums.Options;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
+        App app = App.create();
+        Chatroom.setChatMethod(ChatMethod.PRIVATE);
+        Chatroom.addDeleteMessagesButton(Options.YES);
+        Chatroom.setTitle("Hell and back!");
+        Chatroom.addMessageTimeStamp(true);
 
-        ConfigureServer server = new ConfigureServer.Builder()
-                .setPortNumber(8080)
-                .setServerEndpoint("/")
-                .addController(new TestController(), "/test")
-                .addStaticResources("test.html", "./src/main/webapp")
-                .build();
-
-        server.startServer();
+        app.addChatRoom(Chatroom.create());
+        app.run();
 
     }
 }

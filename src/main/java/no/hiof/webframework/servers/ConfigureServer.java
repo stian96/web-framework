@@ -1,6 +1,7 @@
 package no.hiof.webframework.servers;
 
 import no.hiof.webframework.application.logging.Logger;
+import no.hiof.webframework.controllers.Controller;
 import no.hiof.webframework.exceptions.EndpointException;
 import no.hiof.webframework.exceptions.PortNumberException;
 import org.eclipse.jetty.server.Handler;
@@ -10,7 +11,6 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import javax.servlet.http.HttpServlet;
 
 public class ConfigureServer {
     private ServletContextHandler contextHandler = null;
@@ -25,7 +25,7 @@ public class ConfigureServer {
     public static class Builder {
         private int portNumber = 0;
         private String serverEndpoint;
-        private HttpServlet controller;
+        private Controller controller;
         private String controllerEndpoint;
         private String staticResourceFilename;
         private String staticResourceFolder;
@@ -40,7 +40,7 @@ public class ConfigureServer {
             return this;
         }
 
-        public Builder addController(HttpServlet controller, String controllerEndpoint) {
+        public Builder addController(Controller controller, String controllerEndpoint) {
             this.controller = controller;
             this.controllerEndpoint = controllerEndpoint;
             return this;
@@ -98,7 +98,7 @@ public class ConfigureServer {
         }
     }
 
-    private void addControllerToServer(HttpServlet controller, String controllerEndpoint)
+    private void addControllerToServer(Controller controller, String controllerEndpoint)
     {
         try
         {
