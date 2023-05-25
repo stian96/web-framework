@@ -14,6 +14,9 @@ public class RepositoryManager {
         this.repo = repo;
     }
 
+    public static RepositoryManager create(RepositoryConnection repo) {
+        return new RepositoryManager(repo);
+    }
     /**
 
      * Inserts a new row into the specified table with the given column names and values.
