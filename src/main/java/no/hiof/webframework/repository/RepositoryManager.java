@@ -27,33 +27,27 @@ public class RepositoryManager {
      * @throws SQLException if an error occurs while inserting the row
      */
     public boolean insert(String tableName, String[] columnNames, Object[] values) {
-        try {
-
-            Connection connection = repo.getConnection();
+        try (Connection connection = repo.createConnection(repo.schemaName)) {
             String sql = generateInsertStatement(tableName, columnNames);
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-
-            for (int i = 0; i < columnNames.length; i++) {
-                preparedStatement.setObject(i + 1, values[i]);
-            }
-
-
-            int result = preparedStatement.executeUpdate();
-
-
-            if (result > 0) {
-                System.out.println("Row inserted successfully!");
-                return true;
-            } else {
-                System.out.println("Failed to insert row.");
-                return false;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                for (int i = 0; i < columnNames.length; i++) {
+                    preparedStatement.setObject(i + 1, values[i]);
+                }
+                int result = preparedStatement.executeUpdate();
+                if (result > 0) {
+                    System.out.println("Row inserted successfully!");
+                    return true;
+                } else {
+                    System.out.println("Failed to insert row.");
+                    return false;
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error inserting row: " + e.getMessage());
             return false;
         }
     }
+
     /**
 
      * Generates an SQL INSERT statement for a given table name and array of column names.
@@ -95,11 +89,9 @@ public class RepositoryManager {
     * @param value the value of the column to be used as a condition in the WHERE clause of the DELETE statement
     * @return true if the row was successfully deleted, false otherwise
     */
-    public boolean delete( String tableName, String columnName, Object value) {
-        try {
-            Connection connection = repo.getConnection();
-            String sql = generateDeleteStatement(tableName, columnName);
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    public boolean delete(String tableName, String columnName, Object value) {
+        try (Connection connection = repo.createConnection(repo.schemaName);
+             PreparedStatement preparedStatement = connection.prepareStatement(generateDeleteStatement(tableName, columnName))) {
 
             preparedStatement.setObject(1, value);
 
@@ -117,6 +109,7 @@ public class RepositoryManager {
             return false;
         }
     }
+
     /**
 
     * Generates a SQL delete statement for the specified table and column.
@@ -133,16 +126,14 @@ public class RepositoryManager {
      * @param tableName The name of the table to retrieve rows from.
      */
     public void getAllRowsFromTable(String tableName) {
-        try {
-            Connection connection = repo.getConnection();
-            String sql = "SELECT * FROM " + tableName;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (Connection connection = repo.createConnection(repo.schemaName);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + tableName);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
 
-            // Print the result
+
             System.out.println("Table: " + tableName + " - All Rows:");
             while (resultSet.next()) {
                 for (int i = 1; i <= columnCount; i++) {
@@ -155,6 +146,7 @@ public class RepositoryManager {
             System.err.println("Error retrieving rows from table: " + e.getMessage());
         }
     }
+
     /**
      * Retrieves rows from a specified table with a specified condition on a specified column
      *
@@ -164,28 +156,28 @@ public class RepositoryManager {
      */
 
     public void getRowsFromTableWithConditions(String tableName, String columnName, String condition) {
-        try {
-            Connection connection = repo.getConnection();
-            String sql = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (Connection connection = repo.createConnection(repo.schemaName);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + tableName + " WHERE " + columnName + " = ?")) {
+
             preparedStatement.setString(1, condition);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            System.out.println("Table: " + tableName + " - Rows with Condition: " + columnName + " = " + condition);
-            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-            int columnCount = resultSetMetaData.getColumnCount();
-            while (resultSet.next()) {
-                for (int i = 1; i <= columnCount; i++) {
-                    String columnNameResult = resultSetMetaData.getColumnName(i);
-                    String columnValue = resultSet.getString(i);
-                    System.out.println(columnNameResult + ": " + columnValue);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                System.out.println("Table: " + tableName + " - Rows with Condition: " + columnName + " = " + condition);
+                ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                int columnCount = resultSetMetaData.getColumnCount();
+                while (resultSet.next()) {
+                    for (int i = 1; i <= columnCount; i++) {
+                        String columnNameResult = resultSetMetaData.getColumnName(i);
+                        String columnValue = resultSet.getString(i);
+                        System.out.println(columnNameResult + ": " + columnValue);
+                    }
                 }
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving rows from table: " + e.getMessage());
         }
     }
+
 
     /**
      * Counts the number of occurrences of a specific item in a column of a table in the database.
@@ -198,16 +190,16 @@ public class RepositoryManager {
 
     public int itemCount(String tableName, String columnName, String item) {
         int count = 0;
-        try {
-            Connection connection = repo.getConnection();
-            String sql = "SELECT COUNT(*) AS count FROM " + tableName + " WHERE " + columnName + " = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (Connection connection = repo.createConnection(repo.schemaName);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM "
+                     + tableName + " WHERE " + columnName + " = ?")) {
+
             preparedStatement.setString(1, item);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                count = resultSet.getInt("count");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt("count");
+                }
             }
 
             System.out.println("Item: " + item + " is in the Table: " + tableName + " "  + count + " time(s)");
@@ -217,6 +209,7 @@ public class RepositoryManager {
         return count;
     }
 
+
     /**
      * Executes an SQL query and prints the results to the console.
      *
@@ -224,16 +217,12 @@ public class RepositoryManager {
      * @param columnNames an array of column names to print in the results
      */
     public void executeSqlQuery(String sqlQuery, String[] columnNames) {
-        try {
-            Connection connection = repo.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
+        try (Connection connection = repo.createConnection(repo.schemaName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             System.out.println("SQL Query: " + sqlQuery);
             while (resultSet.next()) {
-
                 for (String columnName : columnNames) {
                     String columnValue = resultSet.getString(columnName);
                     System.out.println(columnName + ": " + columnValue);
@@ -243,6 +232,7 @@ public class RepositoryManager {
             System.err.println("Error executing SQL query: " + e.getMessage());
         }
     }
+
 
 
 

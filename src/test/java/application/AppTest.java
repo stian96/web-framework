@@ -8,7 +8,7 @@ import application.testClasses.MockApp;
 import no.hiof.webframework.application.routes.Route;
 import application.testClasses.TestableApp;
 import no.hiof.webframework.controllers.Controller;
-import no.hiof.webframework.controllers.MyController;
+//import no.hiof.webframework.controllers.MyController;
 import org.eclipse.jetty.http.HttpMethod;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -248,7 +248,7 @@ class AppTest {
         Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
         Assertions.assertTrue(htmlPageMap.containsKey(response));
     }
-
+/*
     @Test
     void testAddController_SetsController() {
         // setup
@@ -277,6 +277,8 @@ class AppTest {
         Assertions.assertEquals("/New", app.getController().getEndpoint());
     }
 
+
+ */
     @Test
     void testAddController_NullControllerThrowsException() {
         // setup

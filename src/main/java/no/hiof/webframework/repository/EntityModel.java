@@ -14,9 +14,9 @@ import java.util.List;
  * Class for creating an entity model and adding to a database
  */
 public class EntityModel implements EntityModelBuilder {
-    private RepositoryConnection repo;
+    private final RepositoryConnection repo;
     private String tableName;
-    private List<Field> fields = new ArrayList<>();
+    private final List<Field> fields = new ArrayList<>();
     public EntityModel(RepositoryConnection repo){
         this.repo = repo;
     }
@@ -70,7 +70,7 @@ public class EntityModel implements EntityModelBuilder {
      */
     public void generateSchema(String schemaName) {
         try {
-            Connection connection = repo.getConnection();
+            Connection connection = repo.createConnection();
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + schemaName);
             statement.executeUpdate("USE " + schemaName);
