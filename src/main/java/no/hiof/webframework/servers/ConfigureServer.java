@@ -102,6 +102,11 @@ public class ConfigureServer {
             return this;
         }
 
+        /**
+         * Build method used to instantiate the actual ConfigureServer object,
+         * with arguments form the chained method calls.
+         * @return The ConfigureServer object.
+         */
         public ConfigureServer build() {
             ConfigureServer configureServer = new ConfigureServer();
             configureServer.setPortNumber(this.portNumber);
@@ -178,6 +183,9 @@ public class ConfigureServer {
         handlerList.setHandlers(new Handler[] {resourceHandler, contextHandler});
     }
 
+    /**
+     * Method used to start the actual server.
+     */
     public void startServer() {
         try
         {
