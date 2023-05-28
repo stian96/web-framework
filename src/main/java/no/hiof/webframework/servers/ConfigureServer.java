@@ -22,6 +22,19 @@ import javax.servlet.http.HttpServlet;
  * <p>
  * The methods in the inner class is chainable, which allows for a fluent interface style where
  * method calls can be chained together.
+ * <p>
+ * Example usage
+ * <pre>
+ * ConfigureServer server = new ConfigureServer.Builder()
+ *     .setPortNumber(8080)
+ *     .setServerEndpoint("/api")
+ *     .addController(new MyController(), "/endpoint")
+ *     .addStaticResources("index.html", "/path/to/resources")
+ *     .build();
+ * server.startServer();
+ * </pre>
+ *
+ * @author Stian Rusvik
  */
 public class ConfigureServer {
     private ServletContextHandler contextHandler = null;
