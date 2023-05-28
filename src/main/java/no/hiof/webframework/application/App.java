@@ -22,11 +22,18 @@ import java.util.Map;
  * The class maintains a collection of routes and associated HTTP methods, and
  * provides methods for adding custom or pre-built HTML pages and responses to
  * specific routes. It also allows a custom controller to be added for handling
- * dynamic content, and provides access to a user database if needed.
+ * dynamic content, and pre-defined Chatroom applications.
  * <p>
- * To use the App class, call the create() method to obtain an instance, then
- * use the various add methods to define routes and content, and finally call
- * the run() method to start the server and listen for incoming requests.
+ * Example usage of a simple scenario:
+ * <pre>
+ * App app = App.create();
+ * app.addRoute("login", HttpMethod.GET);
+ * HtmlFactory factory = new HtmlFactory();
+ * app.addHtmlPage(factory.createLoginPage(), "Login title");
+ * app.run();
+ * </pre>
+ *
+ * @author Stian Rusvik
  */
 public class App {
 
