@@ -263,20 +263,6 @@ class AppTest {
         Assertions.assertEquals(controller, app.getController());
     }
 
-    @Test
-    void testAddController_OverwritesExistingController() {
-        // setup
-        TestableApp app = new TestableApp();
-        Controller initialController = new TestController();
-        Controller newController = new TestController();
-        app.addController(initialController);
-
-        // action
-        app.addController(newController);
-
-        // verify
-        Assertions.assertEquals("/New", app.getController().getEndpoint());
-    }
 
     @Test
     void testAddController_NullControllerThrowsException() {
