@@ -12,6 +12,17 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.http.HttpServlet;
 
+/**
+ * This class provides method to configure a server in a structured way using a Builder pattern.
+ * It allows setting up a server with specific port number, server endpoint, adding controllers
+ * and static resources.
+ * <p>
+ * An instance of this class can only be created through the inner Builder class, to ensure that
+ * the server is correctly configured before it is used.
+ * <p>
+ * The methods in the inner class is chainable, which allows for a fluent interface style where
+ * method calls can be chained together.
+ */
 public class ConfigureServer {
     private ServletContextHandler contextHandler = null;
     private ResourceHandler resourceHandler = null;
