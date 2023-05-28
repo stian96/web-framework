@@ -8,6 +8,8 @@ import java.io.InputStream;
 
 /**
  * HtmlParser is a utility class for parsing HTML pages.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class HtmlParser
 {

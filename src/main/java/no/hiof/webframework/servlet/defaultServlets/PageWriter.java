@@ -5,6 +5,8 @@ import java.io.*;
 
 /**
  * This class provides a method to write an HTML page to an HTTP response.
+ * <p>
+ * @author Stian Rusvik.
  */
 class PageWriter {
     /**

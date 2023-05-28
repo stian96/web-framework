@@ -8,6 +8,8 @@ import java.io.InputStream;
 /**
  * The LoginServlet class is a subclass of the AbstractServlet class,representing the login page of a web application.
  * It allows users to log in by entering their username and password.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class LoginServlet extends AbstractServlet {
     /**

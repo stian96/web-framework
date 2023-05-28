@@ -5,6 +5,8 @@ import java.io.InputStream;
 /**
  * This is an interface for pre-built HTML pages. It defines methods to retrieve input streams for the login page,
  * home page, and logout page.
+ * <p>
+ * @author Stian Rusvik.
  */
 public interface IHtmlPage {
     /**

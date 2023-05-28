@@ -8,6 +8,8 @@ import java.util.List;
 /**
  * This is an interface for building an HTML page. It defines methods for adding different sections to the page and
  * building the final HTML page.
+ * <p>
+ * @author Stian Rusvik.
  */
 public interface IHtmlBuilder {
     /**

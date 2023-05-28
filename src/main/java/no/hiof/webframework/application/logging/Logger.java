@@ -4,6 +4,8 @@ import org.eclipse.jetty.util.log.StdErrLog;
 
 /**
  * Logger is a utility class for turning off Jetty logging.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class Logger {
     /**

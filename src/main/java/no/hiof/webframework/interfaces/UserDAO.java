@@ -5,6 +5,8 @@ import no.hiof.webframework.data.User;
 /**
  * This is an interface for a data access object (DAO) that provides
  * methods for saving, retrieving, and deleting user objects.
+ * <p>
+ * @author Stian Rusvik.
  */
 public interface UserDAO {
     /**

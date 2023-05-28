@@ -7,6 +7,8 @@ import java.io.InputStream;
 /**
  * This class contains pre-built HTML pages for a web application.
  * It implements the IHtmlPage interface.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class HtmlPages implements IHtmlPage {
 

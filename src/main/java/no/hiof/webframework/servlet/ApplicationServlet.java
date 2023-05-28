@@ -9,6 +9,8 @@ import java.io.IOException;
 /**
  * The ApplicationServlet class is a servlet that sets the application title
  * and responds to GET requests with an HTML page
+ * <p>
+ * @author Stian Rusvik.
  */
 @WebServlet("/")
 public class ApplicationServlet extends HttpServlet {

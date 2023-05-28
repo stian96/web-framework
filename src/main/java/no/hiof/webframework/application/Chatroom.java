@@ -17,6 +17,8 @@ import java.io.IOException;
  * for adding an icon image to the chatroom and overriding existing
  * icon images. The Chatroom class is implemented as a Singleton, so
  * only one instance of the class can exist at a time.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class Chatroom extends ImageUtility {
 

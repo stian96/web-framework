@@ -6,6 +6,8 @@ import org.eclipse.jetty.http.HttpMethod;
 /**
  * Route is a class that implements the IRoute interface and represents an HTTP endpoint.
  * It takes an endpoint and an HTTP method as parameters in the constructor.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class Route implements IRoute {
     private final String endpoint;

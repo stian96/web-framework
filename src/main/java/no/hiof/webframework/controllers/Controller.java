@@ -13,6 +13,8 @@ import java.io.IOException;
  * to handle HTTP requests. It provides methods for handling GET, POST, PUT and other HTTP requests, as well as rendering
  * HTML pages. The class also contains a switch statement that determines how to handle the request based on its HTTP method.
  * The endpoint is a String that represents the URL path for the controller.
+ * <p>
+ * @author Stian Rusvik.
  */
 public abstract class Controller extends HttpServlet {
 

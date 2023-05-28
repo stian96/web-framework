@@ -5,6 +5,8 @@ import org.eclipse.jetty.http.HttpMethod;
 /**
  * This is an interface for defining a route in a web application.
  * It defines methods to retrieve the route path and HTTP method.
+ * <p>
+ * @author Stian Rusvik.
  */
 public interface IRoute {
     /**
