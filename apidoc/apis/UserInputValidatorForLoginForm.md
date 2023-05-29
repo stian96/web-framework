@@ -5,7 +5,7 @@ in the package **no.hiof.webframework.security**.
 
 ## Methods
 #### 'validateUsername(String username)'
-The method that can be used to validate a name. It checks that the length of the field is between the interval 5 – 20.
+The method that can be used to validate a name. It checks that the length of the field is between the interval 5 – 20 characters.
 
 | Parameter    | Type         | Description                                           |
 |:-------------|:-------------|:------------------------------------------------------|

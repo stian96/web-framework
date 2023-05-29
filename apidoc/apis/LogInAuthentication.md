@@ -23,7 +23,7 @@ Attempts to log in a user using authentication and SMS verification.
 
 | Throws             | Description                                              |
 |:-------------------|:---------------------------------------------------------|
-| 'LogInException'   | Generates two messages if the Authentication login fails |
+| 'LogInException'   | Generates two messages if the authentication login fails |
 
 
 <br>
