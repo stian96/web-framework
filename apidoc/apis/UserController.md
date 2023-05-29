@@ -9,8 +9,9 @@ The ***registerNewUser()*** method is used to register a user to the database wi
 password based on the specified encryption algorithm.
 
 <br>
+
 To save the encrypted password and the salt into the database, and then perform a check on whether 
-the user does already exist in the database, the classes *UserController* and *UserDatabase* can be used.
+the user does already exist in the database, the classes **UserController** and **UserDatabase** can be used.
 
 
 ## Methods in UserController
