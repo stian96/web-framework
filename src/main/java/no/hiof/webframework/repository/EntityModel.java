@@ -70,7 +70,7 @@ public class EntityModel implements EntityModelBuilder {
      */
     public void generateSchema(String schemaName) {
         try {
-            Connection connection = repo.createConnection();
+            Connection connection = repo.createConnection(schemaName);
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + schemaName);
             statement.executeUpdate("USE " + schemaName);
@@ -81,6 +81,14 @@ public class EntityModel implements EntityModelBuilder {
         } catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
         }
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public List<Field> getFields() {
+        return fields;
     }
 
     /**
@@ -125,7 +133,7 @@ public class EntityModel implements EntityModelBuilder {
             this.type = type;
             this.nullable = nullable;
         }
-        public String getName() {
+        protected String getName() {
             return name;
         }
 

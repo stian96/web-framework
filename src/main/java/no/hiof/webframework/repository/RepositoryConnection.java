@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+* An abstract class that represents a connection to a repository or database.
+ **/
 public abstract class RepositoryConnection {
     protected String url;
     protected String username;
@@ -17,6 +20,9 @@ public abstract class RepositoryConnection {
         this.password = password;
     }
 
+    /**
+     * Establishes a connection to the database using the provided credentials.
+     */
     public void connect() {
         try {
             connection = createConnection();
@@ -25,6 +31,11 @@ public abstract class RepositoryConnection {
             System.err.println("Error connecting to the database: " + e.getMessage());
         }
     }
+
+    /**
+     * Establishes a connection to the database with the specified schema name.
+     * @param schemaName name of the specified schema to connect to.
+     */
     public void connect(String schemaName) {
         try {
 
@@ -35,6 +46,10 @@ public abstract class RepositoryConnection {
             System.err.println("Error connecting to the database with schema name: " + schemaName + " - " + e.getMessage());
         }
     }
+
+    /**
+     * Closes the database connection.
+     */
     public void disconnect() {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -46,7 +61,20 @@ public abstract class RepositoryConnection {
         }
     }
 
+    /**
+     * An abstract method that needs to be implemented by the subclasses.
+     * It creates and returns a 'Connection' object specific to the database being used.
+     * @return Connection object
+     */
     protected abstract Connection createConnection();
+
+    /**
+     * An abstract method that needs to be implemented by the subclasses.
+     * It creates and returns a 'Connection' object specified to the database and
+     * schema being used.
+     * @param schemaName schema to connect to
+     * @return Connection object
+     */
     protected abstract Connection createConnection(String schemaName);
 
     protected String getUrl() {
@@ -57,7 +85,7 @@ public abstract class RepositoryConnection {
         this.url = url;
     }
 
-    public String getUsername() {
+    protected String getUsername() {
         return username;
     }
 
@@ -65,7 +93,7 @@ public abstract class RepositoryConnection {
         this.username = username;
     }
 
-    public String getPassword() {
+    protected String getPassword() {
         return password;
     }
 
@@ -79,5 +107,13 @@ public abstract class RepositoryConnection {
 
     public void setConnection(Connection connection) {
         this.connection = connection;
+    }
+
+    protected String getSchemaName() {
+        return schemaName;
+    }
+
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
     }
 }
