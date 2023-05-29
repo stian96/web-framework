@@ -160,7 +160,6 @@ button.submit-username:hover {
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
-    border-bottom: 1px solid #f4f4f4;
 }
 
 #second-page ul li p {
@@ -177,21 +176,20 @@ button.submit-username:hover {
 }
 
 #second-page .chat-message {
-    padding-left: 4.2rem;
-    position: static;
+    padding: 0 15px 0 15px;
     border-radius: 20%;
 }
 
+#second-page .chat-message p {
+    margin-left: 53px;
+}
+
 #second-page .chat-message div {
-    position: absolute;
-    margin-left: 19px;
+    position: relative;
+    top: 45px;
     width: 42px;
     height: 42px;
     overflow: hidden;
-    left: 10px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 50%;
 }
 
@@ -202,6 +200,7 @@ button.submit-username:hover {
 }
 
 #second-page .chat-message span {
+    margin-left: 53px;
     color: #333;
     font-weight: 600;
 }

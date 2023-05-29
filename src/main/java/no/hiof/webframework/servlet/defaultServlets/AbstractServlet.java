@@ -11,6 +11,8 @@ import java.io.InputStream;
 /**
  * The AbstractServlet class is an abstract class that extends the HttpServlet class
  * and provides common functionality for servlets that generate HTML pages.
+ * <p>
+ * @author Stian Rusvik.
  */
 abstract class AbstractServlet extends HttpServlet {
     private HtmlPages page;

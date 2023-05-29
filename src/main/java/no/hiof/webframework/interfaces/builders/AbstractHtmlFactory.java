@@ -4,6 +4,8 @@ package no.hiof.webframework.interfaces.builders;
  * This is an abstract interface for an HTML factory which creates pre-built standard web application pages.
  * It defines three methods to create a login page, home page, and logout page.
  * @param <T> The generic type of the pages that are created.
+ * <p>
+ * @author Stian Rusvik.
  */
 public interface AbstractHtmlFactory<T> {
     /**

@@ -27,7 +27,7 @@ public class UserDatabase {
      * @param username the name of the user to check
      * @return true if the user exists in the database, false otherwise
      */
-    protected boolean userExists(String username) {
+    public boolean userExists(String username) {
 
         PreparedStatement SQLstmt = null;
         ResultSet rsQry = null;
@@ -54,22 +54,18 @@ public class UserDatabase {
     }
 
     /**
-     * Saves a new user to the database with the given username, salt, and encrypted password.
+     * Adds a new user to the database.
      *
-     * @param username          the username for the new user
-     * @param salt              the salt used to encrypt the user's password
-     * @param encryptedPassword the encrypted password for the new user
+     * @param user The User object representing the user to be added.
      */
-
-    protected void addUser(String username, byte[] salt, byte[] encryptedPassword) {
+    public void addUser(User user) {
         try {
-            // Lag en PreparedStatement for å utfoere INSERT-spoerring
             PreparedStatement SQLstmt = DbConnection.prepareStatement("INSERT INTO users (username, salt, password) " +
                     "VALUES (?, ?, ?)");
 
-            SQLstmt.setString(1, username);
-            SQLstmt.setBytes(2, salt);
-            SQLstmt.setBytes(3, encryptedPassword);
+            SQLstmt.setString(1, user.getUsername());
+            SQLstmt.setBytes(2, user.getSalt());
+            SQLstmt.setBytes(3, user.getEncryptedPassword());
 
             SQLstmt.executeUpdate();
 
@@ -89,7 +85,7 @@ public class UserDatabase {
      * @param hashedPassword the hashed password to check
      * @return true if the hashed password exists in the database for the given username, otherwise false.
      */
-    protected boolean checkHashedPasswordValueInDatabase(String username, byte[] hashedPassword) {
+    public boolean checkHashedPasswordValueInDatabase(String username, byte[] hashedPassword) {
         ResultSet rsQry = null;
         boolean match = false;
         try {

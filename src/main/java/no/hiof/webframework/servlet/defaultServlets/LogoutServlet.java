@@ -8,6 +8,8 @@ import java.io.InputStream;
  * A servlet class that handles the logout functionality of the web application.
  * Extends the AbstractServlet class and implements the getPageContent method to
  * retrieve the content of the logout page.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class LogoutServlet extends AbstractServlet {
     /**

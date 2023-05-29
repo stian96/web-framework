@@ -8,6 +8,8 @@ import java.io.IOException;
 /**
  * The DefaultServlet class is a servlet that serves a simple plain text response.
  * It is typically used as a fallback servlet to handle requests that cannot be handled by other servlets.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class DefaultServlet extends HttpServlet {
     private final String content;

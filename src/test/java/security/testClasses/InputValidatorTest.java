@@ -1,8 +1,8 @@
 package security.testClasses;
 
-import no.hiof.webframework.security.UserInputValidator;
+import no.hiof.webframework.security.UserInputValidatorForLoginForm;
 
-public class InputValidatorTest extends UserInputValidator {
+public class InputValidatorTest extends UserInputValidatorForLoginForm {
 
  @Override
     public boolean validateUsername(String username){

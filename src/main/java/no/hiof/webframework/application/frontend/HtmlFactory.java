@@ -7,6 +7,8 @@ import java.io.InputStream;
  * The HtmlFactory class implements the AbstractHtmlFactory interface to provide
  * methods for creating different types of HTML pages. It uses an instance of the
  * HtmlPages class to generate the pages.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class HtmlFactory implements AbstractHtmlFactory<InputStream>
 {

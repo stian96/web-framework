@@ -13,6 +13,8 @@ import java.util.List;
 /**
  * This class implements the IHtmlBuilder interface
  * and can be used to build a custom HTML page.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class HtmlPageBuilder implements IHtmlBuilder {
     private final StringBuilder content  = new StringBuilder();

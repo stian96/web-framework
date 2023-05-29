@@ -1,6 +1,5 @@
 package security;
 
-
 import security.testClasses.InputValidatorTest;
 import org.junit.jupiter.api.Test;
 

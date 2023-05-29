@@ -11,6 +11,13 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * This class is an extension of the HttpServlet class and serves as a servlet
+ * specifically designed for a Spring Boot application.
+ * <p>
+ * @author Stian Rusvik.
+ */
+
 public class SpringServlet extends HttpServlet {
 
     protected static SpringServlet servlet;

@@ -13,6 +13,8 @@ import java.util.Properties;
  * for max two images and overriding default images with new ones.
  * It also reads from a config.properties to get the image paths
  * fot the designated locations.
+ * <p>
+ * @author Stian Rusvik.
  */
 
 public class ImageUtility {

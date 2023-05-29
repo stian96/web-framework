@@ -35,7 +35,7 @@ public class LogInAuthentication {
      * @throws LogInException if the Authentication login fails.
      *
      */
-    protected boolean login(String username, String password, String phoneNumber, String code) throws LogInException{
+    public boolean login(String username, String password, String phoneNumber, String code) throws LogInException{
         boolean authenticated = auth.authenticateLogIn(username, password);
 
         if (!authenticated) {

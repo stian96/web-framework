@@ -8,7 +8,7 @@ import application.testClasses.MockApp;
 import no.hiof.webframework.application.routes.Route;
 import application.testClasses.TestableApp;
 import no.hiof.webframework.controllers.Controller;
-//import no.hiof.webframework.controllers.MyController;
+import no.hiof.webframework.controllers.TestController;
 import org.eclipse.jetty.http.HttpMethod;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -248,12 +248,13 @@ class AppTest {
         Map<String, HtmlPages> htmlPageMap = app.getHtmlPageMap();
         Assertions.assertTrue(htmlPageMap.containsKey(response));
     }
-/*
+
+    // TODO: Fix tests that includes 'TestController'.
     @Test
     void testAddController_SetsController() {
         // setup
         TestableApp app = new TestableApp();
-        Controller controller = new MyController("/hello");
+        Controller controller = new TestController();
 
         // action
         app.addController(controller);
@@ -262,23 +263,7 @@ class AppTest {
         Assertions.assertEquals(controller, app.getController());
     }
 
-    @Test
-    void testAddController_OverwritesExistingController() {
-        // setup
-        TestableApp app = new TestableApp();
-        Controller initialController = new MyController("/hello");
-        Controller newController = new MyController("/New");
-        app.addController(initialController);
 
-        // action
-        app.addController(newController);
-
-        // verify
-        Assertions.assertEquals("/New", app.getController().getEndpoint());
-    }
-
-
- */
     @Test
     void testAddController_NullControllerThrowsException() {
         // setup

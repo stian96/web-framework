@@ -10,6 +10,8 @@ import java.io.IOException;
 
 /**
  * CustomServlet is a class that extends HttpServlet and is used to handle GET and POST requests.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class CustomServlet extends HttpServlet {
 

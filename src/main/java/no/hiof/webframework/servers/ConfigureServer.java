@@ -12,6 +12,30 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.http.HttpServlet;
 
+/**
+ * This class provides method to configure a server in a structured way using a Builder pattern.
+ * It allows setting up a server with specific port number, server endpoint, adding controllers
+ * and static resources.
+ * <p>
+ * An instance of this class can only be created through the inner Builder class, to ensure that
+ * the server is correctly configured before it is used.
+ * <p>
+ * The methods in the inner class is chainable, which allows for a fluent interface style where
+ * method calls can be chained together.
+ * <p>
+ * Example usage
+ * <pre>
+ * ConfigureServer server = new ConfigureServer.Builder()
+ *     .setPortNumber(8080)
+ *     .setServerEndpoint("/api")
+ *     .addController(new MyController(), "/endpoint")
+ *     .addStaticResources("index.html", "/path/to/resources")
+ *     .build();
+ * server.startServer();
+ * </pre>
+ *
+ * @author Stian Rusvik
+ */
 public class ConfigureServer {
     private ServletContextHandler contextHandler = null;
     private ResourceHandler resourceHandler = null;
@@ -21,7 +45,9 @@ public class ConfigureServer {
     // Constructor made private to prevent direct instantiation.
     private ConfigureServer() {}
 
-    // Inner class used to build the configurations.
+    /**
+     * Inner Builder class used to set various configurations for the server.
+     */
     public static class Builder {
         private int portNumber = 0;
         private String serverEndpoint;
@@ -30,28 +56,57 @@ public class ConfigureServer {
         private String staticResourceFilename;
         private String staticResourceFolder;
 
+        /**
+         * Method used to set the port number that the server will listen on.
+         * @param portNumber An arbitrary port number.
+         * @return The Builder instance, for chainable method calls.
+         */
         public Builder setPortNumber(int portNumber) {
             this.portNumber = portNumber;
             return this;
         }
 
+        /**
+         * Method used to set the endpoint of the server.
+         * @param serverEndpoint An arbitrary endpoint.
+         * @return The Builder instance, for chainable method calls.
+         */
         public Builder setServerEndpoint(String serverEndpoint) {
             this.serverEndpoint = serverEndpoint;
             return this;
         }
 
+        /**
+         * Method used to add a pre-made controller to the server, and
+         * define the endpoint for that controller.
+         * @param controller The controller made by the developer.
+         * @param controllerEndpoint The endpoint of the controller.
+         * @return The Builder instance, for chainable method calls.
+         */
         public Builder addController(HttpServlet controller, String controllerEndpoint) {
             this.controller = controller;
             this.controllerEndpoint = controllerEndpoint;
             return this;
         }
 
+        /**
+         * Method used to add static resources by defining the filename of the
+         * static resource to be used, and the absolute path to that file.
+         * @param filename Filename of the static resource to be used.
+         * @param absPathToFolder Absolute path to the folder of the static resource.
+         * @return The Builder instance, for chainable method calls.
+         */
         public Builder addStaticResources(String filename, String absPathToFolder) {
             this.staticResourceFilename = filename;
             this.staticResourceFolder = absPathToFolder;
             return this;
         }
 
+        /**
+         * Build method used to instantiate the actual ConfigureServer object,
+         * with arguments form the chained method calls.
+         * @return The ConfigureServer object.
+         */
         public ConfigureServer build() {
             ConfigureServer configureServer = new ConfigureServer();
             configureServer.setPortNumber(this.portNumber);
@@ -128,6 +183,9 @@ public class ConfigureServer {
         handlerList.setHandlers(new Handler[] {resourceHandler, contextHandler});
     }
 
+    /**
+     * Method used to start the actual server.
+     */
     public void startServer() {
         try
         {

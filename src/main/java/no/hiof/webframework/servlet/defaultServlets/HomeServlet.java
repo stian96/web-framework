@@ -7,6 +7,8 @@ import java.io.InputStream;
 /**
  * HomeServlet is a servlet that serves the homepage for a web application.
  * It extends the AbstractServlet class and implements the getPageContent method.
+ * <p>
+ * @author Stian Rusvik.
  */
 public class HomeServlet extends AbstractServlet {
     /**
