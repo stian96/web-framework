@@ -4,7 +4,7 @@ public class HtmlFormGenerator {
     /**
      * Method to generate a login-form using HTML.
      * */
-    protected String generateLoginForm () {
+    public String generateLoginForm () {
         String htmlLoginForm = "<form>";
         htmlLoginForm += "<label for=\"username\">Enter your username:</label>";
         htmlLoginForm += "<input type=\"text\" id=\"username\" name=\"username\"><br>";
@@ -17,7 +17,7 @@ public class HtmlFormGenerator {
     /**
      * Method to generate HTML-page including the method 'generateLoginForm' to access a login-form.
      * */
-    protected String generateHtmlPageWithLoginForm(){
+    public String generateHtmlPageWithLoginForm(){
         String htmlLoginPage = "<html>";
         htmlLoginPage += "<head>";
         htmlLoginPage += "<title>Login Page</title>";

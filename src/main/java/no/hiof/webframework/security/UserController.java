@@ -9,7 +9,7 @@ public class UserController {
      * Creates a new instance of UserController with the provided PasswordEncryptionAlgorithm implementation.
      * @param encryptionAlgorithm The PasswordEncryptionAlgorithm used for encrypting passwords.
      * */
-    protected UserController(PasswordEncryptionAlgorithm encryptionAlgorithm) {
+    public UserController(PasswordEncryptionAlgorithm encryptionAlgorithm) {
         this.encryptionAlgorithm = encryptionAlgorithm;
     }
 
@@ -18,7 +18,7 @@ public class UserController {
      * @param username The username for the new user.
      * @param password The password for the new user.
      * */
-    protected void registerNewUser(String username, String password) {
+    public void registerNewUser(String username, String password) {
         byte[] salt = generateSalt();
         byte[] encryptedPassword = encryptPassword(password, salt);
 
@@ -33,7 +33,7 @@ public class UserController {
      * Generates a random salt.
      * @return The generated salt as a byte array.
      * */
-    protected byte[] generateSalt() {
+    public byte[] generateSalt() {
         byte[] salt = new byte[16];
         new SecureRandom().nextBytes(salt);
         return salt;
@@ -45,7 +45,7 @@ public class UserController {
      * @param salt The salt used to add an extra layer of security to the password encryption process.
      * @return The encrypted password as a byte array.
      *  */
-    protected byte[] encryptPassword(String password, byte[] salt) {
+    public byte[] encryptPassword(String password, byte[] salt) {
         return encryptionAlgorithm.encryptPasswordAlgorithm(password, salt);
     }
 

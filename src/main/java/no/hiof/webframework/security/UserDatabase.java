@@ -27,7 +27,7 @@ public class UserDatabase {
      * @param username the name of the user to check
      * @return true if the user exists in the database, false otherwise
      */
-    protected boolean userExists(String username) {
+    public boolean userExists(String username) {
 
         PreparedStatement SQLstmt = null;
         ResultSet rsQry = null;
@@ -58,7 +58,7 @@ public class UserDatabase {
      *
      * @param user The User object representing the user to be added.
      */
-    protected void addUser(User user) {
+    public void addUser(User user) {
         try {
             PreparedStatement SQLstmt = DbConnection.prepareStatement("INSERT INTO users (username, salt, password) " +
                     "VALUES (?, ?, ?)");
@@ -85,7 +85,7 @@ public class UserDatabase {
      * @param hashedPassword the hashed password to check
      * @return true if the hashed password exists in the database for the given username, otherwise false.
      */
-    protected boolean checkHashedPasswordValueInDatabase(String username, byte[] hashedPassword) {
+    public boolean checkHashedPasswordValueInDatabase(String username, byte[] hashedPassword) {
         ResultSet rsQry = null;
         boolean match = false;
         try {
