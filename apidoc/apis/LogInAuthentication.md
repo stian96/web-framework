@@ -12,6 +12,22 @@ when using the .getMessage().
 #### public boolean login(String username, String password, String phoneNumber, String code) throws LogInException
 Attempts to log in a user using authentication and SMS verification.
 
+
+| Parameter     | Type         | Description                                               |
+|:--------------|:-------------|:----------------------------------------------------------|
+| 'username'    | 'String'     | The username to authenticate                              |
+| 'password'    | 'String'     | The password associated with the username                 |
+| 'phoneNumber' | 'String'     | The phone number associated with the user                 |
+| 'code'        | 'String'     | The verification code to check against the generated code |
+
+
+| Throws             | Description                                              |
+|:-------------------|:---------------------------------------------------------|
+| 'LogInException'   | Generates two messages if the Authentication login fails |
+
+
+<br>
+
 ## Tutorial introduction
 #### Implement two-factor authentication on the login page, so that a user has to provide another form of authentication. This must be a unique code sent via SMS.
 

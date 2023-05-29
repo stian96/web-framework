@@ -18,11 +18,23 @@ the user does already exist in the database, the classes *UserController* and *U
 Register a new user with the given username and password. Includes the methods generateSalt() from 
 UserController and the method addUser from the UserDatabse.
 
+
+| Parameter     | Type         | Description                     |
+|:--------------|:-------------|:--------------------------------|
+| 'username'    | 'String'     | The username for the new user.  |
+| 'password'    | 'String'     | The password for the new user.  |
+<br>
+
 #### public byte[] generateSalt()
 Generates a random salt.
 
 #### public byte[] encryptPassword(String password, byte[] salt)
 Encrypts the provided password using the specified salt and the chosen encryption algorithm.
+
+| Parameter  | Type     | Description                                                                          |
+|:-----------|:---------|:-------------------------------------------------------------------------------------|
+| 'password' | 'String' | The password to be encrypted.                                                        |
+| 'salt'     | 'byte'   | The salt used to add an extra layer of security to the password encryption process.  |
 
 <br>
 
@@ -30,11 +42,26 @@ Encrypts the provided password using the specified salt and the chosen encryptio
 #### public boolean userExists(String username)
 Checks whether a user exists in the database.
 
+| Parameter       | Type         | Description                                   |
+|:----------------|:-------------|:----------------------------------------------|
+| 'username'      | 'String'     | The name of the user to check for in database |
+<br>
+
 #### public void addUser(User user)
 Adds a new user to the database.
 
+| Parameter     | Type   | Description                                        |
+|:--------------|:-------|:---------------------------------------------------|
+| 'username'    | 'User' | The User object representing the user to be added. |
+<br>
+
 #### public boolean checkHashedPasswordValueInDatabase(String username, byte[] hashedPassword)
 Checks if a given hashed password exists in the database for a specified username.
+
+| Parameter          | Type     | Description                                  |
+|:-------------------|:---------|:---------------------------------------------|
+| 'username'         | 'String' | The username to check in database.           |
+| 'hashedPassword'   | 'byte'   | The hashed password to check in the database |
 
 <br>
 

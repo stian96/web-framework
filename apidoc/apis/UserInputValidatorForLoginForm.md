@@ -4,12 +4,25 @@ To be able to input-validate username and password fields, you must use the clas
 in the package **no.hiof.webframework.security**.
 
 ## Methods
-#### 'validateUsername()'
+#### 'validateUsername(String username)'
 The method that can be used to validate a name. It checks that the length of the field is between the interval 5 – 20.
 
-#### 'validatePassword()'
+| Parameter    | Type         | Description                                           |
+|:-------------|:-------------|:------------------------------------------------------|
+| 'username'   | 'String'     | The username that needs to be validated                      |
+
+
+<br>
+
+#### 'validatePassword(String password)'
 The method that can be used to validate a password. It also considers whether the length is between 5 and 20 characters,
 as well as whether the field contains alphanumeric characters (a-z, A-Z, 0-9).
+
+| Parameter    | Type         | Description                             |
+|:-------------|:-------------|:----------------------------------------|
+| 'password'   | 'String'     | The password that needs to be validated |
+
+<br>
 
 ## Tutorial introduction
 #### Input-validate the username and password fields. This can be done by checking that the length of the fields is between 5 - 20, and that the password contains a combination of numbers and characters. This can be done by implementing a rule that checks that the password only contains alphanumeric characters (a-z, A-Z, 0-9).
