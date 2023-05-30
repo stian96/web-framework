@@ -102,10 +102,9 @@ public class Chatroom extends ImageUtility {
     /**
      * Adds a delete button to sent messages in the chatroom application.
      * The delete button is marked as a 'x' icon on the messages.
-     * @param option The enum value for this to be added or not (e.g. YES, NO).
      */
-    public static void addDeleteMessagesButton(Options option) {
-        deleteMessage = option;
+    public static void addDeleteMessagesButton() {
+        deleteMessage = Options.YES;
     }
 
     /**

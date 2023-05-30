@@ -115,7 +115,7 @@ public class ChatroomTest {
         TestableChatroom testableChatroom = new TestableChatroom();
 
         // Test
-        Chatroom.addDeleteMessagesButton(Options.YES);
+        Chatroom.addDeleteMessagesButton();
 
         // Verify
         Assertions.assertSame(testableChatroom.getDeleteMessage(), Options.YES);
