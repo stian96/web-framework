@@ -1,5 +1,5 @@
 package no.hiof.webframework.security;
-//Scenario 3.1
+
 public class HtmlFormGenerator {
     /**
      * Method to generate a login-form using HTML.
@@ -29,3 +29,6 @@ public class HtmlFormGenerator {
         return htmlLoginPage;
     }
 }
+
+//Kilde: Priyarajtt. (u.å).Servlet – Login Form. Hentet fra geeksforgeeks:
+//https://www.geeksforgeeks.org/servlet-login-form/
