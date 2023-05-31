@@ -56,6 +56,13 @@ public class ChatRoom {
         return chatStrategy.getChatHistory();
     }
 
+    /**
+     * Adds a chat user to the chat strategy.
+     *
+     * @param user the chat user to add
+     */
+
+
     public void addUser(ChatUser user) {
         chatStrategy.addUser(user);
     }

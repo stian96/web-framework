@@ -73,11 +73,15 @@ public abstract class Controller extends HttpServlet {
 
     /**
      * Empty method for handling PUT-requests. Can be overridden if needed.
+     *  @param request  the HttpServletRequest object representing the request
+     *  @param response the HttpServletResponse object representing the response
      */
     protected void handlePut(HttpServletRequest request, HttpServletResponse response) {}
 
     /**
      * Empty method for handling other HTTP requests. Can be overridden if needed.
+     * @param request  the HttpServletRequest object representing the request
+     * @param response the HttpServletResponse object representing the response
      */
     protected void handleOther(HttpServletRequest request, HttpServletResponse response) {}
 

@@ -6,12 +6,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Implementation of the ChatStrategy interface representing a group chat.
+ */
 public class GroupChat implements ChatStrategy {
 
     private List<ChatUser> chatUsers;
     private List<String> messages;
 
-    public GroupChat(ChatUser ...users) {
+    /**
+     * Constructs a new GroupChat object with the specified chat users.
+     *
+     * @param users the chat users to be added to the group chat
+     */
+    public GroupChat(ChatUser... users) {
         chatUsers = new ArrayList<>();
         chatUsers.addAll(Arrays.asList(users));
         messages = new ArrayList<>();
@@ -31,13 +39,11 @@ public class GroupChat implements ChatStrategy {
         } else {
             throw new IllegalArgumentException("Sender is not part of this group chat.");
         }
-
     }
 
     @Override
     public void receiveMessage(ChatUser receiver, String message) {
         System.out.printf("User %s received a message: %s%n", receiver.getName(), message);
-
     }
 
     @Override
@@ -45,6 +51,12 @@ public class GroupChat implements ChatStrategy {
         return messages;
     }
 
+    /**
+     * Checks if the given chat user is a valid user in the group chat.
+     *
+     * @param user the chat user to validate
+     * @return true if the user is a valid user in the group chat, false otherwise
+     */
     private boolean isValidUser(ChatUser user) {
         return chatUsers.contains(user);
     }
@@ -54,18 +66,38 @@ public class GroupChat implements ChatStrategy {
         chatUsers.add(user);
     }
 
+    /**
+     * Retrieves the list of chat users in the group chat.
+     *
+     * @return the list of chat users
+     */
     public List<ChatUser> getChatUsers() {
         return chatUsers;
     }
 
+    /**
+     * Sets the list of chat users in the group chat.
+     *
+     * @param chatUsers the list of chat users to set
+     */
     public void setChatUsers(List<ChatUser> chatUsers) {
         this.chatUsers = chatUsers;
     }
 
+    /**
+     * Retrieves the list of messages in the group chat.
+     *
+     * @return the list of messages
+     */
     public List<String> getMessages() {
         return messages;
     }
 
+    /**
+     * Sets the list of messages in the group chat.
+     *
+     * @param messages the list of messages to set
+     */
     public void setMessages(List<String> messages) {
         this.messages = messages;
     }

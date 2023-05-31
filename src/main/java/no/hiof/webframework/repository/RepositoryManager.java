@@ -18,13 +18,12 @@ public class RepositoryManager {
         return new RepositoryManager(repo);
     }
     /**
-
-     * Inserts a new row into the specified table with the given column names and values.
-     * @param tableName the name of the table to insert the row into
-     * @param columnNames an array of strings containing the column names of the table
-     * @param values an array of objects containing the values to insert into the row
+     * Inserts a new row into the specified table with the provided column names and values.
+     *
+     * @param tableName    the name of the table to insert into
+     * @param columnNames  an array of column names for the insert statement
+     * @param values       an array of values corresponding to the column names
      * @return true if the row was inserted successfully, false otherwise
-     * @throws SQLException if an error occurs while inserting the row
      */
     public boolean insert(String tableName, String[] columnNames, Object[] values) {
         try (Connection connection = repo.createConnection(repo.schemaName)) {
@@ -47,6 +46,7 @@ public class RepositoryManager {
             return false;
         }
     }
+
 
     /**
 

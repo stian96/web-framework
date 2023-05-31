@@ -17,6 +17,12 @@ public class EntityModel implements EntityModelBuilder {
     private final RepositoryConnection repo;
     private String tableName;
     private final List<Field> fields = new ArrayList<>();
+
+    /**
+     * Constructs a new EntityModel object with the specified RepositoryConnection.
+     *
+     * @param repo the RepositoryConnection to be used by the EntityModel
+     */
     public EntityModel(RepositoryConnection repo){
         this.repo = repo;
     }
@@ -60,13 +66,11 @@ public class EntityModel implements EntityModelBuilder {
     public EntityModel build() {
         return this;
     }
-    /**
 
-     * This method generates a new database schema with the specified name, creates a table in the schema using the
-     * generateCreateTableStatement() method, and outputs a message to the console indicating that the table has been
-     * successfully created in the schema.
-     * @param schemaName the name of the new database schema to be created
-     * @throws SQLException if an error occurs while executing SQL statements
+    /**
+     * Generates a new schema with the specified name and creates a table within the schema.
+     *
+     * @param schemaName the name of the schema to generate
      */
     public void generateSchema(String schemaName) {
         try {
@@ -83,10 +87,19 @@ public class EntityModel implements EntityModelBuilder {
         }
     }
 
+    /**
+     * Retrieves the name of the table associated with this EntityModel.
+     *
+     * @return the name of the table
+     */
     public String getTableName() {
         return tableName;
     }
-
+    /**
+     * Retrieves the list of fields associated with this EntityModel.
+     *
+     * @return the list of fields
+     */
     public List<Field> getFields() {
         return fields;
     }
@@ -115,36 +128,54 @@ public class EntityModel implements EntityModelBuilder {
 
     }
 
+    /**
+     * Represents a field in an EntityModel.
+     */
     public static class Field {
-
-
         private final String name;
         private final String type;
         private final boolean nullable;
 
         /**
-         * Constructs a new Field object
-         * @param name name the name of the field
-         * @param type type the data type of the field
-         * @param nullable nullable indicates if the field can be null
+         * Constructs a new Field object with the specified name, type, and nullability.
+         *
+         * @param name     the name of the field
+         * @param type     the data type of the field
+         * @param nullable indicates if the field can be null
          */
         public Field(String name, String type, boolean nullable) {
             this.name = name;
             this.type = type;
             this.nullable = nullable;
         }
+
+        /**
+         * Retrieves the name of the field.
+         *
+         * @return the name of the field
+         */
         protected String getName() {
             return name;
         }
 
+        /**
+         * Retrieves the data type of the field.
+         *
+         * @return the data type of the field
+         */
         protected String getType() {
             return type;
         }
 
+        /**
+         * Checks if the field can be null.
+         *
+         * @return true if the field can be null, false otherwise
+         */
         protected boolean isNullable() {
             return nullable;
         }
-
     }
 
 }
+

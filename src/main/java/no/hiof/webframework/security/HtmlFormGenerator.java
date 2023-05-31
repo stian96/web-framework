@@ -1,10 +1,16 @@
 package no.hiof.webframework.security;
 
+/**
+ * Utility class for generating HTML forms.
+ */
 public class HtmlFormGenerator {
+
     /**
-     * Method to generate a login-form using HTML.
-     * */
-    public String generateLoginForm () {
+     * Generates a login form using HTML.
+     *
+     * @return the HTML representation of the login form
+     */
+    public String generateLoginForm() {
         String htmlLoginForm = "<form>";
         htmlLoginForm += "<label for=\"username\">Enter your username:</label>";
         htmlLoginForm += "<input type=\"text\" id=\"username\" name=\"username\"><br>";
@@ -15,9 +21,11 @@ public class HtmlFormGenerator {
     }
 
     /**
-     * Method to generate HTML-page including the method 'generateLoginForm' to access a login-form.
-     * */
-    public String generateHtmlPageWithLoginForm(){
+     * Generates an HTML page that includes the login form.
+     *
+     * @return the HTML representation of the login page
+     */
+    public String generateHtmlPageWithLoginForm() {
         String htmlLoginPage = "<html>";
         htmlLoginPage += "<head>";
         htmlLoginPage += "<title>Login Page</title>";
@@ -29,6 +37,3 @@ public class HtmlFormGenerator {
         return htmlLoginPage;
     }
 }
-
-//Kilde: Priyarajtt. (u.å).Servlet – Login Form. Hentet fra geeksforgeeks:
-//https://www.geeksforgeeks.org/servlet-login-form/
