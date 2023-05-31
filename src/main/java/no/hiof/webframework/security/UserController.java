@@ -1,7 +1,7 @@
 package no.hiof.webframework.security;
 import no.hiof.webframework.interfaces.PasswordEncryptionAlgorithm;
 import java.security.SecureRandom;
-//Scenario 3.3
+
 public class UserController {
     private final PasswordEncryptionAlgorithm encryptionAlgorithm;
     /**

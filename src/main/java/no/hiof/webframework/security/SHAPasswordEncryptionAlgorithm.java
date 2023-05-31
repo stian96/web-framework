@@ -4,7 +4,7 @@ import no.hiof.webframework.interfaces.PasswordEncryptionAlgorithm;
 import java.security.NoSuchAlgorithmException;
 import java.security.MessageDigest;
 //class of an EncryptionAlgorithm
-//Scenario 3.3
+
 
 /**
  Implementation of the PasswordEncryptionAlgorithm interface that encrypts passwords using the SHA algorithm.
