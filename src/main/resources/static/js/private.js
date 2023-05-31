@@ -1,3 +1,5 @@
+// Code inspired from RAJEEV SINGH, available on https://www.callicoder.com/spring-boot-websocket-chat-example/
+
 'use strict';
 
 let wsEndpoint;
