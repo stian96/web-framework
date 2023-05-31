@@ -1,5 +1,5 @@
 package no.hiof.webframework.security;
-//Scenario 3.1
+
 public class HtmlFormGenerator {
     /**
      * Method to generate a login-form using HTML.

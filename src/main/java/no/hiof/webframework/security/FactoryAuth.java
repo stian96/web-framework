@@ -1,5 +1,5 @@
 package no.hiof.webframework.security;
-//Scenario 3.5
+
 import no.hiof.webframework.interfaces.Authenticator;
 import no.hiof.webframework.interfaces.SMSCodeGenerator;
 
@@ -11,7 +11,6 @@ public class FactoryAuth {
      * Creates an object that implements Authenticator interface.
      * @return  an object that implements the Authenticator interface*/
     protected static Authenticator createAuthenticator(){
-        //Returnerer en implementasjon av Authenticator interfacet basert paa gitte kriterier.
         return new Authentication();
     }
 
@@ -19,7 +18,6 @@ public class FactoryAuth {
      * Creates an object that implements the SMSCodeGenerator interface.
      * @return an object that implements the SMSCodeGenerator interface.*/
     protected static SMSCodeGenerator createSMSCodeGenerator(){
-        //Returnerer en implementasjon av SMSCodeGenerator interfacet basert paa gitte kriterier.
         return new SMSVerification();
     }
 

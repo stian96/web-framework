@@ -1,5 +1,5 @@
 package no.hiof.webframework.security;
-//Scenario 3.2
+
 /**The UserInputValidatorForLoginForm class that contains methods for validating usernames and passwords*/
 public class UserInputValidatorForLoginForm {
 
