@@ -29,3 +29,6 @@ public class HtmlFormGenerator {
         return htmlLoginPage;
     }
 }
+
+//Kilde: Priyarajtt. (u.å).Servlet – Login Form. Hentet fra geeksforgeeks:
+//https://www.geeksforgeeks.org/servlet-login-form/
